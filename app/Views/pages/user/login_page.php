@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <?php include('login_modal.php'); ?>
+    <?= $this->include('login_modal'); ?>
 
     <div class="container-fluid">
         <div class="row no-gutter">
@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
                                 <h4 class="fw-bold my-4 text-center">Login</h4>
-                                <?php include('login_content.php'); ?>
+                                <?= $this->include('login_content'); ?>
                             </div>
                         </div>
                     </div>

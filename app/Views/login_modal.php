@@ -9,7 +9,7 @@
                 <div class="text-center">
                     <div class="row align-items-center">
                         <div class="col">
-                            <?php include('login_content.php'); ?>
+                            <?= $this->include('login_content'); ?>
                         </div>
                     </div>
                 </div>
