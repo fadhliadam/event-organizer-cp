@@ -6,6 +6,9 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('landing_page');
+        $data = [
+            'title' => 'Event Organizer'
+        ];
+        return view('pages/index', $data);
     }
 }

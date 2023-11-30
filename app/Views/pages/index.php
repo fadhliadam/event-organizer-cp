@@ -1,96 +1,8 @@
-<!-- app/Views/landing.php -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Organizer</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <style>
-        /* CSS khusus untuk latar belakang jumbotron */
-        body {
-            /* background: linear-gradient(180deg, #6a00ff, #ffffff); */
-            color: white;
-            margin: 0;
-        }
-
-        .navbar {
-            background-color: #8A2BE2;
-            color: white;
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .content {
-            margin-top: 80px;
-        }
-
-        .inner {
-            overflow: hidden;
-        }
-
-        .inner img {
-            transition: all 1.5s ease;
-        }
-
-        .inner:hover img {
-            transform: scale(1.3);
-        }
-
-        .feedback-border {
-            border: 2px solid;
-            border-image: linear-gradient(90deg, #3498db, #ff66ff);
-            border-image-slice: 1;
-            border-radius: 30px;
-            padding: 10px;
-            /* Sesuaikan dengan kebutuhan */
-        }
-
-        .jumbotron {
-            position: relative;
-            background: linear-gradient(180deg, #8A2BE2, rgba(106, 0, 255, 0));
-            /* Menggunakan rgba() untuk memberikan transparansi pada warna akhir jumbotron */
-            background-size: cover;
-            background-blend-mode: multiply;
-            color: white;
-            padding: 100px 0;
-        }
-
-        .jumbotron h1 {
-            font-size: 5em;
-            font-weight: bold;
-        }
-
-
-        .user-feedback {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-        }
-
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-    </style>
-</head>
-
-<body>
-
+<?= $this->extend('layouts/main'); ?>
+<?= $this->section('content'); ?>
     <!-- Navbar -->
-    <?php include('navbar.php'); ?>
-
-    <!-- Jumbotron -->
+    <?= $this->include('components/navbar'); ?>
+        <!-- Jumbotron -->
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -99,21 +11,21 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?= base_url('assets/konser.jpg'); ?>" class="d-block w-100" alt="...">
+                <img src="<?= base_url('assets/images/konser.jpg'); ?>" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>First slide label</h5>
                     <p>Some representative placeholder content for the first slide.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('assets/konser.jpg'); ?>" class="d-block w-100" alt="...">
+                <img src="<?= base_url('assets/images/konser.jpg'); ?>" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Second slide label</h5>
                     <p>Some representative placeholder content for the second slide.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('assets/konser.jpg'); ?>" class="d-block w-100" alt="...">
+                <img src="<?= base_url('assets/images/konser.jpg'); ?>" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Some representative placeholder content for the third slide.</p>
@@ -204,7 +116,7 @@
         <div class="row">
             <div class="col-md-4" data-aos="fade-up">
                 <div class="card text-bg-dark inner">
-                    <img src="<?= base_url('assets/musik.jpg'); ?>" class="card-img" alt="...">
+                    <img src="<?= base_url('assets/images/musik.jpg'); ?>" class="card-img" alt="...">
                     <div class="card-img-overlay" style="background: rgba(0, 0, 128, 0.25); position: absolute; bottom: 0; width: 100%; text-align: center;">
                         <h2 class="fw-bold">EVENT MUSIK</h2>
                     </div>
@@ -212,7 +124,7 @@
             </div>
             <div class="col-md-4" data-aos="fade-up">
                 <div class="card text-bg-dark inner">
-                    <img src="<?= base_url('assets/olahraga.jpg'); ?>" class="card-img" alt="...">
+                    <img src="<?= base_url('assets/images/olahraga.jpg'); ?>" class="card-img" alt="...">
                     <div class="card-img-overlay" style="background: rgba(0, 0, 128, 0.25); position: absolute; bottom: 0; width: 100%; text-align: center;">
                         <h2 class="fw-bold">EVENT OLAHRAGA</h2>
                     </div>
@@ -220,7 +132,7 @@
             </div>
             <div class="col-md-4" data-aos="fade-up">
                 <div class="card text-bg-dark inner">
-                    <img src="<?= base_url('assets/kuliner.png'); ?>" class="card-img" alt="...">
+                    <img src="<?= base_url('assets/images/kuliner.png'); ?>" class="card-img" alt="...">
                     <div class="card-img-overlay" style="background: rgba(0, 0, 128, 0.25); position: absolute; bottom: 0; width: 100%; text-align: center;">
                         <h2 class="fw-bold">EVENT KULINER</h2>
                     </div>
@@ -230,7 +142,7 @@
         <div class="row  mt-3">
             <div class="col-md-4" data-aos="fade-up-right">
                 <div class="card text-bg-dark inner">
-                    <img src="<?= base_url('assets/budaya.jpg'); ?>" class="card-img" alt="...">
+                    <img src="<?= base_url('assets/images/budaya.jpg'); ?>" class="card-img" alt="...">
                     <div class="card-img-overlay" style="background: rgba(0, 0, 128, 0.25); position: absolute; bottom: 0; width: 100%; text-align: center;">
                         <h2 class="fw-bold">EVENT BUDAYA</h2>
                     </div>
@@ -238,7 +150,7 @@
             </div>
             <div class="col-md-4" data-aos="fade-up">
                 <div class="card text-bg-dark inner">
-                    <img src="<?= base_url('assets/karnaval.jpg'); ?>" class="card-img" alt="...">
+                    <img src="<?= base_url('assets/images/karnaval.jpg'); ?>" class="card-img" alt="...">
                     <div class="card-img-overlay" style="background: rgba(0, 0, 128, 0.25); position: absolute; bottom: 0; width: 100%; text-align: center;">
                         <h2 class="fw-bold">EVENT KARNAVAL</h2>
                     </div>
@@ -246,7 +158,7 @@
             </div>
             <div class="col-md-4" data-aos="fade-up-left">
                 <div class="card text-bg-dark inner">
-                    <img src="<?= base_url('assets/seni.jpg'); ?>" class="card-img" alt="...">
+                    <img src="<?= base_url('assets/images/seni.jpg'); ?>" class="card-img" alt="...">
                     <div class="card-img-overlay" style="background: rgba(0, 0, 128, 0.25); position: absolute; bottom: 0; width: 100%; text-align: center;">
                         <h2 class="fw-bold">EVENT SENI</h2>
                     </div>
@@ -271,7 +183,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -286,7 +198,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -301,7 +213,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -323,7 +235,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -338,7 +250,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -353,7 +265,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -374,7 +286,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -389,7 +301,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -404,7 +316,7 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <img src="<?= base_url('assets/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <img src="<?= base_url('assets/images/person.png'); ?>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
                                         <div>
                                             <h6 class="mb-1">Nama Pengguna</h6>
                                             <p class="mb-0">Jabatan</p>
@@ -427,16 +339,8 @@
         </div>
     </div>
 
-
-
+    
     <!-- Footer -->
-    <?php include('footer.php'); ?>
+    <?= $this->include('components/footer'); ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-</body>
-
-</html>
+<?= $this->endSection(); ?>
