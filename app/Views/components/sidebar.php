@@ -13,7 +13,7 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-item <?= service('uri')->getSegment(2) == 'dashboard' ? 'active' : '' ?>">
-                    <a href="<?= base_url('/superadmin/events'); ?>" class='sidebar-link'>
+                    <a href="<?= base_url('/superadmin/dashboard'); ?>" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
