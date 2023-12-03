@@ -22,4 +22,5 @@ $routes->group('/superadmin', function($routes) {
 
     $routes->get('dashboard', [SuperadminDashboardController::class, 'index'], ['filter' => 'auth']);
     $routes->get('users', [UserController::class, 'index'], ['filter' => 'auth']);
+    $routes->get('users/delete/(:num)', [UserController::class, 'destroy'], ['filter' => 'auth']);
 });

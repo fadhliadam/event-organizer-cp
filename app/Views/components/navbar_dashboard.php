@@ -46,7 +46,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><button type="button" onclick="return logoutHandler('<?= base_url('/superadmin/logout')?>', '<?= base_url('/superadmin/login')?>')" class="dropdown-item"><i
+                            <li><button type="button" id="logout" class="dropdown-item"><i
                                 class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</button></li>
                         </ul>
                     </div>
@@ -57,41 +57,15 @@
 </header>
 <?= $this->section('scripts'); ?>
 <script>
-    function logoutHandler(url, redirectTo) {
-        Swal.fire({
-            icon: 'warning',
+    $('#logout').on('click', () => {
+        const data = {
             title: 'Logout',
             text: 'Apakah kamu ingin keluar dari aplikasi?',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, logout!',
-            confirmButtonColor: '#ca2b43'
-        }).then((result) => {
-            if(result.isConfirmed) {
-                $.ajax({
-                    url,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function (response) {
-                        if(response.status === 'success') {
-                            Swal.fire({
-                                text: response.message,
-                                icon: 'success',
-                                showConfirmButton: false,
-                                timer: 1000,
-                            }).then((result) => {
-                                window.location.href = redirectTo;
-                            });
-                        }  else {
-                            Swal.fire('Error!', response.message, 'error');
-                        }
-                    }, 
-                    error: function(xhr, status, error) {
-                            console.error(xhr.responseText);
-                            Swal.fire('Error!', 'An error occurred. Please try again.', 'error');
-                    }
-                })
-            }
-        })
-    }
+            buttonText: 'Ya, logout!',
+            url:'<?= base_url('/superadmin/logout')?>',
+            redirectTo: '<?= base_url('/superadmin/login')?>'
+        }
+        confirmSwalHandler(data);
+    })
 </script>
 <?= $this->endSection(); ?>

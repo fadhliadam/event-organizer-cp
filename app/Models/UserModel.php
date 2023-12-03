@@ -15,6 +15,12 @@ class UserModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['id_google', 'username', 'email', 'image', 'role_id'];
 
+    public function getAll() 
+    {
+        return $this->db->table('users')
+        ->get()->getResult();
+    }
+
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

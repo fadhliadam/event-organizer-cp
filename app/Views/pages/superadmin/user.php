@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main_dashboard'); ?>
 
 <?= $this->section('page_title'); ?>
-    <?= view_cell('\App\Libraries\HeadingPointer:show', ['title' => 'List Users', 'description' => 'Kelola data user Anda disini']); ?>
+    <?= view_cell('\App\Libraries\HeadingPointer:show', ['title_header' => 'List Users', 'description' => 'Kelola data user Anda disini']); ?>
 <?= $this->endSection(); ?>
 
 <?= $this->section('main_dashboard_content'); ?>
@@ -9,7 +9,7 @@
         <div class="card-header text-end">
             <a href="#" class="btn btn-sm icon icon-left btn-danger">
                 <i class="bi bi-person-plus"></i>
-                Add User
+                Tambah
             </a>
         </div>
         <div class="card-body">
@@ -20,8 +20,8 @@
                             <th>No</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Image</th>
                             <th>Role</th>
+                            <th>Image</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -32,22 +32,27 @@
                             $roles = [
                                 1 => 'superadmin',
                                 2 => 'admin'
-                            ]
+                            ];
+                            foreach($users as $user):
                          ?>
                         <tr>
                             <td><?= $no++; ?></td>
-                            <td>Username test</td>
-                            <td>vehicula.aliquet@semconsequat.co.uk</td>
+                            <td><?= $user->username ?></td>
+                            <td><?= $user->email; ?></td>
                             <td>
-                                <div class="avatar avatar-lg me-3">
-                                    <img src="<?= base_url('assets/images/profile.png'); ?>" alt="image-username" srcset="">
+                                <?= $roles[$user->role_id]; ?>
+                            </td>
+                            <td>
+                                <div class="avatar avatar-lg">
+                                    <img src="<?= base_url('assets/images/profile.png'); ?>" alt="=<?= $user->username; ?>" srcset="">
                                 </div>
                             </td>
                             <td>
-                                <?= $roles[1]; ?>
-                            </td>
-                            <td>
-                                <span class="badge bg-success">Active</span>
+                                <?php if(is_null($user->deleted_at)): ?>
+                                    <span class="badge bg-success">Active</span>
+                                <?php else: ?>
+                                        <span class="badge bg-danger">Non-active</span>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <div class="d-flex gap-2">
@@ -55,13 +60,16 @@
                                         <i class="bi bi-person-gear"></i>
                                         Edit
                                     </a>
-                                    <a href="#" class="btn btn-sm icon icon-left btn-outline-danger">
+                                    <?php if(is_null($user->deleted_at)): ?>
+                                    <button onclick="return deleteUser('<?= base_url('/superadmin/users/delete/'.$user->id)?>')" class="btn btn-sm icon icon-left btn-outline-danger">
                                         <i class="bi bi-trash"></i>
-                                        Delete
-                                    </a>
+                                        Hapus
+                                    </button>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -81,5 +89,17 @@
         }
         setTableColor()
         jquery_datatable.on('draw', setTableColor)
+    </script>
+    <script>
+    const deleteUser = (url) => {
+        const data = {
+            title: 'Hapus User',
+            text: 'Apakah kamu ingin user ini?',
+            buttonText: 'Ya, hapus!',
+            url,
+            redirectTo: '<?= base_url('/superadmin/users')?>'
+        }
+        confirmSwalHandler(data);
+    }
     </script>
 <?= $this->endSection(); ?>

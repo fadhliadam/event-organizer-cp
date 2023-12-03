@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main_dashboard'); ?>
 
 <?= $this->section('page_title'); ?>
-    <?= view_cell('\App\Libraries\HeadingPointer::show', ['title' => 'Profile Statistik', 'description' => 'Lihat profile statistik selama menggunakan aplikasi'])  ?>
+    <?= view_cell('\App\Libraries\HeadingPointer::show', ['title_header' => 'Profile Statistik', 'description' => 'Lihat profile statistik selama menggunakan aplikasi'])  ?>
 <?= $this->endSection(); ?>
 
 
