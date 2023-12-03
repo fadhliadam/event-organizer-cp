@@ -1,0 +1,31 @@
+:root {
+  --primary: #ca2b43;
+  --bs-danger-rgb: 202, 43, 67;
+  --bs-btn-bg: 202, 43, 67;
+  --bs-red: 202, 43, 67;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid var(--primary);
+}
