@@ -18,6 +18,11 @@
     <script>
         AOS.init();
     </script>
+
+    <!-- Index Js -->
+    <script src="<?= base_url('assets/js/index.js'); ?>"></script>
+
+    <!-- Dynamic Javascript render section -->
     <?= $this->renderSection('scripts'); ?>
 </body>
 </html>
