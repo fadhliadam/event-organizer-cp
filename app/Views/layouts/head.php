@@ -27,7 +27,7 @@
     <!-- AOS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
-    <link rel="stylesheet" href="<?= base_url('assets/css/landing_page.css') ?>">
+    
 
     <?= $this->renderSection('heads'); ?>
 
