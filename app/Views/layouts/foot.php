@@ -17,6 +17,7 @@
     <script>
         AOS.init();
     </script>
+    <script src="<?= base_url('assets/js/index.js'); ?>"></script>
     <?= $this->renderSection('scripts'); ?>
 </body>
 </html>

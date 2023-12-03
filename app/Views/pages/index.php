@@ -1,4 +1,7 @@
 <?= $this->extend('layouts/main'); ?>
+<?= $this->section('heads'); ?>
+<link rel="stylesheet" href="<?= base_url('assets/css/landing_page.css') ?>">
+<?= $this->endSection(); ?>
 <?= $this->section('content'); ?>
     <!-- Navbar -->
     <?= $this->include('components/navbar'); ?>
