@@ -1,10 +1,10 @@
 <?php
 
 use App\Controllers\Home;
-use App\Controllers\Login;
+use App\Controllers\User\Login;
+use App\Controllers\User\UserDashboardController;
 use App\Controllers\Superadmin\SuperadminDashboardController;
 use App\Controllers\Superadmin\SuperadminLoginController;
-use App\Controllers\UserController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -13,9 +13,11 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', [Home::class, 'index']);
 
 $routes->get('/login', [Login::class, 'index']);
+$routes->get('/logout', [Login::class, 'logout']);
 $routes->get('/login/process', [Login::class, 'process']);
+$routes->get('/dashboard', [UserDashboardController::class, 'index'], ['filter' => 'auth']);
 
-$routes->group('/superadmin', function($routes) {
+$routes->group('/superadmin', function ($routes) {
     $routes->get('login', [SuperadminLoginController::class, 'index']);
     $routes->post('login', [SuperAdminLoginController::class, 'loginAuth']);
     $routes->get('logout', [SuperAdminLoginController::class, 'logout']);
