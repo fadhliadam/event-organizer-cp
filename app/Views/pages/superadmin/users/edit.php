@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main_dashboard'); ?>
 
 <?= $this->section('page_title'); ?>
-    <?= view_cell('\App\Libraries\HeadingPointer::show', ['title_header' => 'Form Tambah User', 'description' => 'Anda bisa menambah user baru disini.']); ?>
+    <?= view_cell('\App\Libraries\HeadingPointer::show', ['title_header' => 'Form Edit User', 'description' => 'Anda bisa mengubah user disini.']); ?>
 <?= $this->endSection(); ?>
 
 <?= $this->section('main_dashboard_content'); ?>
@@ -10,15 +10,16 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="form form-vertical" action="<?= base_url('/superadmin/users/new'); ?>" method="post" enctype="multipart/form-data">
+                        <form class="form form-vertical" action="<?= base_url('/superadmin/users/edit/'.$user->id); ?>" method="post" enctype="multipart/form-data">
                         <?php if(isset($validation)): ?>
+                            <input type="hidden" name="_method" value="put">
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group has-icon-left">
                                             <label for="username" class="form-label">Username</label>
                                             <div class="position-relative">
-                                                <input type="text" name="username" class="form-control <?= $validation->hasError('username') ? 'is-invalid' : ''; ?>" placeholder="Isikan username" id="username" value="<?= set_value('username', old('username')); ?>">
+                                                <input type="text" name="username" class="form-control <?= $validation->hasError('username') ? 'is-invalid' : ''; ?>" placeholder="Isikan username" id="username" value="<?= set_value('username', $user->username); ?>">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-person"></i>
                                                 </div>
@@ -32,13 +33,10 @@
                                         <div class="form-group has-icon-left">
                                             <label class="form-label" for="email">Email</label>
                                             <div class="position-relative">
-                                                <input type="email" name="email" class="form-control <?= $validation->hasError('email') ? 'is-invalid' : ''; ?>" placeholder="Isikan email" id="email" value="<?= set_value('email', old('email')); ?>">
+                                                <input type="email" name="email" disabled readonly class="form-control" placeholder="Isikan email" id="email" value="<?= set_value('email', $user->email); ?>">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-envelope"></i>
                                                 </div>
-                                            </div>
-                                            <div class="d-block invalid-feedback">
-                                                <?= $validation->getError('email'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -46,7 +44,7 @@
                                         <div class="form-group has-icon-left">
                                             <label class="form-label" for="password">Password</label>
                                             <div class="position-relative">
-                                                <input type="password" name="password" class="form-control <?= $validation->hasError('password') ? 'is-invalid' : ''; ?>" placeholder="isikan password" id="password" value="<?= set_value('password', old('password')); ?>">
+                                                <input type="password" name="password" class="form-control <?= $validation->hasError('password') ? 'is-invalid' : ''; ?>" placeholder="isikan password" id="password" value="<?= set_value('password', $user->password); ?>">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-lock"></i>
                                                 </div>
@@ -60,7 +58,7 @@
                                         <label class="form-label fw-bold">Role</label>
                                         <?php foreach($roles as $role): ?>
                                         <div class="form-check form-check-danger">
-                                            <input class="form-check-input" type="radio" name="role" value="<?= $role->id; ?>" id="<?= $role->name; ?>" <?= $role->id == 1 ? 'checked': ''; ?> >
+                                            <input class="form-check-input" type="radio" name="role" value="<?= $role->id; ?>" id="<?= $role->name; ?>" <?= $role->id == $user->role_id ? 'checked': ''; ?> >
                                             <label class="form-check-label text-capitalize" style="cursor: pointer;" for="<?= $role->name; ?>">
                                                 <?= $role->name; ?>
                                             </label>
@@ -76,13 +74,28 @@
                                             <div class="fs-3">
                                                 <i class="bi bi-plus-lg"></i>
                                             </div>
-                                            <button id="btn-reset-image" title="Hapus gambar" class="position-absolute top-0 end-0 mt-1 d-none me-1 px-2 z-2 bg-danger text-white rounded-circle border-0" type="button">x</button>
-                                            <img id="preview-image" src="" class="position-absolute z-1 img-fluid h-100 object-fit-cover">
+                                            <button id="btn-reset-image" title="Hapus gambar" class="position-absolute top-0 end-0 mt-1 me-1 px-2 z-2 bg-danger text-white rounded-circle border-0" type="button">x</button>
+                                            <img id="preview-image" src="<?= base_url('assets/'.$user->image)?>" class="position-absolute z-1 img-fluid h-100 object-fit-cover">
                                         </label>
                                         <input type="file" id="image" name="image" class="d-none">
                                         <div class="d-block invalid-feedback">
                                             <?= $validation->getError('image'); ?>
                                         </div>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <div class="form-check">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="form-check-input form-check-danger" name="activateUser" id="activateUser" <?= !$user->deleted_at? 'checked' : ''; ?>>
+                                                <label class="form-check-label" for="activateUser">Activate User</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-11 rounded mt-3 border">
+                                        <ul class="text-muted">
+                                            <small class="fw-bold">Notes:</small>
+                                            <li><small>Jika checked menandakan user active</small></li>
+                                            <li><small>Jika tidak checked menandakan user non-active</small></li>
+                                        </ul>
                                     </div>
                                     <div class="mt-5 col-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>

@@ -15,7 +15,7 @@
                     <?php else: 
                         foreach($segments as $segment => $value):
                         if($segment > 0):
-                            if($segment < $totalSegment-1):
+                            if($segment < $totalSegment-1 && $value !== 'edit'):
                         ?>
                             <li class="breadcrumb-item text-capitalize"><a href="<?= base_url('/superadmin'. '/'. $value); ?>"><?= $value;  ?></a></li>
                             <?php else: ?>

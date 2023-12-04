@@ -13,13 +13,7 @@ class UserModel extends Model
     protected $returnType       = 'App\Entities\UserEntity';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_google', 'username', 'email', 'image', 'role_id'];
-
-    public function getAll() 
-    {
-        return $this->db->table('users')
-        ->get()->getResult();
-    }
+    protected $allowedFields    = ['id_google', 'username', 'password', 'email', 'image', 'role_id', 'deleted_at'];
 
     // Dates
     protected $useTimestamps = true;

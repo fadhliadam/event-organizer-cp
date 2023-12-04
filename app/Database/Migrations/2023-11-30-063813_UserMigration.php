@@ -34,6 +34,7 @@ class UserMigration extends Migration
             'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+                'default' => password_hash(12345678, PASSWORD_DEFAULT),
             ],
             'image' => [
                 'type' => 'VARCHAR',

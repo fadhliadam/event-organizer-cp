@@ -57,12 +57,12 @@
                             </td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a href="#" class="btn btn-sm icon icon-left btn-outline-success">
+                                    <a href="<?= base_url('/superadmin/users/edit/'.$user->id)?>" class="btn btn-sm icon icon-left btn-outline-success">
                                         <i class="bi bi-person-gear"></i>
                                         Edit
                                     </a>
                                     <?php if(is_null($user->deleted_at)): ?>
-                                    <button onclick="return deleteUser('<?= base_url('/superadmin/users/delete/'.$user->id)?>')" class="btn btn-sm icon icon-left btn-outline-danger">
+                                    <button onclick="return deleteUser('<?= base_url('/superadmin/users/delete/'.$user->id)?>')"  class="btn btn-sm icon icon-left btn-outline-danger">
                                         <i class="bi bi-trash"></i>
                                         Hapus
                                     </button>
@@ -95,7 +95,7 @@
         const deleteUser = (url) => {
             const data = {
                 title: 'Hapus User',
-                text: 'Apakah kamu ingin user ini?',
+                text: 'Apakah kamu ingin menghapus user ini?',
                 buttonText: 'Ya, hapus!',
                 url,
                 redirectTo: '<?= base_url('/superadmin/users')?>'
@@ -107,6 +107,16 @@
                 Swal.fire({
                     icon: 'success',
                     text: '<?= session()->getFlashdata('success_message')?>',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            <?php endif;?>
+        })
+        $(() => {
+            <?php if(session()->has('error_message')):?>
+                Swal.fire({
+                    icon: 'error',
+                    text: '<?= session()->getFlashdata('error_message')?>',
                     showConfirmButton: false,
                     timer: 2000
                 })
