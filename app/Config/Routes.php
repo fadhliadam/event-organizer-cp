@@ -10,6 +10,12 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
+$routes->set404Override(function() {
+    $data['title'] = 'Not Found';
+    return view('pages/notfound/index', $data);
+});
+
 $routes->get('/', [Home::class, 'index']);
 
 $routes->get('/login', [Login::class, 'index']);
