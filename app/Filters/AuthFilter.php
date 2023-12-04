@@ -40,13 +40,13 @@ class AuthFilter implements FilterInterface
             $data = [
                 'title' => 'Dashboard'
             ];
-            if (session()->get('role_id') == 2) {
-                return view('pages/user/dashboard', $data);
-            }
             if (session()->get('role_id') == 1) {
                 return view('pages/superadmin/dashboard', $data);
             }
-            return view('pages/admin/dashboard', $data);
+            if (session()->get('role_id') == 2) {
+                return view('pages/admin/dashboard', $data);
+            }
+            return view('pages/user/dashboard', $data);
         }
     }
 
