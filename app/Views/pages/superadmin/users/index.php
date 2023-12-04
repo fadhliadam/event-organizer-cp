@@ -7,7 +7,7 @@
 <?= $this->section('main_dashboard_content'); ?>
     <div class="card">
         <div class="card-header text-end">
-            <a href="#" class="btn btn-sm icon icon-left btn-danger">
+            <a href="<?= base_url('/superadmin/users/new'); ?>" class="btn btn-sm icon icon-left btn-danger">
                 <i class="bi bi-person-plus"></i>
                 Tambah
             </a>
@@ -31,7 +31,8 @@
                             $no = 1;
                             $roles = [
                                 1 => 'superadmin',
-                                2 => 'admin'
+                                2 => 'admin',
+                                3 => 'user'
                             ];
                             foreach($users as $user):
                          ?>
@@ -44,7 +45,7 @@
                             </td>
                             <td>
                                 <div class="avatar avatar-lg">
-                                    <img src="<?= base_url('assets/images/profile.png'); ?>" alt="=<?= $user->username; ?>" srcset="">
+                                    <img src="<?= base_url('assets/'.$user->image); ?>" alt="=<?= $user->username; ?>" srcset="">
                                 </div>
                             </td>
                             <td>
@@ -91,15 +92,25 @@
         jquery_datatable.on('draw', setTableColor)
     </script>
     <script>
-    const deleteUser = (url) => {
-        const data = {
-            title: 'Hapus User',
-            text: 'Apakah kamu ingin user ini?',
-            buttonText: 'Ya, hapus!',
-            url,
-            redirectTo: '<?= base_url('/superadmin/users')?>'
+        const deleteUser = (url) => {
+            const data = {
+                title: 'Hapus User',
+                text: 'Apakah kamu ingin user ini?',
+                buttonText: 'Ya, hapus!',
+                url,
+                redirectTo: '<?= base_url('/superadmin/users')?>'
+            }
+            confirmSwalHandler(data);
         }
-        confirmSwalHandler(data);
-    }
+        $(() => {
+            <?php if(session()->has('success_message')):?>
+                Swal.fire({
+                    icon: 'success',
+                    text: '<?= session()->getFlashdata('success_message')?>',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            <?php endif;?>
+        })
     </script>
 <?= $this->endSection(); ?>

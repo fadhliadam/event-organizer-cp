@@ -34,12 +34,11 @@ class UserMigration extends Migration
             'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
-                'default' => password_hash(123456, PASSWORD_DEFAULT),
             ],
             'image' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
-                'default' => 'images/profile-default.png'
+                'default' => 'images/users/profile-default.png'
             ],
             'role_id' => [
                 'type' => 'INT',

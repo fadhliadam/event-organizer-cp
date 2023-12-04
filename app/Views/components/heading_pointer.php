@@ -14,14 +14,15 @@
                         <p><?= date('l, d F Y'); ?></p>
                     <?php else: 
                         foreach($segments as $segment => $value):
-                            if($segment < $totalSegment):
+                        if($segment > 0):
+                            if($segment < $totalSegment-1):
                         ?>
                             <li class="breadcrumb-item text-capitalize"><a href="<?= base_url('/superadmin'. '/'. $value); ?>"><?= $value;  ?></a></li>
                             <?php else: ?>
                             <li class="breadcrumb-item active text-capitalize" aria-current="page">
                                 <?= $value; ?>
                             </li>
-                            <?php endif; ?>
+                            <?php endif;endif; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </ol>
