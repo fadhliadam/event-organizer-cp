@@ -52,7 +52,7 @@ class Login extends BaseController
                 $entity->username = $data['givenName'];
                 $entity->email = $data['email'];
                 $entity->image = $data['picture'];
-                $entity->role_id = 2;
+                $entity->role_id = 3;
 
                 $dataSession = $entity->toArray() + [
                     'logged_in' => true
