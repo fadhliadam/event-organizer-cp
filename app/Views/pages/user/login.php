@@ -1,21 +1,6 @@
 <?= $this->extend('layouts/main'); ?>
 <?= $this->section('heads'); ?>
-<style>
-    a {
-        text-decoration: none;
-    }
-
-    .login {
-        min-height: 100vh;
-    }
-
-    .bg-image {
-        background-image: url('<?= base_url('assets/images/unsika.png'); ?>');
-        background-size: cover;
-        background-position: center center;
-        filter: invert(29%) sepia(71%) saturate(1587%) hue-rotate(327deg) brightness(79%) contrast(100%);
-    }
-</style>
+<link rel="stylesheet" href="<?= base_url('assets/css/user_login.css') ?>">
 <?= $this->endSection(); ?>
 <?= $this->section('content'); ?>
 <div class="container-fluid">

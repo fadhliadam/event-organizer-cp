@@ -1,0 +1,14 @@
+a {
+  text-decoration: none;
+}
+
+.login {
+  min-height: 100vh;
+}
+
+.bg-image {
+  background-image: url("/assets/images/unsika.png");
+  background-size: cover;
+  background-position: center center;
+  filter: invert(29%) sepia(71%) saturate(1587%) hue-rotate(327deg) brightness(79%) contrast(100%);
+}
