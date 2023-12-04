@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
-use CodeIgniter\CLI\Console;
+use App\Controllers\BaseController;
 
-class AdminController extends BaseController
+class AdminDashboardController extends BaseController
 {
     public function index()
     {
