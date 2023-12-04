@@ -13,6 +13,26 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-item <?= service('uri')->getSegment(2) == 'dashboard' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/admin/dashboard'); ?>" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'collaborators' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/admin/collaborators'); ?>" class='sidebar-link'>
+                        <i class="bi bi-people-fill"></i>
+                        <span>Collaborators</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'events' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/admin/events'); ?>" class='sidebar-link'>
+                        <i class="bi bi-balloon-heart-fill"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- <ul class="menu">
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'dashboard' ? 'active' : '' ?>">
                     <a href="<?= base_url('/superadmin/dashboard'); ?>" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
@@ -30,7 +50,7 @@
                         <span>Events</span>
                     </a>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </div>

@@ -27,6 +27,7 @@
     <!-- AOS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
+    
     <!-- Main css -->
     <link rel="stylesheet" href="<?= base_url('assets/css/main.css'); ?>">
 

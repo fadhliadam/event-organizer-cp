@@ -1,7 +1,9 @@
 <?= $this->extend('layouts/main'); ?>
+
 <?= $this->section('heads'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/css/landing_page.css') ?>">
 <?= $this->endSection(); ?>
+
 <?= $this->section('content'); ?>
 <!-- Navbar -->
 <?= $this->include('components/navbar'); ?>
@@ -38,7 +40,7 @@
     <h2 class="text-center mb-4 text-black fw-bold">Event Terdekat</h2>
     <!-- For mobile view, display as carousel -->
     <div class="d-md-none" data-aos="fade-up">
-        <div id="comingEventCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="5000"> 
+        <div id="comingEventCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="card p-0 mx-auto" style="width: 18rem; height: 25rem; background-color: #f0f0f0;">
@@ -131,7 +133,7 @@
                     <li class="list-group-item" style="background-color: #f0f0f0; border: none;"><i class="bi bi-calendar2-date"></i> Event 1</li>
                     <li class="list-group-item" style="background-color: #f0f0f0; border: none;"><i class="bi bi-calendar2-date"></i> Event 2</li>
                     <li class="list-group-item" style="background-color: #f0f0f0; border: none;"><i class="bi bi-calendar2-date"></i> Event 3</li>
-                   
+
                 </ul>
             </div>
         </div>
@@ -146,7 +148,7 @@
                     <li class="list-group-item" style="background-color: #f0f0f0; border: none;"><i class="bi bi-calendar2-date"></i> Event 1</li>
                     <li class="list-group-item" style="background-color: #f0f0f0; border: none;"><i class="bi bi-calendar2-date"></i> Event 2</li>
                     <li class="list-group-item" style="background-color: #f0f0f0; border: none;"><i class="bi bi-calendar2-date"></i> Event 3</li>
-                 
+
                 </ul>
             </div>
         </div>
