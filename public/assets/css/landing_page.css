@@ -55,6 +55,7 @@ body {
   font-weight: bold;
 }
 
+
 .user-feedback {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -67,4 +68,18 @@ body {
   height: 50px;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+
+@media (max-width: 768px) {
+
+  /* Adjust styling for smaller screens */
+  .carousel-inner img {
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }

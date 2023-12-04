@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\User;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
@@ -27,8 +27,15 @@ class Login extends BaseController
 
     public function index()
     {
-        $data['link'] = $this->googleClient->createAuthUrl();
-        return view('pages/user/login_page', $data);
+        $data = [
+            'title' => 'Login',
+            'link' => $this->googleClient->createAuthUrl(),
+            'validation' => \Config\Services::validation()
+        ];
+        if (session()->get('logged_in')) {
+            return redirect()->to(base_url('/dashboard'));
+        }
+        return view('pages/user/login', $data);
     }
 
     public function process()
@@ -45,19 +52,36 @@ class Login extends BaseController
                 $entity->username = $data['givenName'];
                 $entity->email = $data['email'];
                 $entity->image = $data['picture'];
-                $entity->role_id = 1;
+                $entity->role_id = 3;
+
+                $dataSession = $entity->toArray() + [
+                    'logged_in' => true
+                ];
 
                 $model = new UserModel();
                 $user = $model->where('email', $entity->email)->find();
                 if ($user) {
-                    return redirect()->to('/dashboard');
+                    session()->set($dataSession);
+                    return redirect()->to(base_url('/dashboard'));
                 } else {
                     $model->save($entity);
-                    return redirect()->to('/dashboard');
+                    session()->set($dataSession);
+                    return redirect()->to(base_url('/dashboard'));
                 }
             }
         } else {
-            return redirect()->to('/login');
+            return redirect()->to(base_url('/login'));
         }
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        $response = [
+            'status' => 'success',
+            'message' => 'Berhasil logout'
+        ];
+
+        echo json_encode($response);
     }
 }

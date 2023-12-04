@@ -12,6 +12,7 @@
 
     <!-- Datatables boostrap 5 -->
     <script src="<?= base_url('assets/js/dataTables.bootstrap5.min.js') ?>"></script>
+    <script src="<?= base_url('assets/js/apexcharts.min.js') ?>"></script>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
