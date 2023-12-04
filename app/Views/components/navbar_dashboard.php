@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
-            <a href="#" class="burger-btn d-block">
+            <a href="#" class="burger-btn d-block d-xl-none">
                 <i class="bi bi-justify fs-3"></i>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="user-img d-flex align-items-center">
                                     <div class="avatar avatar-md">
-                                        <img src="<?= base_url('assets/images/profile.png'); ?>">
+                                        <img src="<?= base_url('assets/'.session()->get('image')); ?>" alt="profile">
                                     </div>
                                 </div>
                             </div>

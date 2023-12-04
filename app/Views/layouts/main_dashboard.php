@@ -20,6 +20,6 @@
 </div>
 
 <?= $this->section('scripts'); ?>
-<script src="<?= base_url('assets/js/app.js')?>"></script>
+    <script src="<?= base_url('assets/js/app.js')?>"></script>
 <?= $this->endSection(); ?>
 <?= $this->include('layouts/foot'); ?>
