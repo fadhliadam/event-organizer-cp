@@ -13,7 +13,7 @@ class SuperadminUserController extends BaseController
     public function index()
     {
         $userModel = new UserModel();
-        $users = $userModel->withDeleted()->whereNotIn('id', [session()->get('id')])->findAll();
+        $users = $userModel->getUsers(session()->get('id'));
         $data = [
             'title' => 'Users',
             'users' => $users

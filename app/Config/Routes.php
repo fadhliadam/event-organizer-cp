@@ -9,6 +9,7 @@ use App\Controllers\User\UserDashboardController;
 use App\Controllers\Superadmin\SuperadminDashboardController;
 use App\Controllers\Superadmin\SuperadminLoginController;
 use App\Controllers\Superadmin\SuperadminUserController;
+use App\Controllers\Superadmmin\SuperadminEventController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -50,5 +51,10 @@ $routes->group('/superadmin', function ($routes) {
         $routes->get('edit/(:num)', [SuperadminUserController::class, 'edit']);
         $routes->put('edit/(:num)', [SuperadminUserController::class, 'update']);
         $routes->get('delete/(:num)', [SuperadminUserController::class, 'destroy']);
+    });
+    
+    $routes->group('events', ['filter' => 'auth'], function ($routes) {
+        $routes->get('/', [SuperadminEventController::class,'index']);
+        $routes->get('/delete/(:num)', [SuperadminEventController::class,'destroy']);
     });
 });

@@ -4,24 +4,28 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class EventModel extends Model
 {
-    protected $DBGroup          = 'default';
-    protected $table            = 'users';
+    protected $table            = 'events';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'App\Entities\UserEntity';
+    protected $returnType       = '\App\Entities\EventEntity';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_google', 'username', 'password', 'email', 'image', 'role_id', 'deleted_at'];
+    protected $allowedFields    = [
+        'name', 'description', 'description', 'banner', 'target_audience',
+        'quota', 'event_type', 'link', 'price', 'date', 'country', 'province',
+        'city', 'postal_code', 'street', 'host', 'host_email', 'required_approval', 
+        'category_id', 'owner'
+    ];
 
-    public function getUsers($id_user_loggin) 
+    public function getEvents() 
     {
-        return $this->db->table('users')
-        ->select('users.*, roles.name role_name')
-        ->join('roles', 'roles.id = users.role_id')
-        ->whereNotIn('users.id', [$id_user_loggin])
-        ->orderBy('users.created_at', 'DESC')
+        return $this->db->table('events')
+        ->select('events.*, categories.name category_name, users.username username')
+        ->join('users', 'users.id = events.owner', 'left')
+        ->join('categories', 'categories.id = events.category_id', 'left')
+        ->orderBy('events.created_at', 'DESC')
         ->get()->getResult();
     }
 
