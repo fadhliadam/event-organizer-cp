@@ -11,6 +11,28 @@
             </div>
         </div>
         <div class="sidebar-menu">
+            <?php if(session()->get('role_id') == 1): ?>
+            <ul class="menu">
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'dashboard' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/superadmin/dashboard'); ?>" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'users' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/superadmin/users'); ?>" class='sidebar-link'>
+                        <i class="bi bi-people-fill"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'events' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/superadmin/events'); ?>" class='sidebar-link'>
+                        <i class="bi bi-balloon-heart-fill"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+            </ul>
+            <?php else: ?>
             <ul class="menu">
                 <li class="sidebar-item <?= service('uri')->getSegment(2) == 'dashboard' ? 'active' : '' ?>">
                     <a href="<?= base_url('/admin/dashboard'); ?>" class='sidebar-link'>
@@ -31,26 +53,7 @@
                     </a>
                 </li>
             </ul>
-            <!-- <ul class="menu">
-                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'dashboard' ? 'active' : '' ?>">
-                    <a href="<?= base_url('/superadmin/dashboard'); ?>" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'users' ? 'active' : '' ?>">
-                    <a href="<?= base_url('/superadmin/users'); ?>" class='sidebar-link'>
-                        <i class="bi bi-people-fill"></i>
-                        <span>Users</span>
-                    </a>
-                </li>
-                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'events' ? 'active' : '' ?>">
-                    <a href="<?= base_url('/superadmin/events'); ?>" class='sidebar-link'>
-                        <i class="bi bi-balloon-heart-fill"></i>
-                        <span>Events</span>
-                    </a>
-                </li>
-            </ul> -->
+            <?php endif; ?>
         </div>
     </div>
 </div>

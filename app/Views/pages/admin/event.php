@@ -282,7 +282,6 @@
 
 <?= $this->section('scripts'); ?>
 
-<script src="<?= base_url('assets/js/app.js') ?>"></script>
 <script src="<?= base_url('assets/js/umd-simple-datatables.js') ?>"></script>
 <script src="<?= base_url('assets/js/simple-datatables.js') ?>"></script>
 <?= $this->endSection(); ?>

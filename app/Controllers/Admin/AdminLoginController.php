@@ -32,10 +32,10 @@ class AdminLoginController extends BaseController
                 ]
             ],
             'password' => [
-                'rules' => 'required|min_length[5]',
+                'rules' => 'required|min_length[8]',
                 'errors' => [
                     'required' => 'Password harus diisi',
-                    'min_length' => 'Password setidaknya terdiri dari 5 karakter',
+                    'min_length' => 'Password setidaknya terdiri dari 8 karakter',
                 ]
             ],
         ];
