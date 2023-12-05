@@ -57,6 +57,10 @@ class SuperadminLoginController extends BaseController
         if(!$user) {
             return redirect()->to(base_url('/superadmin/login'))->withInput()->with('error_message', 'Email yang Anda masukkan salah');
         }
+
+        if($user->role_id != 1) {
+            return redirect()->to(base_url('/superadmin/login'))->withInput()->with('error_message', 'Akun Superadmin tidak ditemukan');
+        }
         
         $password = password_verify($this->request->getVar('password'), $user->password);
         if(!$password) {

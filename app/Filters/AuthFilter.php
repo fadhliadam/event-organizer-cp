@@ -25,28 +25,37 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $segments = service('uri')->getSegments();
-        if (!session()->get('logged_in')) {
+         $segments = service('uri')->getSegments();
+         if (!session()->get('logged_in')) {
             if (in_array('superadmin', $segments)) {
                 return redirect()->to(base_url('/superadmin/login'));
             }
             if (in_array('admin', $segments)) {
                 return redirect()->to(base_url('/admin/login'));
             }
-            if (in_array('user', $segments)) {
+            if (!in_array('superadmin', $segments) || !in_array('admin', $segments)) {
                 return redirect()->to(base_url('/login'));
             }
         } else {
-            $data = [
-                'title' => 'Dashboard'
-            ];
-            if (session()->get('role_id') == 1) {
-                return view('pages/superadmin/dashboard', $data);
+            function check_for_routes($role_id) {
+                $segments = service('uri')->getSegments();
+                $check_has_role_id = [
+                    1 => !in_array('superadmin', $segments),
+                    2 => !in_array('admin', $segments),
+                    3 => in_array('superadmin', $segments) || in_array('admin', $segments)
+                ];
+                $has_role_id = session()->get('role_id') == $role_id;
+                return $has_role_id && $check_has_role_id[$role_id];
             }
-            if (session()->get('role_id') == 2) {
-                return view('pages/admin/dashboard', $data);
+            if (check_for_routes(1) ) {
+                return redirect()->to(base_url('/superadmin/dashboard'));
             }
-            return view('pages/user/dashboard', $data);
+            if (check_for_routes(2)) {
+                return redirect()->to(base_url('/admin/dashboard'));
+            }
+            if(check_for_routes(3)) {
+                return redirect()->to(base_url('/dashboard'));
+            }
         }
     }
 
