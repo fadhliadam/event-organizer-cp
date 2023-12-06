@@ -57,6 +57,7 @@ $routes->group('/superadmin', function ($routes) {
         $routes->get('/', [SuperadminEventController::class, 'index']);
         $routes->get('new', [SuperadminEventController::class, 'new']);
         $routes->post('new', [SuperadminEventController::class, 'store']);
+        $routes->get('edit/(:num)', [SuperadminEventController::class, 'edit']);
         $routes->delete('delete/(:num)', [SuperadminEventController::class, 'destroy']);
     });
 });

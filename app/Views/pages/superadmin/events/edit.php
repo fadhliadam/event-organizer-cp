@@ -36,7 +36,7 @@
                                         <div class="form-group has-icon-left">
                                             <label for="name" class="form-label">Nama Event</label>
                                             <div class="position-relative">
-                                                <input type="text" name="name" tabindex="1" class="form-control <?= $validation->hasError('name') ? 'is-invalid' : ''; ?>" placeholder="Isikan nama event" id="name" value="<?= set_value('name', old('name')); ?>">
+                                                <input type="text" name="name" class="form-control <?= $validation->hasError('name') ? 'is-invalid' : ''; ?>" placeholder="Isikan nama event" id="name" value="<?= set_value('name', old('name')); ?>">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-balloon-heart"></i>
                                                 </div>
@@ -77,13 +77,13 @@
                                     <div class="col-12">
                                         <label class="form-label fw-bold">Tipe Event</label>
                                         <div class="form-check form-check-danger">
-                                            <input class="form-check-input" type="radio" name="event_type" value="0" id="online" checked <?= set_radio('event_type', '0'); ?>>
+                                            <input class="form-check-input" type="radio" name="event_type" value="0" id="online" checked>
                                             <label class="form-check-label text-capitalize" style="cursor: pointer;" for="online">
                                                 Online
                                             </label>
                                         </div>
                                         <div class="form-check form-check-danger">
-                                            <input class="form-check-input" type="radio" name="event_type" value="1" id="offline" <?= set_radio('event_type', '1'); ?>>
+                                            <input class="form-check-input" type="radio" name="event_type" value="1" id="offline">
                                             <label class="form-check-label text-capitalize" style="cursor: pointer;" for="offline">
                                                 Offline
                                             </label>
@@ -244,8 +244,9 @@
                                         <div class="form-group">
                                             <label for="category" class="form-label">Kategori</label>
                                             <select class="form-select" name="category_id" id="category">
+                                                <option value="" selected disabled>--Pilih Kategori--</option>
                                                 <?php foreach($categories as $category): ?>
-                                                    <option value="<?= $category->id; ?>" class="text-capitalize" <?= set_select('category_id', $category->id) ?>><?= $category->name; ?></option>
+                                                    <option value="<?= $category->id; ?>" class="text-capitalize"><?= $category->name; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <div class="d-block invalid-feedback">
@@ -253,17 +254,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group has-icon-left">
-                                            <label class="form-label" for="collaborator">kolaborator</label>
-                                            <div class="position-relative">
-                                                <input type="email" name="collaborator" class="form-control <?= $validation->hasError('collaborator') ? 'is-invalid' : ''; ?>" placeholder="isikan email kolaborator event" id="collaborator" value="<?= set_value('collaborator', old('collaborator')); ?>">
-                                                <div class="form-control-icon">
-                                                    <i class="bi bi-envelope-at-fill"></i>
-                                                </div>
-                                            </div>
-                                            <div class="d-block invalid-feedback">
-                                                <?= $validation->getError('collaborator'); ?>
+                                    <div class="col-12 mb-2">
+                                        <label class="form-label fw-bold" for="required_approval">Required Approval</label>
+                                        <div class="form-check">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="form-check-input form-check-danger" name="required_approval" id="required_approval" checked>
+                                                <label class="form-check-label" for="required_approval">Required</label>
                                             </div>
                                         </div>
                                     </div>
@@ -282,24 +278,13 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <input type="hidden" name="description" id="description" value="<?= set_value('description', old('description')); ?>">
+                                        <input type="hidden" name="description" id="description">
                                         <div class="form-group">
                                             <label class="form-label">Deskripsi</label>
-                                            <div class="d-flex flex-grow-1 flex-column" style="height: 12rem;">
-                                                <div id="description-editor" class=" h-100"></div>
-                                            </div>
+                                            <div id="description-editor"></div>
                                         </div>
                                         <div class="d-block invalid-feedback">
                                             <?= $validation->getError('description'); ?>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <label class="form-label fw-bold" for="required_approval">Required Approval</label>
-                                        <div class="form-check">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="form-check-input form-check-danger" name="required_approval" id="required_approval" checked>
-                                                <label class="form-check-label" for="required_approval">Required</label>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="mt-5 col-12 d-flex justify-content-end">
@@ -348,10 +333,6 @@
         theme: "snow",
         placeholder: 'Isikan deskripsi event'
     });
-    const description = $('#description').val();
-    if(description != '') {
-        descriptionEditor.pasteHTML(description);
-    }
     descriptionEditor.on("text-change", function (delta, odDelta, source) {
         $('#description').val(descriptionEditor.root.innerHTML);
     });

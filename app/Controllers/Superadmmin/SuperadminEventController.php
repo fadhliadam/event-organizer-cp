@@ -4,8 +4,10 @@ namespace App\Controllers\Superadmmin;
 
 use App\Controllers\BaseController;
 use App\Models\CategoryModel;
+use App\Models\EventCollaboratorModel;
 use App\Models\EventModel;
 use App\Models\UserModel;
+use Google\Service\AIPlatformNotebooks\Event;
 
 class SuperadminEventController extends BaseController
 {
@@ -13,6 +15,7 @@ class SuperadminEventController extends BaseController
     {
         $eventModel = new EventModel();
         $events = $eventModel->getEvents();
+        
         $data = [
             'title' => 'Events',
             'events' => $events
@@ -80,7 +83,6 @@ class SuperadminEventController extends BaseController
         $event->host_email = $validateData['host_email'];
         $event->required_approval = $this->request->getPost('required_approval') == 'on' ? true : false;
         $event->category_id = $validateData['category_id'];
-
         $eventOwner = $validateData['owner'];
         $userModel = new UserModel();
         $user = $userModel->where('email', $eventOwner)->first();
@@ -88,8 +90,36 @@ class SuperadminEventController extends BaseController
 
         $eventModel = new EventModel();
         $eventModel->save($event);
+        
+        $event_id = $eventModel->getEvents();
+        $event_id = $event_id[0]->id; // get event most new
+
+        if($validateData['collaborator'] && $this->request->getPost('collaborator')) {
+            $collaborator_id = $userModel->where('email', $validateData['collaborator'])->first();
+            $collaborator = new \App\Entities\EventCollaboratorEntity();
+            $collaborator->user_id = $collaborator_id->id;
+            $collaborator->event_id = $event_id;
+
+            $collaboratorModel = new EventCollaboratorModel();
+            $collaboratorModel->save($collaborator);
+        }
+        
         return redirect()->to(base_url('/superadmin/events'))->with('success_message', 'Berhasil menambahkan event');
     }   
+
+    public function edit(int $id)
+    {
+        helper(['form']);
+        $categoryModel = new CategoryModel();
+        $categories = $categoryModel->findAll();
+        
+        $eventModel = new EventModel();
+        $event = $eventModel->withDeleted()->find($id);
+        if(!$event) {
+            return redirect()->to(base_url('/superadmin/events'))->with('error_message', 'Event tidak ditemukan');
+        }
+        return dd($event);
+    }
 
     public function destroy(int $id)
     {

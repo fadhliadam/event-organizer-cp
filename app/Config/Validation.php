@@ -236,12 +236,19 @@ class Validation extends BaseConfig
                 'required' => 'Kategori harus dipilih',
             ]
         ],
+        'collaborator' => [
+            'rules' => 'valid_email|collaborator_valid_email',
+            'errors' => [
+                'valid_email' => 'Email kolaborator tidak valid',
+                'collaborator_valid_email' => 'Email ini tidak ditemukan di database atau tidak berhak sebagai collaborator',
+            ]
+        ],
         'owner' => [
-            'rules' => 'required|valid_email|user_valid_email',
+            'rules' => 'required|valid_email|admin_valid_email',
             'errors' => [
                 'required' => 'Email pemilik tidak boleh kosong',
                 'valid_email' => 'Email pemilik tidak valid',
-                'user_valid_email' => 'Email tidak ditemukan di database',
+                'admin_valid_email' => 'Email ini tidak ditemukan di database atau tidak berhak sebagai owner',
             ]
         ]
     ];

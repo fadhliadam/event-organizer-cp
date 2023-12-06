@@ -112,7 +112,7 @@
                             </td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a href="<?= base_url('/superadmin/users/edit/'.$event->id)?>" class="btn btn-sm icon icon-left btn-outline-success">
+                                    <a href="<?= base_url('/superadmin/events/edit/'.$event->id)?>" class="btn btn-sm icon icon-left btn-outline-success">
                                         <i class="bi bi-person-gear"></i>
                                         Edit
                                     </a>
