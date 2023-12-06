@@ -9,15 +9,10 @@ class EventModel extends Model
     protected $table            = 'events';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = '\App\Entities\EventEntity';
+    protected $returnType       = 'App\Entities\EventEntity';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'name', 'description', 'description', 'banner', 'target_audience',
-        'quota', 'event_type', 'link', 'price', 'date', 'country', 'province',
-        'city', 'postal_code', 'street', 'host', 'host_email', 'required_approval', 
-        'category_id', 'owner'
-    ];
+    protected $allowedFields    = ['name', 'description', 'banner', 'target_audience', 'quota', 'event_type', 'link', 'price', 'date', 'country', 'province', 'city', 'postal_code', 'street', 'host', 'host_email', 'required_approval', 'category_id', 'owner'];
 
     public function getEvents() 
     {
@@ -29,8 +24,14 @@ class EventModel extends Model
         ->get()->getResult();
     }
 
+    public function deleteEvent($id = null)
+    {
+        return $this->db->table('events')
+        ->update(['deleted_at' => date('Y-m-d H:i:s')], $id);
+    }
+
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

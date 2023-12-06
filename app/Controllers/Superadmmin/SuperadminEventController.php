@@ -18,4 +18,24 @@ class SuperadminEventController extends BaseController
 
         return view('pages/superadmin/events/index', $data);
     }
+
+    public function destroy(int $id)
+    {
+        $eventModel = new EventModel();
+        $event = $eventModel->find($id);
+        if(! $event) {
+            $response = [
+                'status' => 'error',
+                'message' => 'Gagal menghapus event, id tidak ditemukan'
+            ];
+            echo json_encode($response);
+            exit;
+        }
+            $response = [
+                'status' => 'success',
+                'message' => 'Berhasil menghapus event'
+            ];
+            $eventModel->deleteEvent($event->$id);
+            echo json_encode($response);
+    }
 }

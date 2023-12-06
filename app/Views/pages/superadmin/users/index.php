@@ -93,7 +93,8 @@
                 text: 'Apakah kamu ingin menghapus user ini?',
                 buttonText: 'Ya, hapus!',
                 url,
-                redirectTo: '<?= base_url('/superadmin/users')?>'
+                redirectTo: '<?= base_url('/superadmin/users')?>',
+                method: 'DELETE'
             }
             confirmSwalHandler(data);
         }

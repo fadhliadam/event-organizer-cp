@@ -72,7 +72,7 @@
                             </td>
                             <td>
                                 <?php if($event->link): ?>
-                                    <a href="<?= $event->link; ?>" class=""><?= $event->link; ?></a>
+                                    <a href="<?= $event->link; ?>" target="_blank" rel="noopener noreferrer"><?= $event->link; ?></a>
                                 <?php else: ?>
                                     <span>Tidak ada</span>
                                 <?php endif; ?>
@@ -84,7 +84,7 @@
                                 <?= $event->date ?>
                             </td>
                             <td>
-                                <?= dayDifferent($event->date) ?> hari
+                                <?= dayDifferent($event->date) > 0 ? dayDifferent($event->date) : '0' ?> hari
                             </td>
                             <td>
                                 <?= $event->street. ', '. $event->city. ', '. $event->province. ', '. $event->country. '-'. $event->postal_code ?>
@@ -116,10 +116,12 @@
                                         <i class="bi bi-person-gear"></i>
                                         Edit
                                     </a>
-                                    <button onclick="return deleteUser('<?= base_url('/superadmin/users/delete/'.$event->id)?>')"  class="btn btn-sm icon icon-left btn-outline-danger">
-                                        <i class="bi bi-trash"></i>
-                                        Hapus
-                                    </button>
+                                    <?php if(is_null($event->deleted_at)): ?>
+                                        <button onclick="return deleteEvent('<?= base_url('/superadmin/events/delete/'.$event->id)?>')"  class="btn btn-sm icon icon-left btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                            Hapus
+                                        </button>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>
@@ -145,13 +147,14 @@
         jquery_datatable.on('draw', setTableColor)
     </script>
     <script>
-        const deleteUser = (url) => {
+        const deleteEvent = (url) => {
             const data = {
-                title: 'Hapus User',
-                text: 'Apakah kamu ingin menghapus user ini?',
+                title: 'Hapus Event',
+                text: 'Apakah kamu ingin menghapus event ini?',
                 buttonText: 'Ya, hapus!',
                 url,
-                redirectTo: '<?= base_url('/superadmin/users')?>'
+                redirectTo: '<?= base_url('/superadmin/events')?>',
+                method: 'DELETE'
             }
             confirmSwalHandler(data);
         }

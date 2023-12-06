@@ -40,7 +40,7 @@ $routes->group('/admin', function ($routes) {
 $routes->group('/superadmin', function ($routes) {
     $routes->get('login', [SuperadminLoginController::class, 'index']);
     $routes->post('login', [SuperAdminLoginController::class, 'loginAuth']);
-    $routes->get('logout', [SuperAdminLoginController::class, 'logout']);
+    $routes->delete('logout', [SuperAdminLoginController::class, 'logout']);
 
     $routes->get('dashboard', [SuperadminDashboardController::class, 'index'], ['filter' => 'auth']);
 
@@ -50,11 +50,11 @@ $routes->group('/superadmin', function ($routes) {
         $routes->post('new', [SuperadminUserController::class, 'store']);
         $routes->get('edit/(:num)', [SuperadminUserController::class, 'edit']);
         $routes->put('edit/(:num)', [SuperadminUserController::class, 'update']);
-        $routes->get('delete/(:num)', [SuperadminUserController::class, 'destroy']);
+        $routes->delete('delete/(:num)', [SuperadminUserController::class, 'destroy']);
     });
     
     $routes->group('events', ['filter' => 'auth'], function ($routes) {
-        $routes->get('/', [SuperadminEventController::class,'index']);
-        $routes->get('/delete/(:num)', [SuperadminEventController::class,'destroy']);
+        $routes->get('/', [SuperadminEventController::class, 'index']);
+        $routes->delete('delete/(:num)', [SuperadminEventController::class, 'destroy']);
     });
 });
