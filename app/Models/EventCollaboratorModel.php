@@ -4,34 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class EventCollaboratorModel extends Model
 {
-    protected $DBGroup          = 'default';
-    protected $table            = 'users';
+    protected $table            = 'event_collaborators';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'App\Entities\UserEntity';
-    protected $useSoftDeletes   = true;
+    protected $returnType       = 'App\Entities\EventCollaboratorEntity';
+    protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_google', 'username', 'password', 'email', 'image', 'role_id', 'deleted_at'];
-
-    public function getUsers($id_user_loggin) 
-    {
-        return $this->db->table('users')
-        ->select('users.*, roles.name role_name')
-        ->join('roles', 'roles.id = users.role_id')
-        ->whereNotIn('users.id', [$id_user_loggin])
-        ->orderBy('users.created_at', 'DESC')
-        ->get()->getResult();
-    }
-
-    public function getIdUserByEmail($email)
-    {
-        return $this->db->table('users')
-        ->select('id')
-        ->where('email', $email)
-        ->get()->getResult();
-    }
+    protected $allowedFields    = ['user_id', 'event_id'];
 
     // Dates
     protected $useTimestamps = true;

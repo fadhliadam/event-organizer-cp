@@ -24,6 +24,17 @@ class EventModel extends Model
         ->get()->getResult();
     }
 
+    public function getEventById(int $id) 
+    {
+        return $this->db->table('events')
+        ->select('events.*, user_owner.email owner_email, user_collabrator.email collaborator')
+        ->join('users user_owner', 'user_owner.id = events.owner', 'left')
+        ->join('event_collaborators', 'event_collaborators.event_id = events.id', 'left')
+        ->join('users user_collabrator', 'user_collabrator.id = event_collaborators.user_id', 'left')
+        ->where(['events.id' => $id])
+        ->get()->getResult();
+    }
+
     // public function deleteEvent($id = null)
     // {
     //     return $this->db->table('events')
