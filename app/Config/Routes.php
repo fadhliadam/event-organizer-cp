@@ -55,6 +55,7 @@ $routes->group('/superadmin', function ($routes) {
     
     $routes->group('events', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [SuperadminEventController::class, 'index']);
+        $routes->get('new', [SuperadminEventController::class, 'new']);
         $routes->delete('delete/(:num)', [SuperadminEventController::class, 'destroy']);
     });
 });

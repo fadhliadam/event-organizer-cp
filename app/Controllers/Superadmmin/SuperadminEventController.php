@@ -19,6 +19,17 @@ class SuperadminEventController extends BaseController
         return view('pages/superadmin/events/index', $data);
     }
 
+    public function new()
+    {
+        helper(['form']);
+        $data = [
+            'title' => 'New Event',
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('pages/superadmin/events/new', $data);
+    }
+
     public function destroy(int $id)
     {
         $eventModel = new EventModel();
@@ -35,7 +46,7 @@ class SuperadminEventController extends BaseController
                 'status' => 'success',
                 'message' => 'Berhasil menghapus event'
             ];
-            $eventModel->deleteEvent($event->$id);
+            $eventModel->where('id', $id)->delete();
             echo json_encode($response);
     }
 }

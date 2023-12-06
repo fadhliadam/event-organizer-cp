@@ -24,11 +24,11 @@ class EventModel extends Model
         ->get()->getResult();
     }
 
-    public function deleteEvent($id = null)
-    {
-        return $this->db->table('events')
-        ->update(['deleted_at' => date('Y-m-d H:i:s')], $id);
-    }
+    // public function deleteEvent($id = null)
+    // {
+    //     return $this->db->table('events')
+    //     ->update(['deleted_at' => date('Y-m-d H:i:s')], $id);
+    // }
 
     // Dates
     protected $useTimestamps = false;

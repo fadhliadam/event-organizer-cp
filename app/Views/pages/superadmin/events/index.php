@@ -6,7 +6,7 @@
 <?= $this->section('main_dashboard_content'); ?>
 <div class="card">
         <div class="card-header text-end">
-            <a href="<?= base_url('/superadmin/users/new'); ?>" class="btn btn-sm icon icon-left btn-danger">
+            <a href="<?= base_url('/superadmin/events/new'); ?>" class="btn btn-sm icon icon-left btn-danger">
                 <i class="bi bi-person-plus"></i>
                 Tambah
             </a>
