@@ -14,10 +14,11 @@
 
 <section class="section">
     <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">
-                Simple Datatable
-            </h5>
+        <div class="card-header text-end">
+            <a href="<?= base_url('/admin/collaborators/new'); ?>" class="btn btn-sm icon icon-left btn-danger">
+                <i class="bi bi-person-plus"></i>
+                Tambah
+            </a>
         </div>
         <div class="card-body">
             <table class="table table-striped" id="simple-table">
