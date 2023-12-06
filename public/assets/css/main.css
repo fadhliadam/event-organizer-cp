@@ -33,3 +33,10 @@ body {
 .form-control:focus + .form-control-icon > .bi {
   color: var(--primary) !important;
 }
+
+.limit-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}

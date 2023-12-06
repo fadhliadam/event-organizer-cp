@@ -29,11 +29,6 @@
                     <tbody>
                         <?php 
                             $no = 1;
-                            $roles = [
-                                1 => 'superadmin',
-                                2 => 'admin',
-                                3 => 'user'
-                            ];
                             foreach($users as $user):
                          ?>
                         <tr>
@@ -41,7 +36,7 @@
                             <td><?= $user->username ?></td>
                             <td><?= $user->email; ?></td>
                             <td>
-                                <?= $roles[$user->role_id]; ?>
+                                <?= $user->role_name; ?>
                             </td>
                             <td>
                                 <div class="avatar avatar-lg">
@@ -98,7 +93,8 @@
                 text: 'Apakah kamu ingin menghapus user ini?',
                 buttonText: 'Ya, hapus!',
                 url,
-                redirectTo: '<?= base_url('/superadmin/users')?>'
+                redirectTo: '<?= base_url('/superadmin/users')?>',
+                method: 'DELETE'
             }
             confirmSwalHandler(data);
         }

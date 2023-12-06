@@ -23,24 +23,8 @@ class SuperadminLoginController extends BaseController
     public function loginAuth()
     {
         helper(['form']);
-        $rules = [
-            'email' => [
-                'rules' => 'required|valid_email',
-                'errors' => [
-                    'required' => 'Email harus diisi',
-                    'valid_email' => 'Email tidak valid'
-                ]
-            ],
-            'password' => [
-                'rules' => 'required|min_length[8]',
-                'errors' => [
-                    'required' => 'Password harus diisi',
-                    'min_length' => 'Password setidaknya terdiri dari 8 karakter',
-                ]
-            ],
-        ];
 
-        if (!$this->validate($rules)) {
+        if(!$this->validate('login')) {
             $data = [
                 'title' => 'Login',
                 'validation' => $this->validator

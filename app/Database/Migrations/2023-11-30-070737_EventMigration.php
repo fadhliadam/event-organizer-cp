@@ -54,7 +54,7 @@ class EventMigration extends Migration
                 'unsigned' => true
             ],
             'date' => [
-                'type' => 'TIMESTAMP',
+                'type' => 'DATE',
             ],
             'country' => [
                 'type' => 'VARCHAR',
@@ -84,7 +84,7 @@ class EventMigration extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'required_approval' => [
+            'required_approval' => [ // not required (0), required (1)
                 'type' => 'TINYINT',
                 'constraint' => 1,
                 'unsigned' => true,
