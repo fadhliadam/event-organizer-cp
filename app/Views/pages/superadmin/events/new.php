@@ -1,5 +1,9 @@
 <?= $this->extend('layouts/main_dashboard'); ?>
 
+<?= $this->section('heads'); ?>
+    <link rel="stylesheet" href="<?= base_url('assets/css/quill.snow.css'); ?>">
+<?= $this->endSection(); ?>
+
 <?= $this->section('page_title'); ?>
     <?= view_cell('\App\Libraries\HeadingPointer::show', ['title_header' => 'Form Tambah Event', 'description' => 'Anda bisa menambah event baru disini.']); ?>
 <?= $this->endSection(); ?>
@@ -16,7 +20,7 @@
                                 <div class="row">
                                 <div class="col-12 mb-4">
                                         <label for="banner" class="form-label fw-bold">Banner</label>
-                                        <label for="banner" class="position-relative overflow-hidden w-full h-100 p-3 py-xl-4 rounded text-center bg-secondary-subtle border d-flex align-items-center justify-content-center" style="cursor:pointer">
+                                        <label for="banner" class="position-relative overflow-hidden w-full h-100 p-3 py-xl-5 rounded text-center bg-secondary-subtle border d-flex align-items-center justify-content-center" style="cursor:pointer">
                                             <div class="fs-3">
                                                 <i class="bi bi-plus-lg"></i>
                                             </div>
@@ -28,7 +32,7 @@
                                             <?= $validation->getError('banner'); ?>
                                         </div>
                                     </div>
-                                    <div class="col-12 mt-3">
+                                    <div class="col-12 mt-5">
                                         <div class="form-group has-icon-left">
                                             <label for="name" class="form-label">Nama Event</label>
                                             <div class="position-relative">
@@ -79,7 +83,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check form-check-danger">
-                                            <input class="form-check-input" type="radio" name="event_type" value="0" id="offline">
+                                            <input class="form-check-input" type="radio" name="event_type" value="1" id="offline">
                                             <label class="form-check-label text-capitalize" style="cursor: pointer;" for="offline">
                                                 Offline
                                             </label>
@@ -241,13 +245,16 @@
                                             <label for="category" class="form-label">Kategori</label>
                                             <select class="form-select" name="category_id" id="category">
                                                 <option value="" selected disabled>--Pilih Kategori--</option>
-                                                <option>IT</option>
-                                                <option>Blade Runner</option>
-                                                <option>Thor Ragnarok</option>
+                                                <?php foreach($categories as $category): ?>
+                                                    <option value="<?= $category->id; ?>" class="text-capitalize"><?= $category->name; ?></option>
+                                                <?php endforeach; ?>
                                             </select>
+                                            <div class="d-block invalid-feedback">
+                                                <?= $validation->getError('category_id'); ?>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 mb-2">
                                         <label class="form-label fw-bold" for="required_approval">Required Approval</label>
                                         <div class="form-check">
                                             <div class="custom-control custom-checkbox">
@@ -270,6 +277,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <input type="hidden" name="description" id="description">
+                                        <div class="form-group">
+                                            <label class="form-label">Deskripsi</label>
+                                            <div id="description-editor"></div>
+                                        </div>
+                                        <div class="d-block invalid-feedback">
+                                            <?= $validation->getError('description'); ?>
+                                        </div>
+                                    </div>
                                     <div class="mt-5 col-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
@@ -285,6 +302,7 @@
     </div>
 <?= $this->endSection(); ?>
 <?= $this->section('scripts'); ?>
+<script src="<?= base_url('assets/js/quill.min.js'); ?>"></script>
 <script>
     function imagePreview(file) {
         const url = URL.createObjectURL(file);
@@ -309,5 +327,14 @@
         const file = target.files[0];
         imagePreview(file);
     })
+
+    // quill editor
+    const descriptionEditor = new Quill("#description-editor", {
+        theme: "snow",
+        placeholder: 'Isikan deskripsi event'
+    });
+    descriptionEditor.on("text-change", function (delta, odDelta, source) {
+        $('#description').val(descriptionEditor.root.innerHTML);
+    });
 </script>
 <?= $this->endSection(); ?>
