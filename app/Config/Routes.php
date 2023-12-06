@@ -10,13 +10,14 @@ use App\Controllers\Superadmin\SuperadminDashboardController;
 use App\Controllers\Superadmin\SuperadminLoginController;
 use App\Controllers\Superadmin\SuperadminUserController;
 use App\Controllers\Superadmmin\SuperadminEventController;
+use App\Controllers\User\UserEventController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
  */
 
-$routes->set404Override(function() {
+$routes->set404Override(function () {
     $data['title'] = 'Not Found';
     return view('pages/notfound/index', $data);
 });
@@ -27,6 +28,7 @@ $routes->get('/login', [Login::class, 'index']);
 $routes->get('/logout', [Login::class, 'logout']);
 $routes->get('/login/process', [Login::class, 'process']);
 $routes->get('/dashboard', [UserDashboardController::class, 'index'], ['filter' => 'auth']);
+$routes->get('/events/(:num)', [UserEventController::class, 'detail'], ['filter' => 'auth']);
 
 $routes->group('/admin', function ($routes) {
     $routes->get('login', [AdminLoginController::class, 'index']);
@@ -52,7 +54,7 @@ $routes->group('/superadmin', function ($routes) {
         $routes->put('edit/(:num)', [SuperadminUserController::class, 'update']);
         $routes->delete('delete/(:num)', [SuperadminUserController::class, 'destroy']);
     });
-    
+
     $routes->group('events', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [SuperadminEventController::class, 'index']);
         $routes->get('new', [SuperadminEventController::class, 'new']);

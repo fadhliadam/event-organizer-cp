@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="bg-body-tertiary border-bottom">
-        <nav class="navbar navbar-expand-lg border-bottom">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
             <div class="container">
                 <div class="logo">
                     <a class="fs-5" href="<?= base_url('/dashboard'); ?>"><span class="fs-2">E</span>vent Organizer</a>
@@ -67,22 +67,6 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
-            <div class="row-2 my-3">
-                <div class="btn-group btn-group-sm flex-wrap" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="Semua" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="Semua">
-                        Semua
-                    </label>
-                    <?php foreach ($categories as $category) : ?>
-                        <input type="radio" class="btn-check" name="btnradio" id="<?= $category->name; ?>" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="<?= $category->name; ?>">
-                            <?= $category->name; ?>
-                        </label>
-                    <?php endforeach ?>
-                </div>
-            </div>
-        </div>
     </div>
 </header>
 <?= $this->section('scripts'); ?>

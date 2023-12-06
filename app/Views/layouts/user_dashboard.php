@@ -14,6 +14,10 @@
         border: 0;
         background-color: transparent;
     }
+
+    .card[data-clickable=true] {
+        cursor: pointer;
+    }
 </style>
 <?= $this->endSection(); ?>
 <?= $this->include('layouts/head'); ?>
