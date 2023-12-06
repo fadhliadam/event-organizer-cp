@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +10,7 @@
 
     <!-- Datatables -->
     <link rel="stylesheet" href="<?= base_url('assets/css/dataTables.bootstrap5.min.css'); ?>">
-    
+
     <!-- Datatable Bootstrap -->
     <link rel="stylesheet" href="<?= base_url('assets/css/datatables.min.css'); ?>">
 
@@ -19,15 +20,15 @@
     <!-- Sweetalert 2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.css">
 
-     <!-- Google font -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;800&display=swap" rel="stylesheet">
 
     <!-- AOS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
-    
+
     <!-- Main css -->
     <link rel="stylesheet" href="<?= base_url('assets/css/main.css'); ?>">
 
@@ -37,4 +38,5 @@
     <title><?= $title ?></title>
 
 </head>
+
 <body>
