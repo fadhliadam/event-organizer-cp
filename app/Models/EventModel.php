@@ -31,7 +31,7 @@ class EventModel extends Model
         ->join('users user_owner', 'user_owner.id = events.owner', 'left')
         ->join('event_collaborators', 'event_collaborators.event_id = events.id', 'left')
         ->join('users user_collabrator', 'user_collabrator.id = event_collaborators.user_id', 'left')
-        ->where('events.id', $id)
+        ->where(['events.id' => $id])
         ->get()->getResult();
     }
 

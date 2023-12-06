@@ -137,7 +137,7 @@
                                         </div>    
                                     </div>
                                     <div class="col-12 row">
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="country">Negara</label>
                                                 <div class="position-relative">
@@ -151,7 +151,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="province">Provinsi</label>
                                                 <div class="position-relative">
@@ -167,7 +167,7 @@
                                         </div>    
                                     </div>
                                     <div class="col-12 row">
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="city">Kota</label>
                                                 <div class="position-relative">
@@ -181,7 +181,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="postal_code">Kode Pos</label>
                                                 <div class="position-relative">
@@ -211,7 +211,7 @@
                                         </div>
                                     </div> 
                                     <div class="col-12 row">
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="host">Nama Host</label>
                                                 <div class="position-relative">
@@ -225,7 +225,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="host_email">Email Host</label>
                                                 <div class="position-relative">

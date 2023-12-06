@@ -25,6 +25,14 @@ class UserModel extends Model
         ->get()->getResult();
     }
 
+    public function getIdUserByEmail($email)
+    {
+        return $this->db->table('users')
+        ->select('id')
+        ->where('email', $email)
+        ->get()->getResult();
+    }
+
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

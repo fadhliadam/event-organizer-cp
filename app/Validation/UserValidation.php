@@ -21,9 +21,12 @@ class UserValidation
     {
         $userModel = new UserModel();
         $user = $userModel->where('email', $value)->first();
-        if(!$user || $user->role_id != 3) {
-            // $error = lang('myerrors.user_valid_email');
-            return false;
+        if($value) {
+            if(!$user || $user->role_id != 3) {
+                // $error = lang('myerrors.user_valid_email');
+                return false;
+            }
+            return true;
         }
         return true;
     }
