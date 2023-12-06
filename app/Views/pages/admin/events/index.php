@@ -1,288 +1,182 @@
 <?= $this->extend('layouts/main_dashboard'); ?>
-
-<?= $this->section('heads'); ?>
-<link rel="stylesheet" href="<?= base_url('assets/css/app.css'); ?>">
-
-<link rel="stylesheet" href="<?= base_url('assets/css/simple-table.css'); ?>">
-<link rel="stylesheet" href="<?= base_url('assets/css/simple-table-datatable.css'); ?>">
-<?= $this->endSection(); ?>
-
 <?= $this->section('page_title'); ?>
-<?= view_cell('\App\Libraries\HeadingPointer:show', ['title_header' => 'Events', 'description' => 'Kelola data Event Anda disini']); ?>
+    <?= view_cell('\App\Libraries\HeadingPointer::show', ['title_header' => 'List Events', 'description' => 'Kelola data event Anda disini']); ?>
 <?= $this->endSection(); ?>
+
 <?= $this->section('main_dashboard_content'); ?>
-
-
-<div class="container-fluid text-black">
-    <div class="container-fluid mt-4">
-        <section class="section">
-            <div class="card" data-aos="fade-up">
-                <div class="card-header text-end">
-                    <a href="<?= base_url('/admin/events/new'); ?>" class="btn btn-sm icon icon-left btn-danger">
-                        <i class="bi bi-person-plus"></i>
-                        Tambah
-                    </a>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped" id="simple-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Collaborator</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Graiden</td>
-                                <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                <td>076 4820 8838</td>
-                                <td>Offenburg</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dale</td>
-                                <td>fringilla.euismod.enim@quam.ca</td>
-                                <td>0500 527693</td>
-                                <td>New Quay</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Nathaniel</td>
-                                <td>mi.Duis@diam.edu</td>
-                                <td>(012165) 76278</td>
-                                <td>Grumo Appula</td>
-                                <td>
-                                    <span class="badge bg-warning">Progress</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Darius</td>
-                                <td>velit@nec.com</td>
-                                <td>0309 690 7871</td>
-                                <td>Ways</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Oleg</td>
-                                <td>rhoncus.id@Aliquamauctorvelit.net</td>
-                                <td>0500 441046</td>
-                                <td>Rossignol</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kermit</td>
-                                <td>diam.Sed.diam@anteVivamusnon.org</td>
-                                <td>(01653) 27844</td>
-                                <td>Patna</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jermaine</td>
-                                <td>sodales@nuncsit.org</td>
-                                <td>0800 528324</td>
-                                <td>Mold</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ferdinand</td>
-                                <td>gravida.molestie@tinciduntadipiscing.org</td>
-                                <td>(016977) 4107</td>
-                                <td>Marlborough</td>
-                                <td>
-                                    <span class="badge bg-warning">Progress</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kuame</td>
-                                <td>Quisque.purus@mauris.org</td>
-                                <td>(0151) 561 8896</td>
-                                <td>Tresigallo</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Deacon</td>
-                                <td>Duis.a.mi@sociisnatoquepenatibus.com</td>
-                                <td>07740 599321</td>
-                                <td>Karapınar</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Channing</td>
-                                <td>tempor.bibendum.Donec@ornarelectusante.ca</td>
-                                <td>0845 46 49</td>
-                                <td>Warrnambool</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Aladdin</td>
-                                <td>sem.ut@pellentesqueafacilisis.ca</td>
-                                <td>0800 1111</td>
-                                <td>Bothey</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Cruz</td>
-                                <td>non@quisturpisvitae.ca</td>
-                                <td>07624 944915</td>
-                                <td>Shikarpur</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Keegan</td>
-                                <td>molestie.dapibus@condimentumDonecat.edu</td>
-                                <td>0800 200103</td>
-                                <td>Assen</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ray</td>
-                                <td>placerat.eget@sagittislobortis.edu</td>
-                                <td>(0112) 896 6829</td>
-                                <td>Hofors</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Maxwell</td>
-                                <td>diam@dapibus.org</td>
-                                <td>0334 836 4028</td>
-                                <td>Thane</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Carter</td>
-                                <td>urna.justo.faucibus@orci.com</td>
-                                <td>07079 826350</td>
-                                <td>Biez</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Stone</td>
-                                <td>velit.Aliquam.nisl@sitametrisus.com</td>
-                                <td>0800 1111</td>
-                                <td>Olivar</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Berk</td>
-                                <td>fringilla.porttitor.vulputate@taciti.edu</td>
-                                <td>(0101) 043 2822</td>
-                                <td>Sanquhar</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Philip</td>
-                                <td>turpis@euenimEtiam.org</td>
-                                <td>0500 571108</td>
-                                <td>Okara</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kibo</td>
-                                <td>feugiat@urnajustofaucibus.co.uk</td>
-                                <td>07624 682306</td>
-                                <td>La Cisterna</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Bruno</td>
-                                <td>elit.Etiam.laoreet@luctuslobortisClass.edu</td>
-                                <td>07624 869434</td>
-                                <td>Rocca d"Arce</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Leonard</td>
-                                <td>blandit.enim.consequat@mollislectuspede.net</td>
-                                <td>0800 1111</td>
-                                <td>Lobbes</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Hamilton</td>
-                                <td>mauris@diam.org</td>
-                                <td>0800 256 8788</td>
-                                <td>Sanzeno</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Harding</td>
-                                <td>Lorem.ipsum.dolor@etnetuset.com</td>
-                                <td>0800 1111</td>
-                                <td>Obaix</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Emmanuel</td>
-                                <td>eget.lacus.Mauris@feugiatSednec.org</td>
-                                <td>(016977) 8208</td>
-                                <td>Saint-Remy-Geest</td>
-                                <td>
-                                    <span class="badge bg-success">Done</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+<div class="card">
+        <div class="card-header text-end">
+            <a href="<?= base_url('/admin/events/new'); ?>" class="btn btn-sm icon icon-left btn-danger">
+                <i class="bi bi-person-plus"></i>
+                Tambah
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped" id="tableEvent">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Deskripsi</th>
+                            <th>Banner</th>
+                            <th>Target Audience</th>
+                            <th>Kuota</th>
+                            <th>Tipe Event</th>
+                            <th>Link</th>
+                            <th>Harga</th>
+                            <th>Tanggal</th>
+                            <th>Sisa hari</th>
+                            <th>Alamat</th>
+                            <th>Host</th>
+                            <th>Email Host</th>
+                            <th>Required Approval</th>
+                            <th>Kategori</th>
+                            <th>Owner</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                            $no = 1;
+                            function dayDifferent ($date)  {
+                                $date = strtotime($date);
+                                $current_date = strtotime(date('Y-m-d'));
+                                $jarak = $date - $current_date;
+                                $hari = $jarak / 60 / 60 / 24;
+                                return $hari;
+                              };
+                            foreach($events as $event):
+                         ?>
+                        <tr>
+                            <td><?= $no++; ?></td>
+                            <td><?= $event->name ?></td>
+                            <td>
+                                <div class="limit-text"><?= $event->description; ?></div>
+                            </td>
+                            <td>
+                                <img src="<?= base_url('assets/'.$event->banner); ?>" alt="banner" class="h-100 img-fluid object-fit-cover rounded">
+                            </td>
+                            <td>
+                               <?= $event->target_audience; ?>
+                            </td>
+                            <td>
+                                <?= $event->quota; ?>
+                            </td>
+                            <td>
+                                <?php if($event->event_type == 0): ?>
+                                    <span class="badge bg-primary">Online</span>
+                                <?php else: ?>
+                                    <span class="badge bg-success">Offline</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if($event->link): ?>
+                                    <a href="<?= $event->link; ?>" target="_blank" rel="noopener noreferrer"><?= $event->link; ?></a>
+                                <?php else: ?>
+                                    <span>Tidak ada</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?= $event->price == 0 ? 'Free' : $event->price; ?>
+                            </td>
+                            <td>
+                                <?= $event->date ?>
+                            </td>
+                            <td>
+                                <?= dayDifferent($event->date) > 0 ? dayDifferent($event->date) : '0' ?> hari
+                            </td>
+                            <td>
+                                <?= $event->street. ', '. $event->city. ', '. $event->province. ', '. $event->country. '-'. $event->postal_code ?>
+                            </td>
+                            <td>
+                                <?= $event->host; ?>
+                            </td>
+                            <td>
+                                <?= $event->host_email; ?>
+                            </td>
+                            <td>
+                               <?php if($event->required_approval == 1): ?>
+                                    <span class="badge bg-success">Ya</span>
+                                <?php else: ?>
+                                    <span class="badge bg-danger">Tidak</span>
+                               <?php endif; ?>
+                            </td>
+                            <td>
+                                <span class="text-capitalize">
+                                    <?= $event->category_name; ?>
+                                </span>
+                            </td>
+                            <td>
+                                <?= $event->username; ?>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a href="<?= base_url('/superadmin/users/edit/'.$event->id)?>" class="btn btn-sm icon icon-left btn-outline-success">
+                                        <i class="bi bi-person-gear"></i>
+                                        Edit
+                                    </a>
+                                    <?php if(is_null($event->deleted_at)): ?>
+                                        <button onclick="return deleteEvent('<?= base_url('/superadmin/events/delete/'.$event->id)?>')"  class="btn btn-sm icon icon-left btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                            Hapus
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
-
-        </section>
+        </div>
     </div>
-</div>
-
-
 <?= $this->endSection(); ?>
-
 <?= $this->section('scripts'); ?>
+    <script>
+        let jquery_datatable = $("#tableEvent").DataTable({
+            responsive: true
+        })
 
-<script src="<?= base_url('assets/js/umd-simple-datatables.js') ?>"></script>
-<script src="<?= base_url('assets/js/simple-datatables.js') ?>"></script>
+        const setTableColor = () => {
+            document.querySelectorAll('.dataTables_paginate .pagination').forEach(dt => {
+                dt.classList.add('pagination-primary')
+            })
+        }
+        setTableColor()
+        jquery_datatable.on('draw', setTableColor)
+    </script>
+    <script>
+        const deleteEvent = (url) => {
+            const data = {
+                title: 'Hapus Event',
+                text: 'Apakah kamu ingin menghapus event ini?',
+                buttonText: 'Ya, hapus!',
+                url,
+                redirectTo: '<?= base_url('/superadmin/events')?>',
+                method: 'DELETE'
+            }
+            confirmSwalHandler(data);
+        }
+        $(() => {
+            <?php if(session()->has('success_message')):?>
+                Swal.fire({
+                    icon: 'success',
+                    text: '<?= session()->getFlashdata('success_message')?>',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            <?php endif;?>
+        })
+        $(() => {
+            <?php if(session()->has('error_message')):?>
+                Swal.fire({
+                    icon: 'error',
+                    text: '<?= session()->getFlashdata('error_message')?>',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            <?php endif;?>
+        })
+    </script>
 <?= $this->endSection(); ?>
