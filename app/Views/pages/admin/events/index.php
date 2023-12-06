@@ -112,12 +112,12 @@
                             </td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a href="<?= base_url('/superadmin/users/edit/'.$event->id)?>" class="btn btn-sm icon icon-left btn-outline-success">
+                                    <a href="<?= base_url('/admin/users/edit/'.$event->id)?>" class="btn btn-sm icon icon-left btn-outline-success">
                                         <i class="bi bi-person-gear"></i>
                                         Edit
                                     </a>
                                     <?php if(is_null($event->deleted_at)): ?>
-                                        <button onclick="return deleteEvent('<?= base_url('/superadmin/events/delete/'.$event->id)?>')"  class="btn btn-sm icon icon-left btn-outline-danger">
+                                        <button onclick="return deleteEvent('<?= base_url('/admin/events/delete/'.$event->id)?>')"  class="btn btn-sm icon icon-left btn-outline-danger">
                                             <i class="bi bi-trash"></i>
                                             Hapus
                                         </button>
@@ -153,7 +153,7 @@
                 text: 'Apakah kamu ingin menghapus event ini?',
                 buttonText: 'Ya, hapus!',
                 url,
-                redirectTo: '<?= base_url('/superadmin/events')?>',
+                redirectTo: '<?= base_url('/admin/events')?>',
                 method: 'DELETE'
             }
             confirmSwalHandler(data);

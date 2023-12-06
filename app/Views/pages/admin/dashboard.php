@@ -23,7 +23,7 @@
             <div class="col-6 col-lg-3 col-md-6 mb-4" data-aos="fade-up">
                 <div class="card text-bg-white inner p-2" style="border: none;">
                     <span class="fw-bold">Event Created</span>
-                    <h1 class="text-center">200</h1>
+                    <h1 class="text-center"><?= $eventsCount ?></h1>
                     <div class="col text-center text-success">
                         <i class="bi bi-arrow-up-short"></i>
                         <span class="text-center fs-2">50%</span>
@@ -35,8 +35,8 @@
             </div>
             <div class="col-6 col-lg-3 col-md-6 mb-4" data-aos="fade-up">
                 <div class="card text-bg-white inner p-2" style="border: none;">
-                    <span class="fw-bold">Public Events</span>
-                    <h1 class="text-center">200</h1>
+                    <span class="fw-bold">Online Events</span>
+                    <h1 class="text-center"><?= $eventsOnlineCount ?></h1>
                     <div class="col text-center text-danger">
                         <i class="bi bi-arrow-down-short"></i>
                         <span class="text-center fs-2">50%</span>
@@ -48,8 +48,8 @@
             </div>
             <div class="col-6 col-lg-3 col-md-6 mb-4" data-aos="fade-up">
                 <div class="card text-bg-white inner p-2" style="border: none;">
-                    <span class="fw-bold">Private Events</span>
-                    <h1 class="text-center">200</h1>
+                    <span class="fw-bold">Offline Events</span>
+                    <h1 class="text-center"><?= $eventsOfflineCount ?></h1>
                     <div class="col text-center text-success">
                         <i class="bi bi-arrow-up-short"></i>
                         <span class="text-center fs-2">50%</span>

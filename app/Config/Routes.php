@@ -39,14 +39,12 @@ $routes->group('/admin', function ($routes) {
         $routes->get('/', [AdminEventController::class, 'index']);
         $routes->get('new', [AdminEventController::class, 'new']);
         $routes->post('new', [AdminEventController::class, 'store']);
-        // $routes->get('edit/(:num)', [AdminEventController::class, 'edit']);
-        // $routes->put('edit/(:num)', [AdminEventController::class, 'update']);
-        // $routes->get('delete/(:num)', [AdminEventController::class, 'destroy']);
+        $routes->get('edit/(:num)', [AdminEventController::class, 'edit']);
+        $routes->put('edit/(:num)', [AdminEventController::class, 'update']);
+        $routes->get('delete/(:num)', [AdminEventController::class, 'destroy']);
     });
     $routes->group('collaborators', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [AdminCollaboratorController::class, 'index']);
-        $routes->get('new', [AdminCollaboratorController::class, 'new']);
-        $routes->post('new', [AdminCollaboratorController::class, 'store']);
         // $routes->get('edit/(:num)', [AdminCollaboratorController::class, 'edit']);
         // $routes->put('edit/(:num)', [AdminCollaboratorController::class, 'update']);
         // $routes->get('delete/(:num)', [AdminCollaboratorController::class, 'destroy']);
