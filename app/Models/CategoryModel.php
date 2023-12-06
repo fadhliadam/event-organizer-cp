@@ -4,29 +4,18 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class CategoryModel extends Model
 {
-    protected $DBGroup          = 'default';
-    protected $table            = 'users';
+    protected $table            = 'categories';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'App\Entities\UserEntity';
+    protected $returnType       = 'App\Entities\CategoryEntity';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_google', 'username', 'password', 'email', 'image', 'role_id', 'deleted_at'];
-
-    public function getUsers($id_user_loggin) 
-    {
-        return $this->db->table('users')
-        ->select('users.*, roles.name role_name')
-        ->join('roles', 'roles.id = users.role_id')
-        ->whereNotIn('users.id', [$id_user_loggin])
-        ->orderBy('users.created_at', 'DESC')
-        ->get()->getResult();
-    }
+    protected $allowedFields    = ['name'];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

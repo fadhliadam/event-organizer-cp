@@ -63,7 +63,8 @@
             text: 'Apakah kamu ingin keluar dari aplikasi?',
             buttonText: 'Ya, logout!',
             url:'<?= base_url('/superadmin/logout')?>',
-            redirectTo: '<?= base_url('/superadmin/login')?>'
+            redirectTo: '<?= base_url('/superadmin/login')?>',
+            method: "DELETE"
         }
         confirmSwalHandler(data);
     })

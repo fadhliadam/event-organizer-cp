@@ -1,4 +1,11 @@
-function confirmSwalHandler({ title, text, buttonText, url, redirectTo }) {
+function confirmSwalHandler({
+  title,
+  text,
+  buttonText,
+  url,
+  redirectTo,
+  method = "GET",
+}) {
   Swal.fire({
     icon: "warning",
     title,
@@ -10,7 +17,7 @@ function confirmSwalHandler({ title, text, buttonText, url, redirectTo }) {
     if (result.isConfirmed) {
       $.ajax({
         url,
-        method: "GET",
+        method,
         dataType: "json",
         success: function (response) {
           if (response.status === "success") {
