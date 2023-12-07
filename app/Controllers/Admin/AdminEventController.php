@@ -42,7 +42,7 @@ class AdminEventController extends BaseController
     public function store()
     {
         helper(['form']);
-        if(! $this->validate('addEvent')) {
+        if(! $this->validate('addEventAdmin')) {
             $categoryModel = new CategoryModel();
             $categories = $categoryModel->findAll();
 
@@ -84,10 +84,10 @@ class AdminEventController extends BaseController
         $event->required_approval = $this->request->getPost('required_approval') == 'on' ? true : false;
         $event->category_id = $validateData['category_id'];
 
-        $eventOwner = $validateData['owner'];
+        // $eventOwner = $validateData['owner'];
         $userModel = new UserModel();
-        $user = $userModel->where('email', $eventOwner)->first();
-        $event->owner = $user->id;
+        // $user = $userModel->where('email', $eventOwner)->first();
+        $event->owner = session()->get('id');
 
         $eventModel = new EventModel();
         $eventModel->save($event);
