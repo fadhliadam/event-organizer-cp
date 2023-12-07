@@ -25,7 +25,7 @@ $routes->set404Override(function () {
 $routes->get('/', [Home::class, 'index']);
 
 $routes->get('/login', [Login::class, 'index']);
-$routes->get('/logout', [Login::class, 'logout']);
+$routes->delete('/logout', [Login::class, 'logout']);
 $routes->get('/login/process', [Login::class, 'process']);
 $routes->get('/dashboard', [UserDashboardController::class, 'index'], ['filter' => 'auth']);
 $routes->get('/events/(:num)', [UserEventController::class, 'detail'], ['filter' => 'auth']);

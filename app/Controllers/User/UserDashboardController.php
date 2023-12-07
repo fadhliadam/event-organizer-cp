@@ -12,6 +12,7 @@ class UserDashboardController extends BaseController
 
     public function index()
     {
+        helper(['number']);
         $categoryModel = new CategoryModel();
         $categories = $categoryModel->findAll();
         $eventModel = new EventModel();

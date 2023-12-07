@@ -1,5 +1,12 @@
 <?= $this->extend('layouts/user_dashboard'); ?>
-
+<?= $this->section('heads'); ?>
+<style>
+    .event-info {
+        font-size: 8pt;
+        font-weight: 500;
+    }
+</style>
+<?= $this->endSection(); ?>
 <?= $this->section('page_title'); ?>
 <?= view_cell('\App\Libraries\HeadingPointer::show', ['title_header' => 'Dashboard', 'description' => 'Lihat list event yang tersedia'])  ?>
 <?= $this->endSection(); ?>
@@ -26,45 +33,33 @@
 
 <section class="container">
     <div class="my-3">
-        <p class="fw-bold">Showing 35 results</p>
+        <p class="fw-bold">Showing <?= count($events); ?> results</p>
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
         <?php foreach ($events as $event) : ?>
             <div class="col">
-                <div class="card" data-clickable="true" data-href="<?= base_url('events/' . $event->id); ?>">
+                <div class="card shadow" data-clickable="true" data-href="<?= base_url('events/' . $event->id); ?>">
                     <img src="<?= base_url('assets/' . $event->banner); ?>" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h6 class="card-title"><?= $event->name; ?></h6>
-                        <p class="card-text small"><?= $event->date ?></p>
-                        <p class="card-text small"><?= $event->street ?></p>
+                    <div class="py-3 px-2">
+                        <p class="card-title small fw-bold mb-1 text-truncate"><?= $event->name; ?></p>
+                        <p class="card-text event-info mb-1"><?= $event->date ?></p>
+                        <p class="card-text event-info mb-1"><?= $event->street ?></p>
+                        <?php
+                        $availabilityStyle = 'text-secondary fs-6 fw-bold';
+                        $availability = 'Terjual habis';
+                        $price = '';
+                        if ($event->quota != 0) {
+                            $availabilityStyle = 'text-success';
+                            $availability = 'Tersedia sekarang';
+                            $price = number_to_currency($event->price, 'IDR', 'id_ID');
+                        }
+                        ?>
+                        <p class="card-text event-info text-danger fs-6 mb-1"><?= $price; ?></p>
+                        <p class="card-text event-info <?= $availabilityStyle; ?>"><?= $availability; ?></p>
                     </div>
                 </div>
             </div>
         <?php endforeach ?>
-        <div class="col">
-            <div class="card" data-clickable="true" data-href="http://google.com">
-                <img src="assets/images/events/banner.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" data-clickable="true" data-href="http://google.com">
-                <img src="assets/images/events/banner.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" data-clickable="true" data-href="http://google.com">
-                <img src="assets/images/events/banner.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 <?= $this->endSection(); ?>
