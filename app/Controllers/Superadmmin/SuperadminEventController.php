@@ -153,7 +153,7 @@ class SuperadminEventController extends BaseController
             return view('pages/superadmin/events/edit', $data);
         }
 
-        $event = $eventModel->find($id);
+        $event = $eventModel->withDeleted()->find($id);
         $imageFile = $this->request->getFile('banner');
         $imageFileName = $imageFile->getRandomName();
 
@@ -183,29 +183,44 @@ class SuperadminEventController extends BaseController
         $event->category_id = $validateData['category_id'];
         
         if($event->hasChanged()) {
-            if($validateData['collaborator'] && $this->request->getPost('collaborator')) {
-                $oldEvent = $eventModel->getEventById($id)[0];
-                $userModel = new UserModel();
-                $collaboratorModel = new EventCollaboratorModel();
-                $collaborator_id = $userModel->where('email', $oldEvent->collaborator)->first();
-                $collaborator_id = $collaborator_id->id;
-                
-                $checkExistCollaborator = $collaboratorModel->where(['user_id' => $collaborator_id, 'event_id' => $event->id])->first();
-                if($checkExistCollaborator) {
-                    $collaborator_id_new = $userModel->where('email', $validateData['collaborator'])->first();
-                    $collaboratorModel->update($checkExistCollaborator->id, ['user_id' => $collaborator_id_new->id]);
+            $oldEvent = $eventModel->getEventById($id)[0];
+            $collaboratorModel = new EventCollaboratorModel();
+            $userModel = new UserModel();
+            $collaborator = new \App\Entities\EventCollaboratorEntity();
+            
+            if(! is_null($oldEvent->collaborator)) {
+                $collaborator_user_id = $userModel->getIdUserByEmail($oldEvent->collaborator)[0];
+                $collaborator_user_id = $collaborator_user_id->id;
+                $checkExistCollaborator = $collaboratorModel->where(['user_id' => $collaborator_user_id, 'event_id' => $event->id])->first();
+                if($validateData['collaborator'] && $this->request->getPost('collaborator')) {
+                    $collaborator_user_id_new = $userModel->getIdUserByEmail($validateData['collaborator'])[0];
+                    if($checkExistCollaborator) {
+                        $collaboratorModel->update($checkExistCollaborator->id, ['user_id' => $collaborator_user_id_new->id]);
+                    } else {
+                        $collaborator->user_id = $collaborator_user_id_new;
+                        $collaborator->event_id = $event->id;
+            
+                        $collaboratorModel->save($collaborator);
+                    }
                 } else {
-                    $collaborator = new \App\Entities\EventCollaboratorEntity();
-                    $collaborator->user_id = $collaborator_id;
-                    $collaborator->event_id = $event->id;
-        
-                    $collaboratorModel->save($collaborator);
+                    $collaboratorModel->delete($checkExistCollaborator->id);
                 }
-            }
 
-            $eventModel->save($event);
-            return redirect()->to(base_url('/superadmin/events'))->with('success_message', 'Berhasil mengubah event');
+                $eventModel->save($event);
+                return redirect()->to(base_url('/superadmin/events'))->with('success_message', 'Berhasil mengubah event');
+            } else {
+
+                $collaborator_user_id = $userModel->getIdUserByEmail($validateData['collaborator'])[0];
+                $collaborator_user_id = $collaborator_user_id->id;
+                $collaborator->user_id = $collaborator_user_id;
+                $collaborator->event_id = $event->id;
+                $collaboratorModel->save($collaborator);
+
+                $eventModel->save($event);
+                return redirect()->to(base_url('/superadmin/events'))->with('success_message', 'Berhasil mengubah event');
+            }
         }
+
     }
 
     public function destroy(int $id)
