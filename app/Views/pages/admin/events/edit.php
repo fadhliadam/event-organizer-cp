@@ -269,20 +269,6 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="form-group has-icon-left">
-                                            <label class="form-label" for="owner">Owner</label>
-                                            <div class="position-relative">
-                                                <input type="email" name="owner" readonly disabled class="form-control <?= $validation->hasError('owner') ? 'is-invalid' : ''; ?>" placeholder="isikan email pemilik event" id="owner" value="<?= set_value('owner', $event->owner_email); ?>">
-                                                <div class="form-control-icon">
-                                                    <i class="bi bi-envelope-at-fill"></i>
-                                                </div>
-                                            </div>
-                                            <div class="d-block invalid-feedback">
-                                                <?= $validation->getError('owner'); ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
                                         <input type="hidden" name="description" id="description" value="<?= set_value('description', $event->description); ?>">
                                         <div class="form-group">
                                             <label class="form-label">Deskripsi</label>

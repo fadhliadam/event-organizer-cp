@@ -34,7 +34,7 @@
                                 <td><?= $collaborator->user_username; ?></td>
                                 <td><?= $collaborator->user_email; ?></td>
                                 <td><?= $collaborator->event_name; ?></td>
-                                <td><?= $collaborator->event_street.', '.$collaborator->event_city.', '.$collaborator->event_province.', '.$collaborator->event_country.', '.$collaborator->event_postal_code; ?></td>
+                                <td><?= $collaborator->event_street . ', ' . $collaborator->event_city . ', ' . $collaborator->event_province . ', ' . $collaborator->event_country . ', ' . $collaborator->event_postal_code; ?></td>
                                 <td>
                                     <span class="badge bg-success">Active</span>
                                 </td>

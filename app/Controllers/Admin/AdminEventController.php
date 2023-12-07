@@ -14,7 +14,7 @@ class AdminEventController extends BaseController
     public function index()
     {
         $eventModel = new EventModel();
-        $events = $eventModel->where('owner', session('id'))->findAll();
+        $events = $eventModel->getEventsWithOwner(session('id'));
         $data = [
             'title' => 'Events',
             'events' => $events,
@@ -42,7 +42,7 @@ class AdminEventController extends BaseController
     public function store()
     {
         helper(['form']);
-        if(! $this->validate('addEventAdmin')) {
+        if (!$this->validate('addEventAdmin')) {
             $categoryModel = new CategoryModel();
             $categories = $categoryModel->findAll();
 
@@ -51,7 +51,7 @@ class AdminEventController extends BaseController
                 'validation' => $this->validator,
                 'categories' => $categories
             ];
-    
+
             return view('pages/admin/events/new', $data);
         }
 
@@ -60,9 +60,9 @@ class AdminEventController extends BaseController
         $imageFile = $this->request->getFile('banner');
         $imageFileName = $imageFile->getRandomName();
 
-        if($imageFile->isValid()) {
-            $imageFile->move(ROOTPATH.'public/assets/images/events/', $imageFileName);
-            $event->banner = 'images/events/'.$imageFileName;
+        if ($imageFile->isValid()) {
+            $imageFile->move(ROOTPATH . 'public/assets/images/events/', $imageFileName);
+            $event->banner = 'images/events/' . $imageFileName;
         }
 
         $validateData = $this->validator->getValidated();
@@ -70,7 +70,7 @@ class AdminEventController extends BaseController
         $event->description = $validateData['description'];
         $event->target_audience = $validateData['target_audience'];
         $event->quota = $validateData['quota'];
-        $event->event_type = $validateData['event_type'] == '0'? false : true;
+        $event->event_type = $validateData['event_type'] == '0' ? false : true;
         $event->link = $this->request->getPost('link');
         $event->price = $validateData['price'];
         $event->date = $validateData['date'];
@@ -95,7 +95,7 @@ class AdminEventController extends BaseController
         $event_id = $eventModel->getEvents();
         $event_id = $event_id[0]->id; // get event most new
 
-        if($validateData['collaborator'] && $this->request->getPost('collaborator')) {
+        if ($validateData['collaborator'] && $this->request->getPost('collaborator')) {
             $collaborator_id = $userModel->where('email', $validateData['collaborator'])->first();
             $collaborator = new \App\Entities\EventCollaboratorEntity();
             $collaborator->user_id = $collaborator_id->id;
@@ -107,16 +107,38 @@ class AdminEventController extends BaseController
         return redirect()->to(base_url('/admin/events'))->with('success_message', 'Berhasil menambahkan event');
     }
 
-    public function update(int $id) 
+    public function edit(int $id)
+    {
+        helper(['form']);
+        $categoryModel = new CategoryModel();
+        $categories = $categoryModel->findAll();
+
+        $eventModel = new EventModel();
+        $event = $eventModel->getEventById($id);
+        if (!$event) {
+            return redirect()->to(base_url('/admin/events'))->with('error_message', 'Event tidak ditemukan');
+        }
+
+        $data = [
+            'title' => 'Edit Event',
+            'categories' => $categories,
+            'event' => $event[0],
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('pages/admin/events/edit', $data);
+    }
+
+    public function update(int $id)
     {
         helper(['form']);
         $eventModel = new EventModel();
-        if(! $this->validate('updateEvent')) {
+        if (!$this->validate('updateEventAdmin')) {
             $categoryModel = new CategoryModel();
             $categories = $categoryModel->findAll();
             $event = $eventModel->getEventById($id);
-            
-            if(!$event) {
+
+            if (!$event) {
                 return redirect()->to(base_url('/admin/events'))->with('error_message', 'Event tidak ditemukan');
             }
 
@@ -134,10 +156,10 @@ class AdminEventController extends BaseController
         $imageFile = $this->request->getFile('banner');
         $imageFileName = $imageFile->getRandomName();
 
-        if($imageFile->isValid()) {
-            unlink(ROOTPATH.'public/assets/'.$event->banner);
-            $imageFile->move(ROOTPATH.'public/assets/images/events/', $imageFileName);
-            $event->banner = 'images/events/'.$imageFileName;
+        if ($imageFile->isValid()) {
+            unlink(ROOTPATH . 'public/assets/' . $event->banner);
+            $imageFile->move(ROOTPATH . 'public/assets/images/events/', $imageFileName);
+            $event->banner = 'images/events/' . $imageFileName;
         }
 
         $validateData = $this->validator->getValidated();
@@ -145,7 +167,7 @@ class AdminEventController extends BaseController
         $event->description = $validateData['description'];
         $event->target_audience = $validateData['target_audience'];
         $event->quota = $validateData['quota'];
-        $event->event_type = $validateData['event_type'] == '0'? false : true;
+        $event->event_type = $validateData['event_type'] == '0' ? false : true;
         $event->link = $this->request->getPost('link');
         $event->price = $validateData['price'];
         $event->date = $validateData['date'];
@@ -158,24 +180,24 @@ class AdminEventController extends BaseController
         $event->host_email = $validateData['host_email'];
         $event->required_approval = $this->request->getPost('required_approval') == 'on' ? true : false;
         $event->category_id = $validateData['category_id'];
-        
-        if($event->hasChanged()) {
-            if($validateData['collaborator'] && $this->request->getPost('collaborator')) {
+
+        if ($event->hasChanged()) {
+            if ($validateData['collaborator'] && $this->request->getPost('collaborator')) {
                 $oldEvent = $eventModel->getEventById($id)[0];
                 $userModel = new UserModel();
                 $collaboratorModel = new EventCollaboratorModel();
                 $collaborator_id = $userModel->where('email', $oldEvent->collaborator)->first();
                 $collaborator_id = $collaborator_id->id;
-                
+
                 $checkExistCollaborator = $collaboratorModel->where(['user_id' => $collaborator_id, 'event_id' => $event->id])->first();
-                if($checkExistCollaborator) {
+                if ($checkExistCollaborator) {
                     $collaborator_id_new = $userModel->where('email', $validateData['collaborator'])->first();
                     $collaboratorModel->update($checkExistCollaborator->id, ['user_id' => $collaborator_id_new->id]);
                 } else {
                     $collaborator = new \App\Entities\EventCollaboratorEntity();
                     $collaborator->user_id = $collaborator_id;
                     $collaborator->event_id = $event->id;
-        
+
                     $collaboratorModel->save($collaborator);
                 }
             }
@@ -189,7 +211,7 @@ class AdminEventController extends BaseController
     {
         $eventModel = new EventModel();
         $event = $eventModel->find($id);
-        if(! $event) {
+        if (!$event) {
             $response = [
                 'status' => 'error',
                 'message' => 'Gagal menghapus event, id tidak ditemukan'
@@ -197,11 +219,11 @@ class AdminEventController extends BaseController
             echo json_encode($response);
             exit;
         }
-            $response = [
-                'status' => 'success',
-                'message' => 'Berhasil menghapus event'
-            ];
-            $eventModel->where('id', $id)->delete();
-            echo json_encode($response);
+        $response = [
+            'status' => 'success',
+            'message' => 'Berhasil menghapus event'
+        ];
+        $eventModel->where('id', $id)->delete();
+        echo json_encode($response);
     }
 }

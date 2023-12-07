@@ -41,7 +41,7 @@ $routes->group('/admin', function ($routes) {
         $routes->post('new', [AdminEventController::class, 'store']);
         $routes->get('edit/(:num)', [AdminEventController::class, 'edit']);
         $routes->put('edit/(:num)', [AdminEventController::class, 'update']);
-        $routes->get('delete/(:num)', [AdminEventController::class, 'destroy']);
+        $routes->delete('delete/(:num)', [AdminEventController::class, 'destroy']);
     });
     $routes->group('collaborators', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [AdminCollaboratorController::class, 'index']);
