@@ -358,7 +358,7 @@ class Validation extends BaseConfig
             ]
         ],
         'collaborator' => [
-            'rules' => 'valid_email|collaborator_valid_email',
+            'rules' => 'collaborator_valid_email',
             'errors' => [
                 'valid_email' => 'Email kolaborator tidak valid',
                 'collaborator_valid_email' => 'Email ini tidak ditemukan di database atau tidak berhak sebagai collaborator',

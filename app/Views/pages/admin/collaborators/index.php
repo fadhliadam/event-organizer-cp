@@ -18,10 +18,10 @@
             <table class="table table-striped" id="simple-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Nama</th>
                         <th>Email</th>
                         <th>Event</th>
-                        <th>City</th>
+                        <th>Alamat</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -34,7 +34,7 @@
                                 <td><?= $collaborator->user_username; ?></td>
                                 <td><?= $collaborator->user_email; ?></td>
                                 <td><?= $collaborator->event_name; ?></td>
-                                <td>Offenburg</td>
+                                <td><?= $collaborator->event_street.', '.$collaborator->event_city.', '.$collaborator->event_province.', '.$collaborator->event_country.', '.$collaborator->event_postal_code; ?></td>
                                 <td>
                                     <span class="badge bg-success">Active</span>
                                 </td>

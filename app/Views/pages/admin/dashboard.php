@@ -111,7 +111,7 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                             <h6 class="text-muted font-semibold">Collaborators</h6>
-                            <h6 class="font-extrabold mb-0">183.000</h6>
+                            <h6 class="font-extrabold mb-0"><?= $eventCollaboratorCount ?></h6>
                         </div>
                     </div>
                 </div>
