@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
@@ -14,7 +15,7 @@ class AdminLoginController extends BaseController
             'title' => 'Login',
             'validation' => \Config\Services::validation()
         ];
-        if(session()->get('logged_in')){
+        if (session()->get('logged_in')) {
             return redirect()->to(base_url('/admin/dashboard'));
         }
         return view('pages/admin/login', $data);
@@ -40,12 +41,12 @@ class AdminLoginController extends BaseController
             ],
         ];
 
-        if(!$this->validate($rules)) {
+        if (!$this->validate($rules)) {
             $data = [
                 'title' => 'Login',
                 'validation' => $this->validator
             ];
-    
+
             return view('pages/admin/login', $data);
         }
 
@@ -54,16 +55,13 @@ class AdminLoginController extends BaseController
         $userEntity->password = $this->request->getPost('password');
         $userModel = new UserModel();
         $user = $userModel->where('email', $userEntity->email)->first();
-        if(!$user) {
+        if (!$user) {
             return redirect()->to(base_url('/admin/login'))->withInput()->with('error_message', 'Email yang Anda masukkan salah');
         }
-        
+
         $password = password_verify($this->request->getVar('password'), $user->password);
-        if(!$password) {
+        if (!$password) {
             return redirect()->to(base_url('/admin/login'))->withInput()->with('error_message', 'Password yang Anda masukkan salah');
-        }
-        if($user->role_id != 2) {
-            return redirect()->to(base_url('/admin/login'))->withInput()->with('error_message', 'Akun admin tidak ditemukan');
         }
 
         $dataSession = [
@@ -76,7 +74,20 @@ class AdminLoginController extends BaseController
         ];
 
         session()->set($dataSession);
-        return redirect()->to(base_url('/admin/dashboard'))->with('success_message', 'Berhasil login, selamat datang, '. $user->username);
+        switch ($user->role_id) {
+            case 1:
+                # code...
+                return redirect()->to(base_url('/admin/dashboard'))->with('success_message', 'Berhasil login, selamat datang, ' . $user->username);
+                break;
+            case 2:
+                # code...
+                return redirect()->to(base_url('/superadmin/dashboard'))->with('success_message', 'Berhasil login, selamat datang, ' . $user->username);
+                break;
+            default:
+                # code...
+                return redirect()->to(base_url('/admin/login'))->withInput()->with('error_message', 'Akun yang Anda masukkan tidak ditemukan');
+                break;
+        }
     }
 
     public function logout()
