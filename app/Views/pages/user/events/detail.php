@@ -11,7 +11,7 @@
             <h3><?= $event->name; ?></h3>
             <div class="fw-medium">
                 <span class="badge rounded-pill text-bg-primary">category</span>
-                <i class="bi bi-geo-alt-fill"></i> <?php echo ($event->city . ', ' . $event->province) ?>
+                <i class="bi bi-geo-alt-fill"></i> <?= $location; ?>
             </div>
             <div class="row my-3 justify-content-center">
                 <div class="col-8">
@@ -31,7 +31,7 @@
         <div class="col-3">
             <div class="p-3 rounded-4 shadow-sm bg-body-tertiary">
                 <p class="fs-5 mb-0 fw-medium">Harga</p>
-                <h3><?= number_to_currency($event->price, 'IDR', 'id_ID'); ?></h3>
+                <h3><?= $event->price ?></h3>
                 <div class="row p-2 my-1">
                     <button class="btn btn-primary fw-semibold">Daftar</button>
                 </div>
@@ -39,6 +39,11 @@
                     <i class="bi bi-calendar3"></i>
                     <span class="fw-bold small">Tanggal Event: </span>
                     <span class="fw-medium small"><?= $event->date; ?></span>
+                </div>
+                <div>
+                    <i class="bi bi-person-fill"></i>
+                    <span class="fw-bold small">Dibuka untuk: </span>
+                    <span class="fw-medium small"><?= $event->target_audience; ?></span>
                 </div>
             </div>
         </div>

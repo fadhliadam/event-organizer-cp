@@ -9,23 +9,24 @@ use CodeIgniter\I18n\Time;
 
 class UserDashboardController extends BaseController
 {
+    protected $categories, $eventModel;
+
+    public function __construct()
+    {
+        helper(['number', 'date']);
+        $this->categoryModel = new CategoryModel();
+        $this->categories = $this->categoryModel->findAll();
+        $this->eventModel = new EventModel();
+    }
 
     public function index()
     {
-        helper(['number']);
-        $categoryModel = new CategoryModel();
-        $categories = $categoryModel->findAll();
-        $eventModel = new EventModel();
-        $events = $eventModel->getEvents();
-
-        foreach ($events as $event) {
-            $event->date = $this->changeDateFormat($event->date);
-        }
-
         $data = [
             'title' => 'Dashboard',
-            'categories' => $categories,
-            'events' => $events,
+            'categories' => $this->categories,
+            'events' => $this->eventModel->paginate(6, 'events'),
+            'pager' => $this->eventModel->pager,
+            'time' => new Time()
         ];
         return view('pages/user/dashboard', $data);
     }
@@ -40,4 +41,17 @@ class UserDashboardController extends BaseController
 
         return $formattedDate;
     }
+
+    // public function filterCategory(string $category)
+    // {
+    //     $categosy = $this->categories;
+    //     $this->db->from('products');
+
+    //     if ((int)$category_id > 0) {
+    //         $this->db->where('category_id', $category_id);
+    //     }
+
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
 }

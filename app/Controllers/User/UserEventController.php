@@ -21,10 +21,21 @@ class UserEventController extends BaseController
         helper(['number']);
         $eventModel = new EventModel();
         $event = $eventModel->find($id);
+
+        $location = $event->city . ", " . $event->province;
+        if ($event->type == 0) $location = "Online";
+
+        if ($event->price == 0) {
+            $event->price = 'Gratis';
+        } else {
+            $event->price = number_to_currency($event->price, 'IDR', 'id_ID');
+        }
+
         $event->date = $this->changeDateFormat($event->date);
         $data = [
             'title' => 'Events',
-            'event' => $event
+            'event' => $event,
+            'location' => $location
         ];
         return view('pages/user/events/detail', $data);
     }

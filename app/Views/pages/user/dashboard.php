@@ -41,19 +41,25 @@
                 <div class="card shadow" data-clickable="true" data-href="<?= base_url('events/' . $event->id); ?>">
                     <img src="<?= base_url('assets/' . $event->banner); ?>" class="card-img-top" alt="...">
                     <div class="py-3 px-2">
-                        <p class="card-title small fw-bold mb-1 text-truncate"><?= $event->name; ?></p>
-                        <p class="card-text event-info mb-1"><?= $event->date ?></p>
-                        <p class="card-text event-info mb-1"><?= $event->street ?></p>
                         <?php
                         $availabilityStyle = 'text-secondary fs-6 fw-bold';
                         $availability = 'Terjual habis';
                         $price = '';
+                        $originalTime = $time::createFromFormat('Y-m-d', $event->date);
+                        $event->date = $originalTime->format('d M Y');
                         if ($event->quota != 0) {
                             $availabilityStyle = 'text-success';
                             $availability = 'Tersedia sekarang';
-                            $price = number_to_currency($event->price, 'IDR', 'id_ID');
+                            if ($event->price == 0) {
+                                $price = 'Gratis';
+                            } else {
+                                $price = number_to_currency($event->price, 'IDR', 'id_ID');
+                            }
                         }
                         ?>
+                        <p class="card-title small fw-bold mb-1 text-truncate"><?= $event->name; ?></p>
+                        <p class="card-text event-info mb-1"><?= $event->date ?></p>
+                        <p class="card-text event-info mb-1"><?= $event->street ?></p>
                         <p class="card-text event-info text-danger fs-6 mb-1"><?= $price; ?></p>
                         <p class="card-text event-info <?= $availabilityStyle; ?>"><?= $availability; ?></p>
                     </div>
@@ -61,6 +67,10 @@
             </div>
         <?php endforeach ?>
     </div>
+    <div>
+        <?= $pager->links('events', 'event_pagination'); ?>
+    </div>
+    <div id="searchResults"></div>
 </section>
 <?= $this->endSection(); ?>
 
