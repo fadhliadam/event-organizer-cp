@@ -129,6 +129,7 @@
                         <!-- Table Head -->
                         <div class="table-head">
                             <h4 class="title">Job Fair</h4>
+                            <img src="<?= base_url('assets/images/musik.jpg'); ?>" class="card-img" alt="...">
                             <p>All the basics for starting a new business</p>
                             <div class="price">
                                 <h2 class="amount">Free</h2>
@@ -309,7 +310,7 @@
                     <!-- Start Single Feature -->
                     <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
                         <!-- <i class="lni lni-cloud-upload"></i> -->
-                        <img src="<?= base_url('assets/images/musik.jpg'); ?>" class="card-img" alt="...">
+                        <i class="lni lni-apartment"></i>
                         <h3>Seminar</h3>
                         <p>It is a long established fact that a reader will be distracted by the readable content of a
                             page at its layout.</p>
@@ -319,7 +320,7 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Feature -->
                     <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
-                        <i class="lni lni-lock"></i>
+                        <i class="lni lni-crown"></i>
                         <h3>Lomba</h3>
                         <p>It is a long established fact that a reader will be distracted by the readable content of a
                             page at its layout.</p>
@@ -329,7 +330,7 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Feature -->
                     <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
-                        <i class="lni lni-reload"></i>
+                        <i class="lni lni-music"></i>
                         <h3>Musik</h3>
                         <p>It is a long established fact that a reader will be distracted by the readable content of a
                             page at its layout.</p>
