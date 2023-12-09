@@ -27,6 +27,14 @@
                 </thead>
                 <tbody>
                     <?php
+                    function dayDifferent($date)
+                    {
+                        $date = strtotime($date);
+                        $current_date = strtotime(date('Y-m-d'));
+                        $jarak = $date - $current_date;
+                        $hari = $jarak / 60 / 60 / 24;
+                        return $hari;
+                    };
                     foreach ($collaborators as $collaborator) :
                         if ($collaborator->event_owner == session('id')) {
                     ?>
@@ -36,7 +44,13 @@
                                 <td><?= $collaborator->event_name; ?></td>
                                 <td><?= $collaborator->event_street . ', ' . $collaborator->event_city . ', ' . $collaborator->event_province . ', ' . $collaborator->event_country . ', ' . $collaborator->event_postal_code; ?></td>
                                 <td>
-                                    <span class="badge bg-success">Active</span>
+                                    <?php if (dayDifferent($collaborator->event_date) < 0) : ?>
+                                        <span class="badge bg-success">Selesai</span>
+                                    <?php elseif (dayDifferent($collaborator->event_date) == 0) : ?>
+                                        <span class="badge bg-warning">Sedang Berlangsung</span>
+                                    <?php else : ?>
+                                        <span class="badge bg-danger"><?= dayDifferent($collaborator->event_date) ?> Hari lagi</span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                     <?php

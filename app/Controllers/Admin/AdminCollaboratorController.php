@@ -28,6 +28,7 @@ class AdminCollaboratorController extends BaseController
              events.city as event_city,
              events.postal_code as event_postal_code,
              events.street as event_street,
+             events.date as event_date,
              ')
             ->findAll();
 

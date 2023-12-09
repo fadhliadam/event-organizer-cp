@@ -1,4 +1,4 @@
-<footer class="footer mt-auto py-3" style="background-color: #001f3f;">
+<footer id="footer" class="footer mt-auto py-3" style="background-color: #001f3f;">
     <div class="container text-center">
 
         <!-- Informasi Perusahaan -->
