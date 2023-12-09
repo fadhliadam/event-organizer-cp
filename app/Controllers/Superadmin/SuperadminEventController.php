@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Controllers\Superadmmin;
+namespace App\Controllers\Superadmin;
 
 use App\Controllers\BaseController;
 use App\Models\CategoryModel;
 use App\Models\EventCollaboratorModel;
 use App\Models\EventModel;
 use App\Models\UserModel;
-use Google\Service\AIPlatformNotebooks\Event;
 
 class SuperadminEventController extends BaseController
 {

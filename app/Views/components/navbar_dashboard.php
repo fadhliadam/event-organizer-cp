@@ -39,15 +39,37 @@
                                 <h6 class="dropdown-header">Hello, <?= session()->get('username') ?>!</h6>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
+                                <?php 
+                                    $profile_routes = [
+                                        1 => '/superadmin/profile',
+                                        2 => '/admin/profile',
+                                        3 => '/profile',
+                                    ];
+                                ?>
+                                <a class="dropdown-item" href="<?= base_url($profile_routes[session()->get('role_id')]); ?>"><i class="icon-mid bi bi-person me-2"></i> My
                                     Profile
                                 </a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><button type="button" id="logout" class="dropdown-item"><i
-                                class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</button></li>
+                            <li>
+                                <?php $logout_routes = [
+                                    1 => [
+                                        'url' => '/superadmin/logout',
+                                        'redirectTo' => '/superadmin/login',
+                                    ],
+                                    2 => [
+                                        'url' => '/admin/logout',
+                                        'redirectTo' => '/admin/login',
+                                    ]
+                                ]; 
+                                ?>
+                                <button type="button" id="logout" class="dropdown-item"><i
+                                class="icon-mid bi bi-box-arrow-left me-2"></i> 
+                                    Profile
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -62,8 +84,8 @@
             title: 'Logout',
             text: 'Apakah kamu ingin keluar dari aplikasi?',
             buttonText: 'Ya, logout!',
-            url:'<?= base_url('/superadmin/logout')?>',
-            redirectTo: '<?= base_url('/superadmin/login')?>',
+            url:'<?= base_url($logout_routes[session()->get('role_id')]['url'])?>',
+            redirectTo: '<?= base_url($logout_routes[session()->get('role_id')]['redirectTo'])?>',
             method: "DELETE"
         }
         confirmSwalHandler(data);

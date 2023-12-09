@@ -478,6 +478,32 @@ class Validation extends BaseConfig
             ]
         ],
     ];
+
+    public array $updateProfile = [
+        'username' => [
+            'rules' => 'required|min_length[5]',
+            'errors' => [
+                'required' => 'Username tidak boleh kosong',
+                'min_length' => 'Username setidaknya terdiri dari 5 karakter',
+            ]
+        ],
+        'password' => [
+            'rules' => 'required|min_length[8]',
+            'errors' => [
+                'required' => 'Password tidak boleh kosong',
+                'min_length' => 'Password setidaknya terdiri dari 8 karakter',
+            ]
+        ],
+        'image' => [
+            'rules' => 'max_size[image,2048]|mime_in[image,image/png,image/jpeg,image/jpg]|ext_in[image,png,jpg,jpeg]',
+            'errors' => [
+                  'max_size' => 'Ukuran gambar tidak boleh lebih dari 2MB',
+                  'mime_in' => 'Mime type tidak valid',
+                  'ext_in' => 'Gambar harus berekstensi png, jpg, atau jpeg'
+              ]
+        ];
+    ];
+  
     public array $updateEventAdmin = [
         'name' => [
             'rules' => 'required',
