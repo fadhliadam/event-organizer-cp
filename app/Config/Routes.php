@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Admin\AdminCollaboratorController;
 use App\Controllers\Admin\AdminDashboardController;
 use App\Controllers\Admin\AdminEventController;
 use App\Controllers\Admin\AdminLoginController;
@@ -39,6 +40,21 @@ $routes->group('/admin', function ($routes) {
 
     $routes->get('events', [AdminEventController::class, 'index'], ['filter' => 'auth']);
     $routes->get('collaborators', [AdminDashboardController::class, 'collaborator'], ['filter' => 'auth']);
+
+    $routes->group('events', ['filter' => 'auth'], function ($routes) {
+        $routes->get('/', [AdminEventController::class, 'index']);
+        $routes->get('new', [AdminEventController::class, 'new']);
+        $routes->post('new', [AdminEventController::class, 'store']);
+        $routes->get('edit/(:num)', [AdminEventController::class, 'edit']);
+        $routes->put('edit/(:num)', [AdminEventController::class, 'update']);
+        $routes->delete('delete/(:num)', [AdminEventController::class, 'destroy']);
+    });
+    $routes->group('collaborators', ['filter' => 'auth'], function ($routes) {
+        $routes->get('/', [AdminCollaboratorController::class, 'index']);
+        // $routes->get('edit/(:num)', [AdminCollaboratorController::class, 'edit']);
+        // $routes->put('edit/(:num)', [AdminCollaboratorController::class, 'update']);
+        // $routes->get('delete/(:num)', [AdminCollaboratorController::class, 'destroy']);
+    });
 });
 
 $routes->group('/superadmin', function ($routes) {

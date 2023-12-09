@@ -14,25 +14,37 @@ class EventModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['name', 'description', 'banner', 'target_audience', 'quota', 'event_type', 'link', 'price', 'date', 'country', 'province', 'city', 'postal_code', 'street', 'host', 'host_email', 'required_approval', 'category_id', 'owner'];
 
-    public function getEvents() 
+    public function getEvents()
     {
         return $this->db->table('events')
-        ->select('events.*, categories.name category_name, users.username username')
-        ->join('users', 'users.id = events.owner', 'left')
-        ->join('categories', 'categories.id = events.category_id', 'left')
-        ->orderBy('events.created_at', 'DESC')
-        ->get()->getResult();
+            ->select('events.*, categories.name category_name, users.username username')
+            ->join('users', 'users.id = events.owner', 'left')
+            ->join('categories', 'categories.id = events.category_id', 'left')
+            ->orderBy('events.created_at', 'DESC')
+            ->get()->getResult();
     }
 
-    public function getEventById(int $id) 
+    public function getEventById(int $id)
     {
         return $this->db->table('events')
-        ->select('events.*, user_owner.email owner_email, user_collabrator.email collaborator')
-        ->join('users user_owner', 'user_owner.id = events.owner', 'left')
-        ->join('event_collaborators', 'event_collaborators.event_id = events.id', 'left')
-        ->join('users user_collabrator', 'user_collabrator.id = event_collaborators.user_id', 'left')
-        ->where(['events.id' => $id])
-        ->get()->getResult();
+            ->select('events.*, user_owner.email owner_email, user_collabrator.email collaborator')
+            ->join('users user_owner', 'user_owner.id = events.owner', 'left')
+            ->join('event_collaborators', 'event_collaborators.event_id = events.id', 'left')
+            ->join('users user_collabrator', 'user_collabrator.id = event_collaborators.user_id', 'left')
+            ->where(['events.id' => $id])
+            ->get()->getResult();
+    }
+
+    public function getEventsWithOwner(int $owner_id)
+    {
+        return $this->db->table('events')
+            ->select('events.*, categories.name category_name, users.username username')
+            ->join('users', 'users.id = events.owner', 'left')
+            ->join('categories', 'categories.id = events.category_id', 'left')
+            ->where('events.owner', $owner_id)  // Adding the where condition
+            ->orderBy('events.created_at', 'DESC')
+            ->get()
+            ->getResult();
     }
 
     // public function deleteEvent($id = null)
