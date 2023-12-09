@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="form form-vertical" action="<?= base_url('/superadmin/events/edit/'.$event->id); ?>" method="post" enctype="multipart/form-data">
+                    <?= form_open_multipart(base_url('/superadmin/events/edit/'.$event->id), ['class' => 'form form-vertical']); ?>
                         <?php if(isset($validation)): ?>
                             <div class="form-body">
                                 <div class="row">
@@ -310,7 +310,7 @@
                                 </div>
                             </div>
                         <?php endif; ?>
-                        </form>
+                        <?= form_close(); ?>
                     </div>
                 </div>
             </div>
