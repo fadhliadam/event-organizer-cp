@@ -3,13 +3,15 @@
 use App\Controllers\Admin\AdminDashboardController;
 use App\Controllers\Admin\AdminEventController;
 use App\Controllers\Admin\AdminLoginController;
+use App\Controllers\Admin\AdminProfileController;
 use App\Controllers\Home;
 use App\Controllers\User\Login;
 use App\Controllers\User\UserDashboardController;
 use App\Controllers\Superadmin\SuperadminDashboardController;
 use App\Controllers\Superadmin\SuperadminLoginController;
 use App\Controllers\Superadmin\SuperadminUserController;
-use App\Controllers\Superadmmin\SuperadminEventController;
+use App\Controllers\Superadmin\SuperadminEventController;
+use App\Controllers\Superadmin\SuperadminProfileController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -31,8 +33,10 @@ $routes->get('/dashboard', [UserDashboardController::class, 'index'], ['filter' 
 $routes->group('/admin', function ($routes) {
     $routes->get('login', [AdminLoginController::class, 'index']);
     $routes->post('login', [AdminLoginController::class, 'loginAuth']);
-    $routes->get('logout', [AdminLoginController::class, 'logout']);
+    $routes->delete('logout', [AdminLoginController::class, 'logout']);
     $routes->get('dashboard', [AdminDashboardController::class, 'index'], ['filter' => 'auth']);
+    $routes->match(['get', 'put'], 'profile', [AdminProfileController::class, 'index'], ['filter' => 'auth']);
+
     $routes->get('events', [AdminEventController::class, 'index'], ['filter' => 'auth']);
     $routes->get('collaborators', [AdminDashboardController::class, 'collaborator'], ['filter' => 'auth']);
 });
@@ -43,6 +47,7 @@ $routes->group('/superadmin', function ($routes) {
     $routes->delete('logout', [SuperAdminLoginController::class, 'logout']);
 
     $routes->get('dashboard', [SuperadminDashboardController::class, 'index'], ['filter' => 'auth']);
+    $routes->match(['get', 'put'], 'profile', [SuperadminProfileController::class, 'index'], ['filter' => 'auth']);
 
     $routes->group('users', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [SuperadminUserController::class, 'index']);
