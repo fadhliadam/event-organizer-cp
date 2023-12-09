@@ -37,4 +37,46 @@ class EventCollaboratorModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getCollaborators()
+    {
+        return $this->db->table('event_collaborators')->join('users', 'users.id = event_collaborators.user_id')
+            ->join('events', 'events.id = event_collaborators.event_id')
+            ->select('event_collaborators.*,users.id as user_id,
+             users.email as user_email,
+             users.username as user_username, 
+             events.name as event_name, 
+             events.owner as event_owner, 
+             events.country as event_country,
+             events.province as event_province,
+             events.city as event_city,
+             events.postal_code as event_postal_code,
+             events.street as event_street,
+             events.date as event_date,
+             event_collaborators.id as collaborator_id,
+             event_collaborators.deleted_at as deleted_at
+             ')->get()->getResult();
+    }
+
+    public function getCollaboratorById(int $id)
+    {
+        return $this->db->table('event_collaborators')->join('users', 'users.id = event_collaborators.user_id')
+            ->join('events', 'events.id = event_collaborators.event_id')
+            ->select('event_collaborators.*,users.id as user_id,
+             users.email as user_email,
+             users.username as user_username, 
+             events.name as event_name, 
+             events.owner as event_owner, 
+             events.country as event_country,
+             events.province as event_province,
+             events.city as event_city,
+             events.postal_code as event_postal_code,
+             events.street as event_street,
+             events.date as event_date,
+             event_collaborators.id as collaborator_id,
+             event_collaborators.deleted_at as deleted_at
+             ')
+            ->where(['event_collaborators.id' => $id])
+            ->get()->getResult();
+    }
 }

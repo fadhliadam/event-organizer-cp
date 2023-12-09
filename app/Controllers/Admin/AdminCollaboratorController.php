@@ -15,26 +15,84 @@ class AdminCollaboratorController extends BaseController
         $collaboratorModel = new EventCollaboratorModel();
 
         // Mendapatkan data event_collaborator beserta relasi user dan event
-        $collaborators = $collaboratorModel
-            ->join('users', 'users.id = event_collaborators.user_id')
-            ->join('events', 'events.id = event_collaborators.event_id')
-            ->select('event_collaborators.*,users.id as user_id,
-             users.email as user_email,
-             users.username as user_username, 
-             events.name as event_name, 
-             events.owner as event_owner, 
-             events.country as event_country,
-             events.province as event_province,
-             events.city as event_city,
-             events.postal_code as event_postal_code,
-             events.street as event_street,
-             ')
-            ->findAll();
+        $collaborators = $collaboratorModel->getCollaborators();
 
         $data = [
-            'title' => 'Users',
+            'title' => 'Collaborators',
             'collaborators' => $collaborators
         ];
         return view('pages/admin/collaborators/index', $data);
+    }
+
+    public function edit(int $id)
+    {
+        helper(['form']);
+
+        $eventCollaboratorModel = new EventCollaboratorModel();
+        $eventCollaborator = $eventCollaboratorModel->getCollaboratorById($id);
+        if (!$eventCollaborator) {
+            return redirect()->to(base_url('/admin/collaborators'))->with('error_message', 'Event Collaborator tidak ditemukan');
+        }
+
+        $data = [
+            'title' => 'Edit Collaborator',
+            'eventCollaborator' => $eventCollaborator[0],
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('pages/admin/collaborators/edit', $data);
+    }
+
+    public function update(int $id)
+    {
+        helper(['form']);
+        $collaboratorModel = new EventCollaboratorModel();
+
+        if (!$this->validate('updateEventCollaboratorAdmin')) {
+
+            $collaborator = $collaboratorModel->getCollaboratorById($id);
+
+            if (!$collaborator) {
+                return redirect()->to(base_url('/admin/collaborators'))->with('error_message', 'Event Collaborator tidak ditemukan');
+            }
+
+            $data = [
+                'title' => 'Edit Collaborator',
+                'eventCollaborator' => $collaborator[0],
+                'validation' => \Config\Services::validation()
+            ];
+
+            return view('pages/admin/collaborators/edit', $data);
+        }
+        $collaborator = $collaboratorModel->find($id);
+        $validateData = $this->validator->getValidated();
+        $userModel = new UserModel();
+        if (!$collaborator) {
+            return redirect()->to(base_url('/admin/collaborators'))->with('error_message', 'Event Collaborator tidak ditemukan');
+        } else {
+            $collaborator_user_id_new = $userModel->getIdUserByEmail($validateData['collaborator'])[0];
+            $collaboratorModel->update($id, ['user_id' => $collaborator_user_id_new->id]);
+            return redirect()->to(base_url('/admin/collaborators'))->with('success_message', 'Berhasil mengubah event collaborator');
+        }
+    }
+
+    public function destroy(int $id)
+    {
+        $eventCollaboratorModel = new EventCollaboratorModel();
+        $eventCollaborator = $eventCollaboratorModel->find($id);
+        if (!$eventCollaborator) {
+            $response = [
+                'status' => 'error',
+                'message' => 'Gagal menghapus event collaborator, id tidak ditemukan'
+            ];
+            echo json_encode($response);
+            exit;
+        }
+        $response = [
+            'status' => 'success',
+            'message' => 'Berhasil menghapus event collaborator'
+        ];
+        $eventCollaboratorModel->where('id', $id)->delete();
+        echo json_encode($response);
     }
 }

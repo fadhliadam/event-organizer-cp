@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="form form-vertical" action="<?= base_url('/admin/events/edit/'.$event->id); ?>" method="post" enctype="multipart/form-data">
+                    <?= form_open_multipart(base_url('/admin/events/edit/'.$event->id), ['class' => 'form form-vertical']); ?>
                         <?php if(isset($validation)): ?>
                             <div class="form-body">
                                 <div class="row">
@@ -138,7 +138,7 @@
                                         </div>    
                                     </div>
                                     <div class="col-12 row">
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="country">Negara</label>
                                                 <div class="position-relative">
@@ -152,7 +152,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="province">Provinsi</label>
                                                 <div class="position-relative">
@@ -168,7 +168,7 @@
                                         </div>    
                                     </div>
                                     <div class="col-12 row">
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="city">Kota</label>
                                                 <div class="position-relative">
@@ -182,7 +182,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="postal_code">Kode Pos</label>
                                                 <div class="position-relative">
@@ -212,7 +212,7 @@
                                         </div>
                                     </div> 
                                     <div class="col-12 row">
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="host">Nama Host</label>
                                                 <div class="position-relative">
@@ -226,7 +226,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-12 col-md">
                                             <div class="form-group has-icon-left">
                                                 <label class="form-label" for="host_email">Email Host</label>
                                                 <div class="position-relative">
@@ -256,7 +256,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group has-icon-left">
-                                            <label class="form-label" for="collaborator">kolaborator</label>
+                                            <label class="form-label" for="collaborator">Kolaborator</label>
                                             <div class="position-relative">
                                                 <input type="email" name="collaborator" class="form-control <?= $validation->hasError('collaborator') ? 'is-invalid' : ''; ?>" placeholder="isikan email kolaborator event" id="collaborator" value="<?= set_value('collaborator', $event->collaborator); ?>">
                                                 <div class="form-control-icon">
@@ -296,7 +296,7 @@
                                 </div>
                             </div>
                         <?php endif; ?>
-                        </form>
+                        <?= form_close(); ?>
                     </div>
                 </div>
             </div>

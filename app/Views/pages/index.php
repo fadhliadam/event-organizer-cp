@@ -67,7 +67,7 @@
                                         <a href="#kategori" class="page-scroll" aria-label="Toggle navigation">Kategori</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="javascript:void(0)" aria-label="Toggle navigation">Contact Us</a>
+                                        <a href="#footer" aria-label="Toggle navigation">Contact Us</a>
                                     </li>
                                 </ul>
                             </div>
@@ -93,8 +93,7 @@
                             Temukan keseruan dan pengetahuan baru yang pasti bikin hari-harimu lebih berwarna! Ayo
                             bergabung dan tingkatkan kebahagiaanmu bersama kami!</p>
                         <div class="button wow fadeInLeft" data-wow-delay=".8s">
-                            <a href="javascript:void(0)" class="btn">Sign In</a>
-                            <a href="javascript:void(0)" class="btn btn-alt">Sign Up</a>
+                            <a href="javascript:void(0)" class="btn">Get Started</a>
                         </div>
                     </div>
                 </div>
@@ -109,7 +108,7 @@
     <!-- End Hero Area -->
 
     <!-- Start Pricing Table Area -->
-    <section id="kategori" class="pricing-table section">
+    <section id="event" class="pricing-table section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -294,7 +293,7 @@
     <!-- End Achievement Area -->
 
     <!-- Start Features Area -->
-    <section id="event" class="features section">
+    <section id="kategori" class="features section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -373,7 +372,7 @@
     <!-- End Features Area -->
 
     <!-- Start Footer Area -->
-    <footer class="footer mt-auto py-3" style="background-color: #001f3f;">
+    <footer id="footer" class="footer mt-auto py-3" style="background-color: #001f3f;">
         <div class="container text-center">
 
             <!-- Informasi Perusahaan -->
