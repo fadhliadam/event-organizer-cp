@@ -55,6 +55,7 @@ class Login extends BaseController
                 $entity->role_id = 3;
 
                 $dataSession = $entity->toArray() + [
+                    'name' => $data['name'],
                     'logged_in' => true
                 ];
 

@@ -21,13 +21,22 @@ class UserDashboardController extends BaseController
 
     public function index()
     {
+        $categoryId = $this->request->getVar('categoryId') ? $this->request->getVar('categoryId') : 0;
+
+        $events = $this->eventModel;
+        if ($categoryId > 0) {
+            $events = $events->where('category_id', $categoryId);
+        }
+
         $data = [
             'title' => 'Dashboard',
             'categories' => $this->categories,
-            'events' => $this->eventModel->paginate(6, 'events'),
-            'pager' => $this->eventModel->pager,
-            'time' => new Time()
+            'events' => $events->paginate(6, 'events'),
+            'pager' => $events->pager,
+            'time' => new Time(),
+            'selectedCategoryId' => 0
         ];
+
         return view('pages/user/dashboard', $data);
     }
 
@@ -42,16 +51,44 @@ class UserDashboardController extends BaseController
         return $formattedDate;
     }
 
-    // public function filterCategory(string $category)
-    // {
-    //     $categosy = $this->categories;
-    //     $this->db->from('products');
+    public function filterCategory()
+    {
+        $categoryId = $this->request->getVar('categoryId') ? $this->request->getVar('categoryId') : 0;
+        $page = $this->request->getVar('page_events') ? $this->request->getVar('page_events') : 1;
 
-    //     if ((int)$category_id > 0) {
-    //         $this->db->where('category_id', $category_id);
-    //     }
+        $events = $this->eventModel;
+        if ($categoryId > 0) {
+            $events = $events->where('category_id', $categoryId);
+        }
 
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // }
+        $eventsData = $events->paginate(6, 'events', $page);
+
+        $prices = [];
+        foreach ($eventsData as $event) {
+            $price = '';
+            if ($event->quota != 0) {
+                if ($event->price == 0) {
+                    $price = 'Gratis';
+                    array_push($prices, $price);
+                } else {
+                    $price = number_to_currency($event->price, 'IDR', 'id_ID');
+                    array_push($prices, $price);
+                }
+            } else {
+                array_push($prices, $price);
+            }
+        }
+
+        $response = [
+            'title' => 'Dashboard',
+            'categories' => $this->categories,
+            'events' => $eventsData,
+            'pager' => $events->pager,
+            'prices' => $prices,
+            'time' => new Time(),
+            'selectedCategoryId' => $categoryId
+        ];
+
+        echo json_encode($response);
+    }
 }

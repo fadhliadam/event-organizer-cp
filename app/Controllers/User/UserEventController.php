@@ -3,6 +3,7 @@
 namespace App\Controllers\User;
 
 use App\Controllers\BaseController;
+use App\Models\CategoryModel;
 use App\Models\EventModel;
 use CodeIgniter\I18n\Time;
 
@@ -21,6 +22,8 @@ class UserEventController extends BaseController
         helper(['number']);
         $eventModel = new EventModel();
         $event = $eventModel->find($id);
+        $categoryModel = new CategoryModel();
+        $category = $categoryModel->find($event->category_id);
 
         $location = $event->city . ", " . $event->province;
         if ($event->type == 0) $location = "Online";
@@ -35,6 +38,7 @@ class UserEventController extends BaseController
         $data = [
             'title' => 'Events',
             'event' => $event,
+            'category' => $category->name,
             'location' => $location
         ];
         return view('pages/user/events/detail', $data);

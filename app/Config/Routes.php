@@ -29,6 +29,7 @@ $routes->get('/login', [Login::class, 'index']);
 $routes->delete('/logout', [Login::class, 'logout']);
 $routes->get('/login/process', [Login::class, 'process']);
 $routes->get('/dashboard', [UserDashboardController::class, 'index'], ['filter' => 'auth']);
+$routes->post('/dashboard', [UserDashboardController::class, 'filterCategory'], ['filter' => 'auth']);
 $routes->get('/events/(:num)', [UserEventController::class, 'detail'], ['filter' => 'auth']);
 
 $routes->group('/admin', function ($routes) {
