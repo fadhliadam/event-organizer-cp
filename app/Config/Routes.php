@@ -39,7 +39,6 @@ $routes->group('/admin', function ($routes) {
     $routes->match(['get', 'put'], 'profile', [AdminProfileController::class, 'index'], ['filter' => 'auth']);
 
     $routes->get('events', [AdminEventController::class, 'index'], ['filter' => 'auth']);
-    $routes->get('collaborators', [AdminDashboardController::class, 'collaborator'], ['filter' => 'auth']);
 
     $routes->group('events', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [AdminEventController::class, 'index']);

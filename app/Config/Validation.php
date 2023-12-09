@@ -501,7 +501,7 @@ class Validation extends BaseConfig
                   'mime_in' => 'Mime type tidak valid',
                   'ext_in' => 'Gambar harus berekstensi png, jpg, atau jpeg'
               ]
-        ];
+        ]
     ];
   
     public array $updateEventAdmin = [

@@ -67,7 +67,7 @@
                                 ?>
                                 <button type="button" id="logout" class="dropdown-item"><i
                                 class="icon-mid bi bi-box-arrow-left me-2"></i> 
-                                    Profile
+                                    Logout
                                 </button>
                             </li>
                         </ul>
