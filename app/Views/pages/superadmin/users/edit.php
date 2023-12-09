@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="form form-vertical" action="<?= base_url('/superadmin/users/edit/'.$user->id); ?>" method="post" enctype="multipart/form-data">
+                    <?= form_open_multipart(base_url('/superadmin/users/edit/'.$user->id), ['class' => 'form form-vertical']); ?>
                         <?php if(isset($validation)): ?>
                             <input type="hidden" name="_method" value="put">
                             <div class="form-body">
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         <?php endif; ?>
-                        </form>
+                        <?= form_close(); ?>
                     </div>
                 </div>
             </div>
