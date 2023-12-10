@@ -28,14 +28,14 @@
                     <button class="col-auto navbar-toggler border-0" type="button" data-bs-toggle="modal" data-bs-target="#searchModal" aria-controls="searchEvent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="bi bi-search"></span>
                     </button>
-                    <button class="col-auto navbar-toggler border-0" type="button" data-bs-toggle="modal" data-bs-target="#" aria-controls="historyEvent" aria-expanded="false" aria-label="Toggle navigation">
+                    <a class="col-auto navbar-toggler border-0" type="button" href="<?= base_url('/events/history'); ?>" aria-controls="historyEvent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="bi bi-clock-history"></span>
-                    </button>
+                    </a>
                     <div class="col-auto collapse navbar-collapse" id="searchEvent">
                         <?= $this->include('components/user/search_bar'); ?>
                     </div>
                     <div class="col-auto collapse navbar-collapse" id="historyEvent">
-                        <a class="nav-link" href="#">History Event</a>
+                        <a class="nav-link" href="<?= base_url('/events/history'); ?>">History Event</a>
                     </div>
                     <div class="col-auto">
                         <div class="dropdown">
@@ -53,7 +53,7 @@
                                     <h6 class="dropdown-header">Hello, <?= session()->get('username') ?>!</h6>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
+                                    <a class="dropdown-item" href="<?= base_url('/profile'); ?>"><i class="icon-mid bi bi-person me-2"></i> My
                                         Profile
                                     </a>
                                 </li>
@@ -71,13 +71,6 @@
 </header>
 <?= $this->section('scripts'); ?>
 <script>
-    const myModal = document.getElementById('searchModal')
-    const myInput = document.getElementById('myInput')
-
-    myModal.addEventListener('shown.bs.modal', () => {
-        myInput.focus()
-    })
-
     $('#logout').on('click', () => {
         const data = {
             title: 'Logout',

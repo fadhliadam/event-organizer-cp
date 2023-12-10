@@ -1,9 +1,5 @@
 <?= $this->extend('layouts/user_dashboard'); ?>
 
-<?= $this->section('page_title'); ?>
-<?= view_cell('\App\Libraries\HeadingPointer::show', ['title_header' => 'List Events', 'description' => 'Kelola data event Anda disini']); ?>
-<?= $this->endSection(); ?>
-
 <?= $this->section('main_dashboard_content'); ?>
 <div class="container">
     <div class="row my-4">
@@ -122,7 +118,7 @@
         const csrfHash = '<?= csrf_hash(); ?>';
         const data = {
             url: '<?= base_url('/events/register-process') ?>',
-            redirectTo: '<?= base_url('/yourorder') ?>',
+            redirectTo: '<?= base_url('/yourevents') ?>',
             method: "POST",
             data: {
                 [csrfToken]: csrfHash,

@@ -80,6 +80,22 @@ class UserEventController extends BaseController
         }
     }
 
+    public function listEventsRegistered()
+    {
+        $data = [
+            'title' => 'Your Events',
+        ];
+        return view('pages/user/events/events_registered', $data);
+    }
+
+    public function history()
+    {
+        $data = [
+            'title' => 'History Events',
+        ];
+        return view('pages/user/events/history', $data);
+    }
+
     public function changeDateFormat(string $date)
     {
         $originalFormat = 'Y-m-d';

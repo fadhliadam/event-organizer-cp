@@ -32,7 +32,7 @@
                     </a>
                 </li>
             </ul>
-            <?php else: ?>
+            <?php elseif(session()->get('role_id') == 2): ?>
             <ul class="menu">
                 <li class="sidebar-item <?= service('uri')->getSegment(2) == 'dashboard' ? 'active' : '' ?>">
                     <a href="<?= base_url('/admin/dashboard'); ?>" class='sidebar-link'>
@@ -50,6 +50,27 @@
                     <a href="<?= base_url('/admin/events'); ?>" class='sidebar-link'>
                         <i class="bi bi-balloon-heart-fill"></i>
                         <span>Events</span>
+                    </a>
+                </li>
+            </ul>
+            <?php else: ?>
+            <ul class="menu">
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'profile' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/profile'); ?>" class='sidebar-link'>
+                        <i class="bi bi-person-fill"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'yourevents' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/yourevents'); ?>" class='sidebar-link'>
+                        <i class="bi bi-balloon-heart-fill"></i>
+                        <span>Your Events</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?= service('uri')->getSegment(2) == 'historyevents' ? 'active' : '' ?>">
+                    <a href="<?= base_url('/events/history'); ?>" class='sidebar-link'>
+                        <i class="bi bi-clock-history"></i>
+                        <span>History Events</span>
                     </a>
                 </li>
             </ul>
