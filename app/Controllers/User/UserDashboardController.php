@@ -53,7 +53,7 @@ class UserDashboardController extends BaseController
 
     public function filterCategory()
     {
-        $categoryId = $this->request->getVar('categoryId') ? $this->request->getVar('categoryId') : 0;
+        $categoryId = $this->request->getGet('categoryId') ? $this->request->getGet('categoryId') : 0;
         $page = $this->request->getVar('page_events') ? $this->request->getVar('page_events') : 1;
 
         $events = $this->eventModel;

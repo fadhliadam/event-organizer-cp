@@ -10,7 +10,7 @@ use App\Controllers\User\UserDashboardController;
 use App\Controllers\Superadmin\SuperadminDashboardController;
 use App\Controllers\Superadmin\SuperadminLoginController;
 use App\Controllers\Superadmin\SuperadminUserController;
-use App\Controllers\Superadmmin\SuperadminEventController;
+use App\Controllers\Superadmin\SuperadminEventController;
 use App\Controllers\Superadmin\SuperadminProfileController;
 use App\Controllers\User\UserEventController;
 use App\Controllers\User\UserLoginController;
@@ -33,9 +33,9 @@ $routes->get('/login/process', [UserLoginController::class, 'process']);
 $routes->get('/dashboard', [UserDashboardController::class, 'index'], ['filter' => 'auth']);
 $routes->post('/dashboard', [UserDashboardController::class, 'filterCategory'], ['filter' => 'auth']);
 
-$routes->group('/events', function ($routes) {
-    $routes->get('(:num)', [UserEventController::class, 'detail'], ['filter' => 'auth']);
-    $routes->post('register-process', [UserEventController::class, 'registerProcess'], ['filter' => 'auth']);
+$routes->group('/events', ['filter' => 'auth'], function ($routes) {
+    $routes->get('(:num)', [UserEventController::class, 'detail']);
+    $routes->post('register-process', [UserEventController::class, 'registerProcess']);
 });
 
 $routes->group('/admin', function ($routes) {

@@ -138,6 +138,8 @@
 
     function filterCategory() {
         // Filter events by category
+        const csrfToken = '<?= csrf_token(); ?>';
+        const csrfHash = '<?= csrf_hash(); ?>';
         $('input[type="radio"]').change(function() {
             var categoryId = $(this).val();
             if (categoryId === 'Semua') {
@@ -148,6 +150,7 @@
                 url: "<?= base_url('/dashboard') ?>",
                 method: "POST",
                 data: {
+                    [csrfToken]: csrfHash,
                     categoryId: categoryId
                 },
                 dataType: "json",
@@ -170,7 +173,7 @@
                             }
                             var html = `
                             <div class="col">
-                                <div class="card shadow" data-clickable="true" data-href="<?= base_url('events/') ?>/${event.id}">
+                                <div class="card shadow" data-clickable="true" data-href="<?= base_url('events/') ?>${event.id}">
                                     <img src="<?= base_url('assets/') ?>/${event.banner}" class="card-img-top" alt="...">
                                     <div class="py-3 px-2">
                                         <p class="card-title small fw-bold mb-1 text-truncate">${event.name}</p>

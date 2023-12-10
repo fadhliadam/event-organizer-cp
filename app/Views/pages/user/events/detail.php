@@ -135,10 +135,16 @@ if ($event->required_approval) {
 <?= $this->section('scripts'); ?>
 <script>
     $('#daftar').on('click', () => {
+        const csrfToken = '<?= csrf_token(); ?>';
+        const csrfHash = '<?= csrf_hash(); ?>';
         const data = {
             url: '<?= base_url('/events/register-process') ?>',
             redirectTo: '<?= base_url('/yourorder') ?>',
             method: "POST",
+            data: {
+                [csrfToken]: csrfHash,
+                'eventId': '<?= $event->id; ?>'
+            }
         }
         performAjaxRequest(data);
     })

@@ -13,10 +13,11 @@ function confirmSwalHandler({ title, text, buttonText, url, redirectTo, method =
   });
 }
 
-function performAjaxRequest({ url, redirectTo, method }) {
+function performAjaxRequest({ url, redirectTo, method, data = {} }) {
   $.ajax({
     url,
     method,
+    data: data,
     dataType: "json",
     success: function (response) {
       if (response.status === "success") {
