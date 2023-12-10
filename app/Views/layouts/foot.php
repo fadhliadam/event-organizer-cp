@@ -24,5 +24,6 @@
 
     <!-- Dynamic Javascript render section -->
     <?= $this->renderSection('scripts'); ?>
-</body>
-</html>
+    </body>
+
+    </html>

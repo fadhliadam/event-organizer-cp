@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\UserModel;
 use Google_Client;
 
-class Login extends BaseController
+class UserLoginController extends BaseController
 {
     protected $googleClient;
     protected $user;
@@ -55,6 +55,7 @@ class Login extends BaseController
                 $entity->role_id = 3;
 
                 $dataSession = $entity->toArray() + [
+                    'name' => $data['name'],
                     'logged_in' => true
                 ];
 
