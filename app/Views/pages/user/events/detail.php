@@ -1,9 +1,5 @@
 <?= $this->extend('layouts/user_dashboard'); ?>
 
-<?= $this->section('page_title'); ?>
-<?= view_cell('\App\Libraries\HeadingPointer::show', ['title_header' => 'List Events', 'description' => 'Kelola data event Anda disini']); ?>
-<?= $this->endSection(); ?>
-
 <?= $this->section('main_dashboard_content'); ?>
 <div class="container">
     <div class="row my-4">
@@ -33,7 +29,15 @@
                 <p class="fs-5 mb-0 fw-medium">Harga</p>
                 <h3><?= $event->price ?></h3>
                 <div class="row p-2 my-1">
-                    <button class="btn btn-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#registerEventModal">Daftar</button>
+                    <?php
+                    $buttonState = '';
+                    $buttonText = 'Daftar';
+                    if ($event->quota == 0) {
+                        $buttonText = 'Tidak Tersedia';
+                        $buttonState = 'disabled';
+                    }
+                    ?>
+                    <button class="btn btn-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#registerEventModal" <?= $buttonState; ?>><?= $buttonText; ?></button>
                 </div>
                 <div>
                     <i class="bi bi-calendar3"></i>
@@ -122,11 +126,12 @@
         const csrfHash = '<?= csrf_hash(); ?>';
         const data = {
             url: '<?= base_url('/events/register-process') ?>',
-            redirectTo: '<?= base_url('/yourorder') ?>',
+            redirectTo: '<?= base_url('/yourevents') ?>',
             method: "POST",
             data: {
                 [csrfToken]: csrfHash,
                 'eventId': '<?= $event->id; ?>',
+                'requiredApproval': '<?= $event->required_approval; ?>'
             }
         }
         performAjaxRequest(data);

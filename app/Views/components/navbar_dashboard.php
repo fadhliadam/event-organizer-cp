@@ -16,19 +16,25 @@
                             <div class="user-menu d-flex">
                                 <div class="user-name text-end me-3">
                                     <h6 class="mb-0 text-gray-600"><?= session()->get('username'); ?></h6>
+                                    <?php if (session()->get('role_id') != 3): ?>
                                     <p class="mb-0 text-sm text-gray-600 text-capitalize">
                                         <?php 
                                             $roles = [
                                                 1 => 'superadmin',
-                                                2 => 'admin'
+                                                2 => 'admin',
                                             ];
                                             echo $roles[session()->get('role_id')];
                                         ?>
                                     </p>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="user-img d-flex align-items-center">
                                     <div class="avatar avatar-md">
-                                        <img src="<?= base_url('assets/'.session()->get('image')); ?>" alt="profile">
+                                        <?php 
+                                         $imageProfile = base_url('assets/'.session()->get('image'));
+                                         if(session()->get('role_id') == 3) $imageProfile = session()->get('image');
+                                         ?>
+                                        <img src="<?= $imageProfile ?>" alt="profile">
                                     </div>
                                 </div>
                             </div>
@@ -62,6 +68,10 @@
                                     2 => [
                                         'url' => '/admin/logout',
                                         'redirectTo' => '/admin/login',
+                                    ],
+                                    3 => [
+                                        'url' => '/logout',
+                                        'redirectTo' => '/login',
                                     ]
                                 ]; 
                                 ?>

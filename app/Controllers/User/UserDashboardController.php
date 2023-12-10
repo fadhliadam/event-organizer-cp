@@ -40,6 +40,15 @@ class UserDashboardController extends BaseController
         return view('pages/user/dashboard', $data);
     }
 
+    public function profile()
+    {
+        $data = [
+            'title' => 'Profile',
+        ];
+
+        return view('pages/user/profile', $data);
+    }
+
     public function changeDateFormat(string $date)
     {
         $originalFormat = 'Y-m-d';
