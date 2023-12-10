@@ -390,7 +390,7 @@
 
             <!-- Hak Cipta -->
             <p class="text-white">&copy;
-                2023 PT Fasilkom Sejahtera
+                <?= date('Y'); ?> PT Fasilkom Sejahtera
             </p>
 
             <!-- Nomor Kontak -->
