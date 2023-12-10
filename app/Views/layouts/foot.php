@@ -1,5 +1,5 @@
     <!-- Boostrap JS -->
-    <script src="<?= base_url('assets/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/bootstrap.bundle.min.js'); ?>"></script>
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -24,5 +24,6 @@
 
     <!-- Dynamic Javascript render section -->
     <?= $this->renderSection('scripts'); ?>
-</body>
-</html>
+    </body>
+
+    </html>

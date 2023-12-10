@@ -42,8 +42,18 @@
                 </div>
                 <div>
                     <i class="bi bi-person-fill"></i>
-                    <span class="fw-bold small">Dibuka untuk: </span>
+                    <span class="fw-bold small">Dibuka Untuk: </span>
                     <span class="fw-medium small"><?= $event->target_audience; ?></span>
+                </div>
+                <?php
+                $approval = "Tidak Butuh Persetujuan";
+                if ($event->required_approval) {
+                    $approval = "Butuh Persetujuan";
+                }
+                ?>
+                <div>
+                    <i class="bi bi-clipboard2-check-fill"></i>
+                    <span class="fw-bold small"><?= $approval; ?></span>
                 </div>
             </div>
         </div>
@@ -89,21 +99,48 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Daftar</button>
+                <button type="button" class="btn btn-primary" data-bs-target="#approvalModal" data-bs-toggle="modal" data-bs-dismiss="modal">Daftar</button>
             </div>
         </div>
     </div>
+</div>
+<?php
+if ($event->required_approval) {
+    echo '
+<div class="modal fade" id="approvalModal" aria-hidden="true" aria-labelledby="approvalModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Butuh Persetujuan</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Pendaftaran event ini memerlukan persetujuan dari panitia, tekan lanjut untuk mendaftar dan menunggu persetujuan.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal" id="daftar">Lanjut</button>
+            </div>
+        </div>
+    </div>
+</div>
+';
+} ?>
+<div>
+
 </div>
 
 <?= $this->endSection(); ?>
 
 <?= $this->section('scripts'); ?>
 <script>
-    const myModal = document.getElementById('registerEventModal')
-    const myInput = document.getElementById('myInput')
-
-    myModal.addEventListener('shown.bs.modal', () => {
-        myInput.focus()
+    $('#daftar').on('click', () => {
+        const data = {
+            url: '<?= base_url('/events/register-process') ?>',
+            redirectTo: '<?= base_url('/yourorder') ?>',
+            method: "POST",
+        }
+        performAjaxRequest(data);
     })
 </script>
 <?= $this->endSection(); ?>

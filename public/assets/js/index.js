@@ -1,11 +1,4 @@
-function confirmSwalHandler({
-  title,
-  text,
-  buttonText,
-  url,
-  redirectTo,
-  method = "GET",
-}) {
+function confirmSwalHandler({ title, text, buttonText, url, redirectTo, method = "GET" }) {
   Swal.fire({
     icon: "warning",
     title,
@@ -15,29 +8,33 @@ function confirmSwalHandler({
     confirmButtonColor: "#ca2b43",
   }).then((result) => {
     if (result.isConfirmed) {
-      $.ajax({
-        url,
-        method,
-        dataType: "json",
-        success: function (response) {
-          if (response.status === "success") {
-            Swal.fire({
-              text: response.message,
-              icon: "success",
-              showConfirmButton: false,
-              timer: 1000,
-            }).then((result) => {
-              window.location.href = redirectTo;
-            });
-          } else {
-            Swal.fire("Error!", response.message, "error");
-          }
-        },
-        error: function (xhr, status, error) {
-          console.error(xhr.responseText);
-          Swal.fire("Error!", "An error occurred. Please try again.", "error");
-        },
-      });
+      performAjaxRequest({ url, redirectTo, method });
     }
+  });
+}
+
+function performAjaxRequest({ url, redirectTo, method }) {
+  $.ajax({
+    url,
+    method,
+    dataType: "json",
+    success: function (response) {
+      if (response.status === "success") {
+        Swal.fire({
+          text: response.message,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+        }).then(() => {
+          window.location.href = redirectTo;
+        });
+      } else {
+        Swal.fire("Error!", response.message, "error");
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error(xhr.responseText);
+      Swal.fire("Error!", "An error occurred. Please try again.", "error");
+    },
   });
 }

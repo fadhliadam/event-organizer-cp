@@ -44,6 +44,15 @@ class UserEventController extends BaseController
         return view('pages/user/events/detail', $data);
     }
 
+    public function registerProcess()
+    {
+        $response = [
+            'status' => 'success',
+            'message' => 'Berhasil daftar event'
+        ];
+        return json_encode($response);
+    }
+
     public function changeDateFormat(string $date)
     {
         $originalFormat = 'Y-m-d';
