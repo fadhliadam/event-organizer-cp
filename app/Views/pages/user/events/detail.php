@@ -29,7 +29,15 @@
                 <p class="fs-5 mb-0 fw-medium">Harga</p>
                 <h3><?= $event->price ?></h3>
                 <div class="row p-2 my-1">
-                    <button class="btn btn-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#registerEventModal">Daftar</button>
+                    <?php
+                    $buttonState = '';
+                    $buttonText = 'Daftar';
+                    if ($event->quota == 0) {
+                        $buttonText = 'Tidak Tersedia';
+                        $buttonState = 'disabled';
+                    }
+                    ?>
+                    <button class="btn btn-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#registerEventModal" <?= $buttonState; ?>><?= $buttonText; ?></button>
                 </div>
                 <div>
                     <i class="bi bi-calendar3"></i>
@@ -123,6 +131,7 @@
             data: {
                 [csrfToken]: csrfHash,
                 'eventId': '<?= $event->id; ?>',
+                'requiredApproval': '<?= $event->required_approval; ?>'
             }
         }
         performAjaxRequest(data);

@@ -21,6 +21,16 @@ class UserEventRegistersModel extends Model
             ->get()->getResult();
     }
 
+    public function getEventsByUserId($userId, $isCompleted = 0)
+    {
+        return $this->select('user_event_registers.event_id, events.name, events.description, events.banner, events.event_type, events.price, events.date, events.category_id, events.street, user_event_registers.status, user_event_registers.is_completed, categories.name as category_name')
+            ->join('events', 'events.id = user_event_registers.event_id')
+            ->join('categories', 'categories.id = events.category_id')
+            ->where('user_event_registers.user_id', $userId)
+            ->where('user_event_registers.is_completed', $isCompleted)
+            ->findAll();
+    }
+
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';

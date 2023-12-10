@@ -59,8 +59,13 @@ class UserEventController extends BaseController
 
         $userEventEntity->user_id = $userId[0]->id;
         $userEventEntity->event_id = $eventId;
-        $userEventEntity->status = 0;
-        $userEventEntity->is_completed = 0;
+        if ($requiredApproval == 1) {
+            $userEventEntity->status = 0;
+            $userEventEntity->is_completed = 0;
+        } else {
+            $userEventEntity->status = 1;
+            $userEventEntity->is_completed = 0;
+        }
 
         $registeredEvent = $userEventModel->getDataByEventAndUser($userId[0]->id, $eventId);
 
@@ -82,16 +87,33 @@ class UserEventController extends BaseController
 
     public function listEventsRegistered()
     {
+        $userEventModel = new UserEventRegistersModel();
+        $userModel = new UserModel();
+        $userId = $userModel->getIdUserByEmail(session()->get('email'));
+
+
+        $events = $userEventModel->getEventsByUserId($userId[0]->id);
+
         $data = [
             'title' => 'Your Events',
+            'events' => $events
         ];
+
         return view('pages/user/events/events_registered', $data);
     }
 
     public function history()
     {
+        $userEventModel = new UserEventRegistersModel();
+        $userModel = new UserModel();
+        $userId = $userModel->getIdUserByEmail(session()->get('email'));
+
+
+        $events = $userEventModel->getEventsByUserId($userId[0]->id, 1);
+
         $data = [
             'title' => 'History Events',
+            'events' => $events
         ];
         return view('pages/user/events/history', $data);
     }
