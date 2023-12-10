@@ -54,6 +54,8 @@ class UserEventController extends BaseController
         $userModel = new UserModel();
         $userId = $userModel->getIdUserByEmail(session()->get('email'));
         $eventId = $request->getPost('eventId');
+        $requiredApproval = $request->getPost('requiredApproval');
+
 
         $userEventEntity->user_id = $userId[0]->id;
         $userEventEntity->event_id = $eventId;
