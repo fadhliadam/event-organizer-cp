@@ -6,7 +6,6 @@ use App\Controllers\Admin\AdminEventController;
 use App\Controllers\Admin\AdminLoginController;
 use App\Controllers\Admin\AdminProfileController;
 use App\Controllers\Home;
-use App\Controllers\User\Login;
 use App\Controllers\User\UserDashboardController;
 use App\Controllers\Superadmin\SuperadminDashboardController;
 use App\Controllers\Superadmin\SuperadminLoginController;
@@ -14,6 +13,7 @@ use App\Controllers\Superadmin\SuperadminUserController;
 use App\Controllers\Superadmmin\SuperadminEventController;
 use App\Controllers\Superadmin\SuperadminProfileController;
 use App\Controllers\User\UserEventController;
+use App\Controllers\User\UserLoginController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -27,9 +27,9 @@ $routes->set404Override(function () {
 
 $routes->get('/', [Home::class, 'index']);
 
-$routes->get('/login', [Login::class, 'index']);
-$routes->delete('/logout', [Login::class, 'logout']);
-$routes->get('/login/process', [Login::class, 'process']);
+$routes->get('/login', [UserLoginController::class, 'index']);
+$routes->delete('/logout', [UserLoginController::class, 'logout']);
+$routes->get('/login/process', [UserLoginController::class, 'process']);
 $routes->get('/dashboard', [UserDashboardController::class, 'index'], ['filter' => 'auth']);
 $routes->post('/dashboard', [UserDashboardController::class, 'filterCategory'], ['filter' => 'auth']);
 

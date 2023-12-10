@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\UserModel;
 use Google_Client;
 
-class Login extends BaseController
+class UserLoginController extends BaseController
 {
     protected $googleClient;
     protected $user;
