@@ -13,11 +13,15 @@
                         if($totalSegment == 2): ?>
                         <p><?= date('l, d F Y'); ?></p>
                     <?php else: 
+                        $routes = [
+                            1 => '/superadmin',
+                            2 => '/admin'
+                        ];
                         foreach($segments as $segment => $value):
                         if($segment > 0):
                             if($segment < $totalSegment-1 && $value !== 'edit'):
                         ?>
-                            <li class="breadcrumb-item text-capitalize"><a href="<?= base_url('/superadmin'. '/'. $value); ?>"><?= $value;  ?></a></li>
+                            <li class="breadcrumb-item text-capitalize"><a href="<?= base_url($routes[session()->get('role_id')]. '/'. $value); ?>"><?= $value;  ?></a></li>
                             <?php else: ?>
                             <li class="breadcrumb-item active text-capitalize" aria-current="page">
                                 <?= $value; ?>
