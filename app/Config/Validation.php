@@ -616,4 +616,12 @@ class Validation extends BaseConfig
             ]
         ],
     ];
+    public array $updateEventCollaboratorAdmin = [
+        'collaborator' => [
+            'rules' => 'valid_email|collaborator_valid_email',
+            'errors' => [
+                'collaborator_valid_email' => 'Email ini tidak ditemukan di database atau tidak berhak sebagai collaborator',
+            ]
+        ],
+    ];
 }

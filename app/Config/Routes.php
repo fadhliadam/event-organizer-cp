@@ -38,8 +38,6 @@ $routes->group('/admin', function ($routes) {
     $routes->get('dashboard', [AdminDashboardController::class, 'index'], ['filter' => 'auth']);
     $routes->match(['get', 'put'], 'profile', [AdminProfileController::class, 'index'], ['filter' => 'auth']);
 
-    $routes->get('events', [AdminEventController::class, 'index'], ['filter' => 'auth']);
-
     $routes->group('events', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [AdminEventController::class, 'index']);
         $routes->get('new', [AdminEventController::class, 'new']);
@@ -50,9 +48,9 @@ $routes->group('/admin', function ($routes) {
     });
     $routes->group('collaborators', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [AdminCollaboratorController::class, 'index']);
-        // $routes->get('edit/(:num)', [AdminCollaboratorController::class, 'edit']);
-        // $routes->put('edit/(:num)', [AdminCollaboratorController::class, 'update']);
-        // $routes->get('delete/(:num)', [AdminCollaboratorController::class, 'destroy']);
+        $routes->get('edit/(:num)', [AdminCollaboratorController::class, 'edit']);
+        $routes->put('edit/(:num)', [AdminCollaboratorController::class, 'update']);
+        $routes->delete('delete/(:num)', [AdminCollaboratorController::class, 'destroy']);
     });
 });
 

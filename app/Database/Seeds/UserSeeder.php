@@ -27,6 +27,12 @@ class UserSeeder extends Seeder
                 'password' => password_hash(12345678, PASSWORD_DEFAULT),
                 'role_id' => 3
             ],
+            [
+                'username' => 'user1',
+                'email' => 'user1@gmail.com',
+                'password' => password_hash(12345678, PASSWORD_DEFAULT),
+                'role_id' => 3
+            ],
         ];
 
         $this->db->table('users')->insertBatch($users);
