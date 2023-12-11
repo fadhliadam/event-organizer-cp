@@ -3,6 +3,7 @@
 namespace App\Controllers\User;
 
 use App\Controllers\BaseController;
+use App\Models\EventCollaboratorModel;
 use App\Models\UserModel;
 use Google_Client;
 
@@ -46,6 +47,7 @@ class UserLoginController extends BaseController
                 $this->googleClient->setAccessToken($token['access_token']);
                 $googleService = new \Google\Service\Oauth2($this->googleClient);
                 $data = $googleService->userinfo->get();
+                $collaboratorModel = new EventCollaboratorModel();
 
                 $entity = new \App\Entities\UserEntity();
                 $entity->id_google = $data['id'];
@@ -54,18 +56,36 @@ class UserLoginController extends BaseController
                 $entity->image = $data['picture'];
                 $entity->role_id = 3;
 
+                $userModel = new UserModel();
+                $user = $userModel->where('email', $entity->email)->find();
+                $userId = $userModel->getIdUserByEmail($data['email']);
+                $isEventCollaborator = false;
+
                 $dataSession = $entity->toArray() + [
                     'name' => $data['name'],
                     'logged_in' => true
                 ];
 
-                $model = new UserModel();
-                $user = $model->where('email', $entity->email)->find();
                 if ($user) {
+                    $eventCollaborator = $collaboratorModel->where('user_id', $userId[0]->id)->find();
+                    if ($eventCollaborator) {
+                        $isEventCollaborator = true;
+                    }
+
+                    $dataSession = $dataSession + [
+                        'id' => $userId[0]->id,
+                        'is_event_collaborator' => $isEventCollaborator
+                    ];
+
                     session()->set($dataSession);
                     return redirect()->to(base_url('/dashboard'));
                 } else {
-                    $model->save($entity);
+                    $userModel->save($entity);
+                    $userId = $userModel->getIdUserByEmail($data['email']);
+                    $dataSession = $dataSession + [
+                        'id' => $userId[0]->id,
+                        'is_event_collaborator' => $isEventCollaborator
+                    ];
                     session()->set($dataSession);
                     return redirect()->to(base_url('/dashboard'));
                 }

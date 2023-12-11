@@ -56,6 +56,11 @@ class AuthFilter implements FilterInterface
             if(check_for_routes(3)) {
                 return redirect()->to(base_url('/dashboard'));
             }
+
+            $isEventCollaborator = session()->get('is_event_collaborator');
+            if (!$isEventCollaborator && in_array('events', $segments) && in_array('manage-events', $segments)) {
+                return redirect()->to(base_url('/dashboard'));
+            }
         }
     }
 
