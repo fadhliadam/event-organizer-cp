@@ -1,4 +1,11 @@
-function confirmSwalHandler({ title, text, buttonText, url, redirectTo, method = "GET" }) {
+function confirmSwalHandler({
+  title,
+  text,
+  buttonText,
+  url,
+  redirectTo,
+  method = "GET",
+}) {
   Swal.fire({
     icon: "warning",
     title,
@@ -39,3 +46,23 @@ function performAjaxRequest({ url, redirectTo, method, data = {} }) {
     },
   });
 }
+
+const updateURLParameter = (url, param, paramVal) => {
+  let newAdditionalURL = "";
+  let tempArray = url.split("?");
+  const baseURL = tempArray[0];
+  const additionalURL = tempArray[1];
+  let temp = "";
+  if (additionalURL) {
+    tempArray = additionalURL.split("&");
+    for (let i = 0; i < tempArray.length; i++) {
+      if (tempArray[i].split("=")[0] != param) {
+        newAdditionalURL += temp + tempArray[i];
+        temp = "&";
+      }
+    }
+  }
+
+  let rows_txt = temp + "" + param + "=" + paramVal;
+  return baseURL + "?" + newAdditionalURL + rows_txt;
+};

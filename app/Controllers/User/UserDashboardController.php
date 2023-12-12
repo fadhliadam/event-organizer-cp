@@ -9,11 +9,11 @@ use CodeIgniter\I18n\Time;
 
 class UserDashboardController extends BaseController
 {
-    protected $categories, $eventModel;
+    protected $categoryModel, $categories, $eventModel;
 
     public function __construct()
     {
-        helper(['number', 'date']);
+        helper(['number', 'date', 'form']);
         $this->categoryModel = new CategoryModel();
         $this->categories = $this->categoryModel->findAll();
         $this->eventModel = new EventModel();
@@ -21,20 +21,19 @@ class UserDashboardController extends BaseController
 
     public function index()
     {
-        $categoryId = $this->request->getVar('categoryId') ? $this->request->getVar('categoryId') : 0;
-
-        $events = $this->eventModel;
-        if ($categoryId > 0) {
-            $events = $events->where('category_id', $categoryId);
-        }
-
+        $category = $this->request->getGet('category') ?? 'all';
+        $name = $this->request->getGet('nameEvent');
+        $keyword = [
+            'category' => $category,
+            'name' => $name
+        ];
+        $events = $this->eventModel->getEvents($keyword, 6);
         $data = [
             'title' => 'Dashboard',
             'categories' => $this->categories,
-            'events' => $events->paginate(6, 'events'),
-            'pager' => $events->pager,
+            'events' => $events['events'],
+            'pager' => $events['pager'],
             'time' => new Time(),
-            'selectedCategoryId' => 0
         ];
 
         return view('pages/user/dashboard', $data);

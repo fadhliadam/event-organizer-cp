@@ -31,7 +31,6 @@ $routes->get('/login', [UserLoginController::class, 'index']);
 $routes->delete('/logout', [UserLoginController::class, 'logout']);
 $routes->get('/login/process', [UserLoginController::class, 'process']);
 $routes->get('/dashboard', [UserDashboardController::class, 'index'], ['filter' => 'auth']);
-$routes->post('/dashboard', [UserDashboardController::class, 'filterCategory'], ['filter' => 'auth']);
 $routes->get('/profile', [UserDashboardController::class, 'profile'], ['filter' => 'auth']);
 $routes->get('/yourevents', [UserEventController::class, 'listEventsRegistered'], ['filter' => 'auth']);
 
