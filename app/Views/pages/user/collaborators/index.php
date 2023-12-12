@@ -81,15 +81,15 @@
                                 </td>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        <a href="<?= base_url('events/manage/edit/' . $event->id) ?>" class="btn btn-sm icon icon-left btn-outline-success">
+                                        <a href="<?= base_url('events/manage/edit/' . $event->event_id) ?>" class="btn btn-sm icon icon-left btn-outline-success">
                                             <i class="bi bi-person-gear"></i>
                                             Edit
                                         </a>
-                                        <?php if ($event->event_required_approval == 1): ?>
-                                        <a href="<?= base_url('events/manage/approve/' . $event->id) ?>" class="btn btn-sm icon icon-left btn-outline-success">
-                                            <i class="bi bi-person-check"></i>
-                                            Approve User
-                                        </a>
+                                        <?php if ($event->event_required_approval == 1) : ?>
+                                            <a href="<?= base_url('events/manage/approve/' . $event->event_id) ?>" class="btn btn-sm icon icon-left btn-outline-success">
+                                                <i class="bi bi-person-check"></i>
+                                                Approve User
+                                            </a>
                                         <?php endif; ?>
                                     </div>
                                 </td>

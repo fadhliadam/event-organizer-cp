@@ -113,9 +113,61 @@ class UserCollaboratorController extends BaseController
         $data = [
             'title' => 'Approve Users',
             'event' => $event,
-            'users' => $users,
+            'usersEvent' => $users,
         ];
 
         return view('pages/user/collaborators/approve', $data);
+    }
+
+    public function accept(int $id)
+    {
+        $userEventModel = new UserEventRegistersModel();
+        $userEvent = $userEventModel->find($id);
+
+        if (!$userEvent) {
+            $response = [
+                'status' => 'error',
+                'message' => 'User gagal disetujui, id tidak ditemukan'
+            ];
+            echo json_encode($response);
+            exit;
+        }
+
+        $userEvent->status = 1;
+
+        $userEventModel->update($id, $userEvent);
+
+        $response = [
+            'status' => 'success',
+            'message' => 'User berhasil disetujui'
+        ];
+
+
+        return json_encode($response);
+    }
+
+    public function deny(int $id)
+    {
+        $userEventModel = new UserEventRegistersModel();
+        $userEvent = $userEventModel->find($id);
+
+        if (!$userEvent) {
+            $response = [
+                'status' => 'error',
+                'message' => 'User gagal ditolak, id tidak ditemukan'
+            ];
+            echo json_encode($response);
+            exit;
+        }
+
+        $userEventModel->delete($id);
+
+        $response = [
+            'status' => 'success',
+            'message' => 'User berhasil ditolak'
+        ];
+
+
+        return json_encode($response);
     }
 }

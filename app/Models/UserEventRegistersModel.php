@@ -34,14 +34,14 @@ class UserEventRegistersModel extends Model
 
     public function getUsersbyEventId($eventId)
     {
-        return $this->select('users.id, users.id_google, users.username, users.email, users.image')
+        return $this->select('user_event_registers.*, users.username, users.email, users.image')
             ->join('users', 'users.id = user_event_registers.user_id')
             ->where('user_event_registers.event_id', $eventId)
-            ->get()->getResult();
+            ->find();
     }
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

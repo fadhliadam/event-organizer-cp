@@ -5,6 +5,7 @@ function confirmSwalHandler({
   url,
   redirectTo,
   method = "GET",
+  data = {}
 }) {
   Swal.fire({
     icon: "warning",
@@ -15,7 +16,7 @@ function confirmSwalHandler({
     confirmButtonColor: "#ca2b43",
   }).then((result) => {
     if (result.isConfirmed) {
-      performAjaxRequest({ url, redirectTo, method });
+      performAjaxRequest({ url, redirectTo, method, data });
     }
   });
 }

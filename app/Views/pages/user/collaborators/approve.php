@@ -10,7 +10,7 @@
 
 <?= $this->section('main_dashboard_content'); ?>
 <div class="row">
-    <div class="col">
+    <div class="col-12">
         <div class="card">
             <img src="<?= base_url('assets/' . $event->banner); ?>" class="card-img-top">
             <div class="card-body">
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-12">
         <div class="card" data-clickable="true" data-href="<?= base_url('events/' . $event->id); ?>">
             <div class="card-body">
                 <div class="table-responsive">
@@ -62,6 +62,7 @@
                                 <th>No</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Status</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -69,28 +70,39 @@
                         <tbody>
                             <?php
                             $no = 1;
-                            foreach ($users as $user) :
+                            foreach ($usersEvent as $userEvent) :
                             ?>
                                 <tr>
                                     <td><?= $no++; ?></td>
-                                    <td><?= $user->username ?></td>
-                                    <td><?= $user->email; ?></td>
+                                    <td><?= $userEvent->username ?></td>
+                                    <td><?= $userEvent->email; ?></td>
+                                    <td>
+                                        <?php if ($userEvent->status == 0) : ?>
+                                            <?php if (is_null($userEvent->deleted_at)) : ?>
+                                                <span class="badge bg-primary">Menunggu</span>
+                                            <?php else : ?>
+                                                <span class="badge bg-primary">Ditolak</span>
+                                            <?php endif; ?>
+                                        <?php else : ?>
+                                            <span class="badge bg-success">Disetujui</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <div class="avatar avatar-lg">
-                                            <?php if (is_null($user->id_google)) : ?>
-                                                <img src="<?= base_url('assets/' . $user->image); ?>" alt="=<?= $user->username; ?>" srcset="">
-                                            <?php else : ?>
-                                                <img src="<?= $user->image ?>" alt="=<?= $user->username; ?>" srcset="">
-                                            <?php endif; ?>
+                                            <img src="<?= $userEvent->image ?>" alt="=<?= $userEvent->username; ?>" srcset="">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="<?= base_url('/superadmin/users/edit/' . $user->id) ?>" class="btn btn-sm icon icon-left btn-outline-success">
+                                            <?php
+                                            $button = '';
+                                            if ($userEvent->status != 0 || !is_null($userEvent->deleted_at)) $button = 'disabled';
+                                            ?>
+                                            <button onclick="return approveUser('<?= base_url('/events/manage/approve/accept/' . $userEvent->id) ?>')" class="btn btn-sm icon icon-left btn-outline-success" <?= $button; ?>>
                                                 <i class="bi bi-check-circle-fill"></i>
-                                                Terima
-                                            </a>
-                                            <button onclick="" class="btn btn-sm icon icon-left btn-outline-danger">
+                                                Setuju
+                                            </button>
+                                            <button onclick="return denyUser('<?= base_url('/events/manage/approve/deny/' . $userEvent->id) ?>')" class="btn btn-sm icon icon-left btn-outline-danger" <?= $button; ?>>
                                                 <i class="bi bi-x-circle-fill"></i>
                                                 Tolak
                                             </button>
@@ -108,4 +120,50 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('scripts'); ?>
+<script>
+    let jquery_datatable = $("#tableUser").DataTable({
+        responsive: true
+    })
+
+    const setTableColor = () => {
+        document.querySelectorAll('.dataTables_paginate .pagination').forEach(dt => {
+            dt.classList.add('pagination-primary')
+        })
+    }
+    setTableColor()
+    jquery_datatable.on('draw', setTableColor)
+</script>
+<script>
+    const csrfToken = '<?= csrf_token(); ?>';
+    const csrfHash = '<?= csrf_hash(); ?>';
+    const approveUser = (url) => {
+        const data = {
+            title: 'Setujui User',
+            text: 'Apakah kamu ingin menyetujui user ini?',
+            buttonText: 'Setuju',
+            url,
+            redirectTo: '<?= base_url('/events/manage/approve/' . $event->id); ?>',
+            method: 'PUT',
+            data: {
+                [csrfToken]: csrfHash
+            }
+        }
+        confirmSwalHandler(data);
+    }
+    const denyUser = (url) => {
+        const data = {
+            title: 'Tolak User',
+            text: 'Apakah kamu ingin menolak user ini?',
+            buttonText: 'Tolak',
+            url,
+            redirectTo: '<?= base_url('/events/manage/approve/' . $event->id); ?>',
+            method: 'DELETE',
+            data: {
+                [csrfToken]: csrfHash
+            }
+        }
+
+        confirmSwalHandler(data);
+    }
+</script>
 <?= $this->endSection(); ?>
