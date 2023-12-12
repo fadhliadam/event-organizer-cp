@@ -16,11 +16,16 @@
             </div>
         </div>
     </div>
-    <div class="bg-body-tertiary border-bottom">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+    <div class="bg-body-tertiary border-bottom shadow">
+        <nav class="navbar p-2 navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <div class="logo">
-                    <a class="fs-5" href="<?= base_url('/dashboard'); ?>"><span class="fs-2">E</span>vent Organizer</a>
+                    <a class="fs-5 fw-bold d-flex gap-2 align-items-center" href="<?= base_url('/dashboard'); ?>">
+                        <div class="border border-danger p-1 rounded">
+                            <img src="<?= base_url('assets/images/logo.png'); ?>" alt="logo" width="30px">
+                        </div>
+                        <span class="d-none d-md-block">Event Organizer</span>
+                    </a>
                 </div>
                 <div class="row ms-auto align-items-center">
                     <button class="col-auto navbar-toggler border-0" type="button" data-bs-toggle="modal" data-bs-target="#searchModal" aria-controls="searchEvent" aria-expanded="false" aria-label="Toggle navigation">
