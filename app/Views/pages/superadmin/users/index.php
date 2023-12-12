@@ -40,7 +40,11 @@
                             </td>
                             <td>
                                 <div class="avatar avatar-lg">
-                                    <img src="<?= base_url('assets/'.$user->image); ?>" alt="=<?= $user->username; ?>" srcset="">
+                                    <?php if(is_null($user->id_google)): ?>
+                                        <img src="<?= base_url('assets/'.$user->image); ?>" alt="=<?= $user->username; ?>" srcset="">
+                                    <?php else: ?>
+                                        <img src="<?= $user->image ?>" alt="=<?= $user->username; ?>" srcset="">
+                                    <?php endif; ?>
                                 </div>
                             </td>
                             <td>

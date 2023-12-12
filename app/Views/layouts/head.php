@@ -32,6 +32,9 @@
     <!-- Main css -->
     <link rel="stylesheet" href="<?= base_url('assets/css/main.css'); ?>">
 
+    <!-- icon -->
+    <link rel="icon" href="<?= base_url('assets/images/logo.png') ?>">
+
     <!-- Dynamic render section heads -->
     <?= $this->renderSection('heads'); ?>
 

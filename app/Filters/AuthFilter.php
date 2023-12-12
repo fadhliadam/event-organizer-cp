@@ -25,15 +25,15 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-         $segments = service('uri')->getSegments();
+        //  $segments = service('uri')->getSegments();
          if (!session()->get('logged_in')) {
-            if (in_array('superadmin', $segments)) {
+            if (url_is('superadmin*')) {
                 return redirect()->to(base_url('/superadmin/login'));
             }
-            if (in_array('admin', $segments)) {
+            if (url_is('admin*')) {
                 return redirect()->to(base_url('/admin/login'));
             }
-            if (!in_array('superadmin', $segments) || !in_array('admin', $segments)) {
+            if (!url_is('superadmin*') || !url_is('admin*')) {
                 return redirect()->to(base_url('/login'));
             }
         } else {

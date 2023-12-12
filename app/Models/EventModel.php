@@ -14,8 +14,37 @@ class EventModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['name', 'description', 'banner', 'target_audience', 'quota', 'event_type', 'link', 'price', 'date', 'country', 'province', 'city', 'postal_code', 'street', 'host', 'host_email', 'required_approval', 'category_id', 'owner'];
 
-    public function getEvents()
+    public function getEvents(array $keyword = [], int $perPage = null)
     {
+        $category = $keyword['category'] == 'all' ? '' : $keyword['category'];
+        $name = $keyword['name'];
+        
+        if($name && $keyword['category']) {
+            $this->builder()
+            ->select('events.*, categories.name category_name')
+            ->join('categories', 'events.category_id = categories.id', 'left')
+            ->where('events.name like', "%$name%")
+            ->orderBy('events.created_at', 'DESC');
+
+            return [
+                'events'  => $this->paginate($perPage, 'events'),
+                'pager' => $this->pager->links('event', 'event_pagination'),
+            ];
+        }
+        
+        if($keyword['category']) {
+            $this->builder()
+            ->select('events.*, categories.name category_name')
+            ->join('categories', 'events.category_id = categories.id', 'left')
+            ->where('categories.name like', "%$category%")
+            ->orderBy('events.created_at', 'DESC');
+
+            return [
+                'events'  => $this->paginate($perPage, 'events'),
+                'pager' => $this->pager->links('event', 'event_pagination'),
+            ];
+        }
+
         return $this->db->table('events')
             ->select('events.*, categories.name category_name, users.username username')
             ->join('users', 'users.id = events.owner', 'left')

@@ -22,6 +22,7 @@
                                             $roles = [
                                                 1 => 'superadmin',
                                                 2 => 'admin',
+                                                3 => 'user',
                                             ];
                                             echo $roles[session()->get('role_id')];
                                         ?>

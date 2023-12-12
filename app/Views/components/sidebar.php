@@ -3,7 +3,19 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a class="fs-5" href="<?= base_url('/superadmin/dashboard'); ?>"><span class="fs-2">E</span>vent Organizer</a>
+                    <?php
+                        $dashboard_routes = [
+                            1 => '/superadmin/dashboard',
+                            2 => '/admin/dashboard',
+                            3 => '/dashboard'
+                        ];
+                     ?>
+                    <a class="fs-5 fw-bold d-flex gap-2 align-items-center" href="<?= base_url($dashboard_routes[session()->get('role_id')]); ?>">
+                        <div class="border border-danger p-1 rounded">
+                            <img src="<?= base_url('assets/images/logo.png'); ?>" alt="logo" width="32px">
+                        </div>
+                        <span class="">Event Organizer</span>
+                    </a>
                 </div>
                 <div class="sidebar-toggler  x">
                     <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
