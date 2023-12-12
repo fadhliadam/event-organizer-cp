@@ -12,6 +12,7 @@ use App\Controllers\Superadmin\SuperadminLoginController;
 use App\Controllers\Superadmin\SuperadminUserController;
 use App\Controllers\Superadmin\SuperadminEventController;
 use App\Controllers\Superadmin\SuperadminProfileController;
+use App\Controllers\User\UserCollaboratorController;
 use App\Controllers\User\UserEventController;
 use App\Controllers\User\UserLoginController;
 use CodeIgniter\Router\RouteCollection;
@@ -37,7 +38,17 @@ $routes->get('/yourevents', [UserEventController::class, 'listEventsRegistered']
 $routes->group('/events', ['filter' => 'auth'], function ($routes) {
     $routes->get('(:num)', [UserEventController::class, 'detail']);
     $routes->post('register-process', [UserEventController::class, 'registerProcess']);
-    $routes->get('history', [UserEventController::class, 'history'], ['filter' => 'auth']);
+    $routes->get('history', [UserEventController::class, 'history']);
+    $routes->group('manage', function ($routes) {
+        $routes->get('/', [UserCollaboratorController::class, 'index']);
+        $routes->get('edit/(:num)', [UserCollaboratorController::class, 'edit']);
+        $routes->put('edit/(:num)', [UserCollaboratorController::class, 'update']);
+        $routes->group('approve', function ($routes) {
+            $routes->get('(:num)', [UserCollaboratorController::class, 'approveUsers']);
+            $routes->put('accept/(:num)', [UserCollaboratorController::class, 'accept']);
+            $routes->delete('deny/(:num)', [UserCollaboratorController::class, 'deny']);
+        });
+    });
 });
 
 $routes->group('/admin', function ($routes) {

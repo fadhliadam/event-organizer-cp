@@ -30,25 +30,25 @@
                     ?>
                         <tr>
                             <td><?= $no++; ?></td>
-                            <td><?= $event['name'] ?></td>
+                            <td><?= $event->name ?></td>
                             <td>
-                                <?php if ($event['status'] == 0) : ?>
+                                <?php if ($event->status == 0) : ?>
                                     <span class="badge bg-primary">Belum Terverifikasi</span>
                                 <?php else : ?>
                                     <span class="badge bg-success">Terverifikasi</span>
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <?= $event['price'] == 0 ? 'Free' : $event['price']; ?>
+                                <?= $event->price == 0 ? 'Free' : $event->price; ?>
                             </td>
                             <td>
-                                <?= $event['date'] ?>
+                                <?= $event->date ?>
                             </td>
                             <td>
-                                <img src="<?= base_url('assets/' . $event['banner']); ?>" alt="banner" class="h-100 img-fluid object-fit-cover rounded">
+                                <img src="<?= base_url('assets/' . $event->banner); ?>" alt="banner" class="h-100 img-fluid object-fit-cover rounded">
                             </td>
                             <td>
-                                <?php if ($event['event_type'] == 0) : ?>
+                                <?php if ($event->event_type == 0) : ?>
                                     <span class="badge bg-primary">Online</span>
                                 <?php else : ?>
                                     <span class="badge bg-success">Offline</span>
@@ -56,14 +56,14 @@
                             </td>
                             <td>
                                 <span class="text-capitalize">
-                                    <?= $event['category_name']; ?>
+                                    <?= $event->category_name; ?>
                                 </span>
                             </td>
                             <td>
-                                <?= $event['street'] ?>
+                                <?= $event->street ?>
                             </td>
                             <td>
-                                <div class="limit-text"><?= $event['description']; ?></div>
+                                <div class="limit-text"><?= $event->description; ?></div>
                             </td>
                         </tr>
                     <?php endforeach; ?>

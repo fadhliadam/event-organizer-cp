@@ -15,7 +15,8 @@
                     <?php else: 
                         $routes = [
                             1 => '/superadmin',
-                            2 => '/admin'
+                            2 => '/admin',
+                            3 => '/events'
                         ];
                         foreach($segments as $segment => $value):
                         if($segment > 0):

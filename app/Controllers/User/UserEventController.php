@@ -16,7 +16,7 @@ class UserEventController extends BaseController
         $data = [
             'title' => 'Events',
         ];
-        return view('pages/user/events/index', $data);
+        return view('pages/user/dashboard', $data);
     }
 
     public function detail(int $id)
@@ -26,6 +26,8 @@ class UserEventController extends BaseController
         $event = $eventModel->find($id);
         $categoryModel = new CategoryModel();
         $category = $categoryModel->find($event->category_id);
+        $userEventModel = new UserEventRegistersModel();
+        $user = $userEventModel->getDataByEventAndUser(session()->get('id'), $id);
 
         $location = $event->city . ", " . $event->province;
         if ($event->type == 0) $location = "Online";
@@ -41,6 +43,7 @@ class UserEventController extends BaseController
             'title' => 'Events',
             'event' => $event,
             'category' => $category->name,
+            'user' => $user[0],
             'location' => $location
         ];
         return view('pages/user/events/detail', $data);
