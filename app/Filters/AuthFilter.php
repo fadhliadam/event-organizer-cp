@@ -26,7 +26,7 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         //  $segments = service('uri')->getSegments();
-         if (!session()->get('logged_in')) {
+        if (!session()->get('logged_in')) {
             if (url_is('superadmin*')) {
                 return redirect()->to(base_url('/superadmin/login'));
             }
@@ -37,7 +37,8 @@ class AuthFilter implements FilterInterface
                 return redirect()->to(base_url('/login'));
             }
         } else {
-            function check_for_routes($role_id) {
+            function check_for_routes($role_id)
+            {
                 $segments = service('uri')->getSegments();
                 $check_has_role_id = [
                     1 => !in_array('superadmin', $segments),
@@ -45,20 +46,17 @@ class AuthFilter implements FilterInterface
                     3 => in_array('superadmin', $segments) || in_array('admin', $segments)
                 ];
                 $has_role_id = session()->get('role_id') == $role_id;
-                return $has_role_id && $check_has_role_id[$role_id];
+                $isEventCollaborator = session()->get('is_event_collaborator');
+
+                return $has_role_id && $check_has_role_id[$role_id] && !($isEventCollaborator && in_array('events', $segments) && in_array('manage', $segments));
             }
-            if (check_for_routes(1) ) {
+            if (check_for_routes(1)) {
                 return redirect()->to(base_url('/superadmin/dashboard'));
             }
             if (check_for_routes(2)) {
                 return redirect()->to(base_url('/admin/dashboard'));
             }
-            if(check_for_routes(3)) {
-                return redirect()->to(base_url('/dashboard'));
-            }
-
-            $isEventCollaborator = session()->get('is_event_collaborator');
-            if (!$isEventCollaborator && in_array('events', $segments) && in_array('manage', $segments)) {
+            if (check_for_routes(3)) {
                 return redirect()->to(base_url('/dashboard'));
             }
         }

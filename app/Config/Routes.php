@@ -43,7 +43,7 @@ $routes->group('/events', ['filter' => 'auth'], function ($routes) {
         $routes->get('/', [UserCollaboratorController::class, 'index']);
         $routes->get('edit/(:num)', [UserCollaboratorController::class, 'edit']);
         $routes->put('edit/(:num)', [UserCollaboratorController::class, 'update']);
-        $routes->get('approve-users/(:num)', [UserCollaboratorController::class, 'approveUsers']);
+        $routes->get('approve/(:num)', [UserCollaboratorController::class, 'approveUsers']);
     });
 });
 

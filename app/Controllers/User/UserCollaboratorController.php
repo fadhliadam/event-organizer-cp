@@ -6,6 +6,9 @@ use App\Controllers\BaseController;
 use App\Models\CategoryModel;
 use App\Models\EventCollaboratorModel;
 use App\Models\EventModel;
+use App\Models\UserEventRegistersModel;
+use App\Models\UserModel;
+use CodeIgniter\I18n\Time;
 
 class UserCollaboratorController extends BaseController
 {
@@ -97,5 +100,22 @@ class UserCollaboratorController extends BaseController
 
         $eventModel->save($event);
         return redirect()->to(base_url('/events/manage'))->with('success_message', 'Berhasil mengubah event');
+    }
+
+    public function approveUsers(int $id)
+    {
+        helper(['number']);
+        $eventModel = new EventModel();
+        $event = $eventModel->find($id);
+        $userEventModel = new UserEventRegistersModel();
+        $users = $userEventModel->getUsersbyEventId($id);
+
+        $data = [
+            'title' => 'Approve Users',
+            'event' => $event,
+            'users' => $users,
+        ];
+
+        return view('pages/user/collaborators/approve', $data);
     }
 }

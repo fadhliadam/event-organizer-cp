@@ -9,6 +9,7 @@ class UserEventRegistersModel extends Model
     protected $table            = 'user_event_registers';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
+    protected $returnType       = 'App\Entities\UserEventRegisterEntity';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = ['user_id', 'event_id', 'status', 'is_completed'];
@@ -29,6 +30,14 @@ class UserEventRegistersModel extends Model
             ->where('user_event_registers.user_id', $userId)
             ->where('user_event_registers.is_completed', $isCompleted)
             ->findAll();
+    }
+
+    public function getUsersbyEventId($eventId)
+    {
+        return $this->select('users.id, users.id_google, users.username, users.email, users.image')
+            ->join('users', 'users.id = user_event_registers.user_id')
+            ->where('user_event_registers.event_id', $eventId)
+            ->get()->getResult();
     }
 
     // Dates
