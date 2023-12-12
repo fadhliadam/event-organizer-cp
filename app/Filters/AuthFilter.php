@@ -58,7 +58,7 @@ class AuthFilter implements FilterInterface
             }
 
             $isEventCollaborator = session()->get('is_event_collaborator');
-            if (!$isEventCollaborator && in_array('events', $segments) && in_array('manage-events', $segments)) {
+            if (!$isEventCollaborator && in_array('events', $segments) && in_array('manage', $segments)) {
                 return redirect()->to(base_url('/dashboard'));
             }
         }

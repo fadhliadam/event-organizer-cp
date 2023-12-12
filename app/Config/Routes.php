@@ -39,8 +39,13 @@ $routes->get('/yourevents', [UserEventController::class, 'listEventsRegistered']
 $routes->group('/events', ['filter' => 'auth'], function ($routes) {
     $routes->get('(:num)', [UserEventController::class, 'detail']);
     $routes->post('register-process', [UserEventController::class, 'registerProcess']);
-    $routes->get('history', [UserEventController::class, 'history'], ['filter' => 'auth']);
-    $routes->get('manage-events', [UserCollaboratorController::class, 'index'], ['filter' => 'auth']);
+    $routes->get('history', [UserEventController::class, 'history']);
+    $routes->group('manage', function ($routes) {
+        $routes->get('/', [UserCollaboratorController::class, 'index']);
+        $routes->get('edit/(:num)', [UserCollaboratorController::class, 'edit']);
+        $routes->put('edit/(:num)', [UserCollaboratorController::class, 'update']);
+        $routes->get('approve-users/(:num)', [UserCollaboratorController::class, 'approveUsers']);
+    });
 });
 
 $routes->group('/admin', function ($routes) {

@@ -68,8 +68,8 @@
                         </a>
                     </li>
                     <?php if (session()->get('is_event_collaborator')) : ?>
-                        <li class="sidebar-item <?= service('uri')->getSegment(2) == 'manage-events' ? 'active' : '' ?>">
-                            <a href="<?= base_url('/events/manage-events'); ?>" class='sidebar-link'>
+                        <li class="sidebar-item <?= service('uri')->getSegment(2) == 'manage' ? 'active' : '' ?>">
+                            <a href="<?= base_url('/events/manage'); ?>" class='sidebar-link'>
                                 <i class="bi bi-calendar-event-fill"></i>
                                 <span>Manage Events</span>
                             </a>

@@ -81,14 +81,13 @@
                                 </td>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        <a href="<?= base_url('/events/edit/' . $event->id) ?>" class="btn btn-sm icon icon-left btn-outline-success">
+                                        <a href="<?= base_url('events/manage/edit/' . $event->id) ?>" class="btn btn-sm icon icon-left btn-outline-success">
                                             <i class="bi bi-person-gear"></i>
                                             Edit
                                         </a>
                                     </div>
                                 </td>
                             </tr>
-
                     <?php
                         endif;
                     endforeach; ?>
@@ -111,5 +110,28 @@
     }
     setTableColor()
     jquery_datatable.on('draw', setTableColor)
+</script>
+
+<script>
+    $(() => {
+        <?php if (session()->has('success_message')) : ?>
+            Swal.fire({
+                icon: 'success',
+                text: '<?= session()->getFlashdata('success_message') ?>',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        <?php endif; ?>
+    })
+    $(() => {
+        <?php if (session()->has('error_message')) : ?>
+            Swal.fire({
+                icon: 'error',
+                text: '<?= session()->getFlashdata('error_message') ?>',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        <?php endif; ?>
+    })
 </script>
 <?= $this->endSection(); ?>
