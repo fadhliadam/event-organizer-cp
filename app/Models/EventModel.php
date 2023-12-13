@@ -16,23 +16,25 @@ class EventModel extends Model
 
     public function getEvents(array $keyword = [], int $perPage = null)
     {
-        $category = $keyword['category'] == 'all' ? '' : $keyword['category'];
-        $name = $keyword['name'];
+        $name = $keyword['name'] ?? '';
+        $category = $keyword['category'] ?? '';
         
-        if($name && $keyword['category']) {
+        if($name && $category) {
             $this->builder()
             ->select('events.*, categories.name category_name')
             ->join('categories', 'events.category_id = categories.id', 'left')
             ->where('events.name like', "%$name%")
             ->orderBy('events.created_at', 'DESC');
-
+            
             return [
                 'events'  => $this->paginate($perPage, 'events'),
                 'pager' => $this->pager->links('event', 'event_pagination'),
             ];
         }
         
-        if($keyword['category']) {
+        if($category) {
+            $category = $category == 'all' ? '' : $category;
+            
             $this->builder()
             ->select('events.*, categories.name category_name')
             ->join('categories', 'events.category_id = categories.id', 'left')
