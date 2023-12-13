@@ -123,6 +123,8 @@ class UserCollaboratorController extends BaseController
     {
         $userEventModel = new UserEventRegistersModel();
         $userEvent = $userEventModel->find($id);
+        $emailData = $userEventModel->getEventUsersbyId($id);
+        $emailData = $emailData[0];
 
         if (!$userEvent) {
             $response = [
@@ -135,15 +137,30 @@ class UserCollaboratorController extends BaseController
 
         $userEvent->status = 1;
 
-        $userEventModel->update($id, $userEvent);
+        $emailTitle = 'Konfirmasi Pendaftaran untuk Event "' . $emailData->event_name . '"';
 
-        $response = [
-            'status' => 'success',
-            'message' => 'User berhasil disetujui'
+        $data = [
+            'emailData' => $emailData
         ];
 
+        $emailMessage = view('email/email_template', $data);
 
-        return json_encode($response);
+        if ($this->sendEmail($emailData->email, $emailTitle, $emailMessage)) {
+            $userEventModel->update($id, $userEvent);
+            $response = [
+                'status' => 'success',
+                'message' => 'User berhasil disetujui'
+            ];
+
+            return json_encode($response);
+        } else {
+            $response = [
+                'status' => 'error',
+                'message' => 'User gagal disetujui'
+            ];
+
+            return json_encode($response);
+        }
     }
 
     public function deny(int $id)
@@ -169,5 +186,22 @@ class UserCollaboratorController extends BaseController
 
 
         return json_encode($response);
+    }
+
+    private function sendEmail($to, $title, $message)
+    {
+        $email = \Config\Services::email();
+
+        $email->setFrom('zetho.fasilkom@gmail.com', 'Zetho Event Organizer');
+        $email->setTo($to);
+
+        $email->setSubject($title);
+        $email->setMessage($message);
+
+        if (!$email->send()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
