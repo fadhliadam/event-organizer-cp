@@ -16,7 +16,16 @@
     <link rel="stylesheet" href="<?= base_url('tiny-slider.css') ?>" />
     <link rel="stylesheet" href="<?= base_url('assets/css/glightbox.min.css') ?>" />
     <link rel="stylesheet" href="<?= base_url('assets/css/main-landing.css') ?>" />
-
+    <Style>
+        .text-desc {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            /* number of lines to show */
+            -webkit-box-orient: vertical;
+        }
+    </Style>
 </head>
 
 <body>
@@ -69,9 +78,14 @@
                                     <li class="nav-item">
                                         <a href="#footer" aria-label="Toggle navigation">Contact Us</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <div class="button wow d-lg-none d-flex">
+                                            <a href="<?= base_url('/login'); ?>" class="btn d-lg-none d-flex"><i class="lni lni-google"></i> Sign In</a>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
-                            <div class="button wow">
+                            <div class="button wow d-none d-lg-flex">
                                 <a href="<?= base_url('/login'); ?>" class="btn"><i class="lni lni-google"></i> Sign In</a>
                             </div>
                         </nav>
@@ -125,53 +139,57 @@
                 </div>
             </div>
             <div class="row">
-                <?php foreach ($events as $event) : ?>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Table -->
-                        <div class="single-table wow fadeInUp" data-wow-delay=".2s">
-                            <!-- Table Head -->
-                            <div class="table-head">
-                                <h4 class="title"><?= $event->name ?></h4>
-                                <img src="<?= base_url('assets/' . $event->banner); ?>" class="card-img" alt="<?= $event->name ?>">
-                                <div style="max-height: 4.2em; overflow: hidden;">
-                                    <p><?= $event->description ?></p>
+                <?php foreach ($events as $event) :
+                    if (empty($event->deleted_at) && ($event->is_completed == 0)) :
+                ?>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <!-- Single Table -->
+                            <div class="single-table wow fadeInUp" data-wow-delay=".2s">
+                                <!-- Table Head -->
+                                <div class="table-head">
+                                    <h4 class="title"><?= $event->name ?></h4>
+                                    <img src="<?= base_url('assets/' . $event->banner); ?>" class="card-img" alt="<?= $event->name ?>">
+                                    <div class="text-desc">
+                                        <p><?= $event->description ?></p>
+                                    </div>
+                                    <div class="price">
+                                        <h2 class="amount"><?php
+                                                            if ($event->price == 0) {
+                                                                echo "Free";
+                                                            } else {
+                                                                echo "Rp" . number_format($event->price, 0, ',', '.');
+                                                            }
+                                                            ?></h2>
+                                    </div>
+                                    <div class="button">
+                                        <a href="javascript:void(0)" class="btn">Register</a>
+                                    </div>
                                 </div>
-                                <div class="price">
-                                    <h2 class="amount"><?php
-                                                        if ($event->price == 0) {
-                                                            echo "Free";
-                                                        } else {
-                                                            echo "Rp" . number_format($event->price, 0, ',', '.');
-                                                        }
-                                                        ?></h2>
+                                <!-- End Table Head -->
+                                <!-- Start Table Content -->
+                                <div class="table-content">
+                                    <h4 class="middle-title">Details</h4>
+                                    <!-- Table List -->
+                                    <ul class="table-list">
+                                        <li><i class="lni lni-checkmark-circle"></i> <?= $event->category_name ?></li>
+                                        <li><i class="lni lni-checkmark-circle"></i> <?php if ($event->event_type == 0) : ?>
+                                                <span class="badge bg-primary">Online</span>
+                                            <?php else : ?>
+                                                <span class="badge bg-success">Offline</span>
+                                            <?php endif; ?>
+                                        </li>
+                                        <li><i class="lni lni-checkmark-circle"></i> <?= $event->date ?></li>
+                                        <li><i class="lni lni-checkmark-circle"></i> <?= $event->street ?></li>
+                                    </ul>
+                                    <!-- End Table List -->
                                 </div>
-                                <div class="button">
-                                    <a href="javascript:void(0)" class="btn">Register</a>
-                                </div>
+                                <!-- End Table Content -->
                             </div>
-                            <!-- End Table Head -->
-                            <!-- Start Table Content -->
-                            <div class="table-content">
-                                <h4 class="middle-title">Details</h4>
-                                <!-- Table List -->
-                                <ul class="table-list">
-                                    <li><i class="lni lni-checkmark-circle"></i> <?= $event->category_name ?></li>
-                                    <li><i class="lni lni-checkmark-circle"></i> <?php if ($event->event_type == 0) : ?>
-                                            <span class="badge bg-primary">Online</span>
-                                        <?php else : ?>
-                                            <span class="badge bg-success">Offline</span>
-                                        <?php endif; ?>
-                                    </li>
-                                    <li><i class="lni lni-checkmark-circle"></i> <?= $event->date ?></li>
-                                    <li><i class="lni lni-checkmark-circle"></i> <?= $event->street ?></li>
-                                </ul>
-                                <!-- End Table List -->
-                            </div>
-                            <!-- End Table Content -->
+                            <!-- End Single Table-->
                         </div>
-                        <!-- End Single Table-->
-                    </div>
-                <?php endforeach ?>
+                <?php
+                    endif;
+                endforeach ?>
             </div>
         </div>
     </section>
