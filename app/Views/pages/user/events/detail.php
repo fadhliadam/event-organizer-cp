@@ -36,12 +36,14 @@
                         $buttonText = 'Tidak Tersedia';
                         $buttonState = 'disabled';
                     }
-                    if ($user->status == 0 && !is_null($user->deleted_at)) {
-                        $buttonText = 'Ditolak';
-                        $buttonState = 'disabled';
-                    } elseif ($user->status == 1) {
-                        $buttonText = 'Sudah Terdaftar';
-                        $buttonState = 'disabled';
+                    if ($user) {
+                        if ($user[0]->status == 0 && !is_null($user[0]->deleted_at)) {
+                            $buttonText = 'Ditolak';
+                            $buttonState = 'disabled';
+                        } elseif (!$user[0]->status) {
+                            $buttonText = 'Sudah Terdaftar';
+                            $buttonState = 'disabled';
+                        }
                     }
                     ?>
                     <button class="btn btn-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#registerEventModal" <?= $buttonState; ?>><?= $buttonText; ?></button>

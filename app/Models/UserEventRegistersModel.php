@@ -42,7 +42,7 @@ class UserEventRegistersModel extends Model
 
     public function getEventUsersbyId($id)
     {
-        return $this->select('user_event_registers.*, events.name as event_name, events.date, events.link, events.banner, events.country, events.province, events.city, events.postal_code, events.street, events.event_type, users.username, users.email')
+        return $this->select('user_event_registers.*, events.name as event_name, events.date, events.link, events.banner, events.country, events.province, events.city, events.postal_code, events.street, events.host, events.host_email, events.event_type, users.username, users.email')
             ->join('users', 'users.id = user_event_registers.user_id')
             ->join('events', 'events.id = user_event_registers.event_id')
             ->where('user_event_registers.id', $id)

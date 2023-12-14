@@ -26,6 +26,7 @@ class UserEventController extends BaseController
         $event = $eventModel->find($id);
         $categoryModel = new CategoryModel();
         $category = $categoryModel->find($event->category_id);
+
         $userEventModel = new UserEventRegistersModel();
         $user = $userEventModel->getDataByEventAndUser(session()->get('id'), $id);
 
@@ -39,11 +40,12 @@ class UserEventController extends BaseController
         }
 
         $event->date = $this->changeDateFormat($event->date);
+        
         $data = [
             'title' => 'Events',
             'event' => $event,
             'category' => $category->name,
-            'user' => $user[0],
+            'user' => $user,
             'location' => $location
         ];
         return view('pages/user/events/detail', $data);

@@ -155,7 +155,7 @@
           </div>
 
           <div class="u-row-container" style="padding: 0px; background-color: transparent">
-            <div class="u-row" style="margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #003399">
+            <div class="u-row" style="margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent">
               <div style="border-collapse: collapse; display: table; width: 100%; height: 100%; background-color: transparent">
                 <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: #003399;"><![endif]-->
 
@@ -233,6 +233,10 @@
                                   <span style="font-family: Cabin, sans-serif; line-height: 22.4px">Pastikan untuk hadir tepat waktu dan siapkan diri Anda untuk terlibat dalam berbagai kegiatan yang telah kami persiapkan. Jangan ragu untuk mengajukan pertanyaan atau meminta informasi tambahan sebelum
                                     hari acara.</span>
                                 </p>
+                                <ul style="list-style-type: disc">
+                                  <li style="line-height: 22.4px; text-align: left"><span style="font-family: Cabin, sans-serif; line-height: 22.4px">Host: <?= $emailData->host; ?></span></li>
+                                  <li style="line-height: 22.4px; text-align: left"><span style="font-family: Cabin, sans-serif; line-height: 22.4px">Email Host: <?= $emailData->host_email; ?></span></li>
+                                </ul>
                                 <p style="line-height: 160%; text-align: left">&nbsp;</p>
                                 <p style="line-height: 160%; text-align: left">
                                   <span style="font-family: Cabin, sans-serif; line-height: 22.4px">Terima kasih atas partisipasi Anda, dan kami berharap acara ini akan menjadi pengalaman berharga bagi Anda. Jika ada pembaruan atau informasi tambahan, kami akan segera memberitahu Anda melalui email
