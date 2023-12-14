@@ -54,6 +54,17 @@ class EventModel extends Model
             ->orderBy('events.created_at', 'DESC')
             ->get()->getResult();
     }
+    public function getClosestEvents()
+    {
+        return $this->db->table('events')
+            ->select('events.*, categories.name as category_name, users.username as username')
+            ->join('users', 'users.id = events.owner', 'left')
+            ->join('categories', 'categories.id = events.category_id', 'left')
+            ->orderBy('events.date', 'ASC')  // Urutkan berdasarkan kolom date secara menaik (ASC)
+            ->limit(4)  // Ambil 4 event terdekat
+            ->get()
+            ->getResult();
+    }
 
     public function getEventById(int $id)
     {

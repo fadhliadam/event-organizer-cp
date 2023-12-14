@@ -71,6 +71,9 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div class="button wow">
+                                <a href="<?= base_url('/login'); ?>" class="btn"><i class="lni lni-google"></i> Sign In</a>
+                            </div>
                         </nav>
                         <!-- End Navbar -->
                     </div>
@@ -93,7 +96,7 @@
                             Temukan keseruan dan pengetahuan baru yang pasti bikin hari-harimu lebih berwarna! Ayo
                             bergabung dan tingkatkan kebahagiaanmu bersama kami!</p>
                         <div class="button wow fadeInLeft" data-wow-delay=".8s">
-                            <a href="javascript:void(0)" class="btn">Get Started</a>
+                            <a href="<?= base_url('/login'); ?>" class="btn">Get Started</a>
                         </div>
                     </div>
                 </div>
@@ -122,131 +125,53 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Table -->
-                    <div class="single-table wow fadeInUp" data-wow-delay=".2s">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Job Fair</h4>
-                            <img src="<?= base_url('assets/images/musik.jpg'); ?>" class="card-img" alt="...">
-                            <p>All the basics for starting a new business</p>
-                            <div class="price">
-                                <h2 class="amount">Free</h2>
+                <?php foreach ($events as $event) : ?>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Single Table -->
+                        <div class="single-table wow fadeInUp" data-wow-delay=".2s">
+                            <!-- Table Head -->
+                            <div class="table-head">
+                                <h4 class="title"><?= $event->name ?></h4>
+                                <img src="<?= base_url('assets/' . $event->banner); ?>" class="card-img" alt="<?= $event->name ?>">
+                                <div style="max-height: 4.2em; overflow: hidden;">
+                                    <p><?= $event->description ?></p>
+                                </div>
+                                <div class="price">
+                                    <h2 class="amount"><?php
+                                                        if ($event->price == 0) {
+                                                            echo "Free";
+                                                        } else {
+                                                            echo "Rp" . number_format($event->price, 0, ',', '.');
+                                                        }
+                                                        ?></h2>
+                                </div>
+                                <div class="button">
+                                    <a href="javascript:void(0)" class="btn">Register</a>
+                                </div>
                             </div>
-                            <div class="button">
-                                <a href="javascript:void(0)" class="btn">Register</a>
+                            <!-- End Table Head -->
+                            <!-- Start Table Content -->
+                            <div class="table-content">
+                                <h4 class="middle-title">Details</h4>
+                                <!-- Table List -->
+                                <ul class="table-list">
+                                    <li><i class="lni lni-checkmark-circle"></i> <?= $event->category_name ?></li>
+                                    <li><i class="lni lni-checkmark-circle"></i> <?php if ($event->event_type == 0) : ?>
+                                            <span class="badge bg-primary">Online</span>
+                                        <?php else : ?>
+                                            <span class="badge bg-success">Offline</span>
+                                        <?php endif; ?>
+                                    </li>
+                                    <li><i class="lni lni-checkmark-circle"></i> <?= $event->date ?></li>
+                                    <li><i class="lni lni-checkmark-circle"></i> <?= $event->street ?></li>
+                                </ul>
+                                <!-- End Table List -->
                             </div>
+                            <!-- End Table Content -->
                         </div>
-                        <!-- End Table Head -->
-                        <!-- Start Table Content -->
-                        <div class="table-content">
-                            <h4 class="middle-title">Details</h4>
-                            <!-- Table List -->
-                            <ul class="table-list">
-                                <li><i class="lni lni-checkmark-circle"></i> Seminar</li>
-                                <li><i class="lni lni-checkmark-circle"></i> Online</li>
-                                <li><i class="lni lni-checkmark-circle"></i> 23 Desember 2023</li>
-                                <li><i class="lni lni-checkmark-circle"></i> Jl. Ronggo Waluyo</li>
-                            </ul>
-                            <!-- End Table List -->
-                        </div>
-                        <!-- End Table Content -->
+                        <!-- End Single Table-->
                     </div>
-                    <!-- End Single Table-->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Table -->
-                    <div class="single-table wow fadeInUp" data-wow-delay=".4s">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Compfair</h4>
-                            <p>All the basics for starting a new business</p>
-                            <div class="price">
-                                <h2 class="amount">$24<span class="duration">/mo</span></h2>
-                            </div>
-                            <div class="button">
-                                <a href="javascript:void(0)" class="btn">Register</a>
-                            </div>
-                        </div>
-                        <!-- End Table Head -->
-                        <!-- Start Table Content -->
-                        <div class="table-content">
-                            <h4 class="middle-title">Details</h4>
-                            <!-- Table List -->
-                            <ul class="table-list">
-                                <li><i class="lni lni-checkmark-circle"></i> Seminar</li>
-                                <li><i class="lni lni-checkmark-circle"></i> Online</li>
-                                <li><i class="lni lni-checkmark-circle"></i> 23 Desember 2023</li>
-                                <li><i class="lni lni-checkmark-circle"></i> Jl. Ronggo Waluyo</li>
-                            </ul>
-                            <!-- End Table List -->
-                        </div>
-                        <!-- End Table Content -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Table -->
-                    <div class="single-table wow fadeInUp" data-wow-delay=".6s">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">Diesnatalis</h4>
-                            <p>All the basics for starting a new business</p>
-                            <div class="price">
-                                <h2 class="amount">$32<span class="duration">/mo</span></h2>
-                            </div>
-                            <div class="button">
-                                <a href="javascript:void(0)" class="btn">Register</a>
-                            </div>
-                        </div>
-                        <!-- End Table Head -->
-                        <!-- Start Table Content -->
-                        <div class="table-content">
-                            <h4 class="middle-title">Details</h4>
-                            <!-- Table List -->
-                            <ul class="table-list">
-                                <li><i class="lni lni-checkmark-circle"></i> Seminar</li>
-                                <li><i class="lni lni-checkmark-circle"></i> Online</li>
-                                <li><i class="lni lni-checkmark-circle"></i> 23 Desember 2023</li>
-                                <li><i class="lni lni-checkmark-circle"></i> Jl. Ronggo Waluyo</li>
-                            </ul>
-                            <!-- End Table List -->
-                        </div>
-                        <!-- End Table Content -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Table -->
-                    <div class="single-table wow fadeInUp" data-wow-delay=".8s">
-                        <!-- Table Head -->
-                        <div class="table-head">
-                            <h4 class="title">LKMM</h4>
-                            <p>All the basics for starting a new business</p>
-                            <div class="price">
-                                <h2 class="amount">$48<span class="duration">/mo</span></h2>
-                            </div>
-                            <div class="button">
-                                <a href="javascript:void(0)" class="btn">Register</a>
-                            </div>
-                        </div>
-                        <!-- End Table Head -->
-                        <!-- Start Table Content -->
-                        <div class="table-content">
-                            <h4 class="middle-title">Details</h4>
-                            <!-- Table List -->
-                            <ul class="table-list">
-                                <li><i class="lni lni-checkmark-circle"></i> Seminar</li>
-                                <li><i class="lni lni-checkmark-circle"></i> Online</li>
-                                <li><i class="lni lni-checkmark-circle"></i> 23 Desember 2023</li>
-                                <li><i class="lni lni-checkmark-circle"></i> Jl. Ronggo Waluyo</li>
-                            </ul>
-                            <!-- End Table List -->
-                        </div>
-                        <!-- End Table Content -->
-                    </div>
-                    <!-- End Single Table-->
-                </div>
+                <?php endforeach ?>
             </div>
         </div>
     </section>
@@ -350,7 +275,7 @@
                     <!-- Start Single Feature -->
                     <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
                         <i class="lni lni-cog"></i>
-                        <h3>Upgrading</h3>
+                        <h3>Pelatihan</h3>
                         <p>It is a long established fact that a reader will be distracted by the readable content of a
                             page at its layout.</p>
                     </div>
