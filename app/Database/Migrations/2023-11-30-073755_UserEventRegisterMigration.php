@@ -32,12 +32,6 @@ class UserEventRegisterMigration extends Migration
                 'unsigned' => true,
                 'default' => false
             ],
-            'is_completed' => [
-                'type' => 'TINYINT',
-                'constraint' => 1,
-                'unsigned' => true,
-                'default' => false
-            ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
             'updated_at DATETIME DEFAULT CURRENT_TIMESTAMP',
             'deleted_at DATETIME DEFAULT NULL',

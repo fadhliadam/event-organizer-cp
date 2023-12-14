@@ -14,7 +14,6 @@ class SuperadminEventController extends BaseController
     {
         $eventModel = new EventModel();
         $events = $eventModel->getEvents();
-        
         $data = [
             'title' => 'Events',
             'events' => $events
@@ -208,13 +207,16 @@ class SuperadminEventController extends BaseController
                 $eventModel->save($event);
                 return redirect()->to(base_url('/superadmin/events'))->with('success_message', 'Berhasil mengubah event');
             } else {
-
-                $collaborator_user_id = $userModel->getIdUserByEmail($validateData['collaborator'])[0];
-                $collaborator_user_id = $collaborator_user_id->id;
-                $collaborator->user_id = $collaborator_user_id;
-                $collaborator->event_id = $event->id;
-                $collaboratorModel->save($collaborator);
-
+                if($validateData['collaborator']) {
+                    $collaborator_user_id = $userModel->getIdUserByEmail($validateData['collaborator'])[0];
+                    $collaborator_user_id = $collaborator_user_id->id;
+                    $collaborator->user_id = $collaborator_user_id;
+                    $collaborator->event_id = $event->id;
+                    $collaboratorModel->save($collaborator);
+    
+                    $eventModel->save($event);
+                    return redirect()->to(base_url('/superadmin/events'))->with('success_message', 'Berhasil mengubah event');
+                }
                 $eventModel->save($event);
                 return redirect()->to(base_url('/superadmin/events'))->with('success_message', 'Berhasil mengubah event');
             }

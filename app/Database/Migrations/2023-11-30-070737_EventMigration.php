@@ -90,6 +90,12 @@ class EventMigration extends Migration
                 'unsigned' => true,
                 'default' => false
             ],
+            'is_completed' => [
+                'type' => 'TINYINT', // not completed (0), completed (1)
+                'constraint' => 1,
+                'unsigned' => true,
+                'default' => false
+            ],
             'category_id' => [
                 'type' => 'INT',
                 'constraint' => 5,
