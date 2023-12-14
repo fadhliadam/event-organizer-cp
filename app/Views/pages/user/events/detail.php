@@ -48,6 +48,10 @@
                             $buttonState = 'disabled';
                         }
                     }
+                    if ($event->is_completed == 1) {
+                        $buttonText = 'Telah Berakhir';
+                        $buttonState = 'disabled';
+                    }
                     ?>
                     <button class="btn btn-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#registerEventModal" <?= $buttonState; ?>><?= $buttonText; ?></button>
                 </div>
@@ -133,9 +137,9 @@
 
 <?= $this->section('scripts'); ?>
 <script>
+    const csrfToken = '<?= csrf_token(); ?>';
+    const csrfHash = '<?= csrf_hash(); ?>';
     $('#daftar').on('click', () => {
-        const csrfToken = '<?= csrf_token(); ?>';
-        const csrfHash = '<?= csrf_hash(); ?>';
         const data = {
             url: '<?= base_url('/events/register-process') ?>',
             redirectTo: '<?= base_url('/yourevents') ?>',

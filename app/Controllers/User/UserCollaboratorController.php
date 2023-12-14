@@ -110,13 +110,18 @@ class UserCollaboratorController extends BaseController
         $userEventModel = new UserEventRegistersModel();
         $users = $userEventModel->getUsersbyEventId($id);
 
-        $data = [
-            'title' => 'Approve Users',
-            'event' => $event,
-            'usersEvent' => $users,
-        ];
 
-        return view('pages/user/collaborators/approve', $data);
+        if ($event->is_completed == 0) {
+            $data = [
+                'title' => 'Approve Users',
+                'event' => $event,
+                'usersEvent' => $users,
+            ];
+
+            return view('pages/user/collaborators/approve', $data);
+        } else {
+            return redirect()->to(base_url('/events/manage'));
+        }
     }
 
     public function accept(int $id)
@@ -186,7 +191,6 @@ class UserCollaboratorController extends BaseController
             'status' => 'success',
             'message' => 'User berhasil ditolak'
         ];
-
 
         return json_encode($response);
     }

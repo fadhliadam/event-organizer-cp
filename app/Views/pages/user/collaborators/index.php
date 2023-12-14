@@ -85,7 +85,7 @@
                                             <i class="bi bi-person-gear"></i>
                                             Edit
                                         </a>
-                                        <?php if ($event->event_required_approval == 1) : ?>
+                                        <?php if ($event->event_required_approval == 1 && $event->is_completed != 1) : ?>
                                             <a href="<?= base_url('events/manage/approve/' . $event->event_id) ?>" class="btn btn-sm icon icon-left btn-outline-success">
                                                 <i class="bi bi-person-check"></i>
                                                 Approve User
