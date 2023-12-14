@@ -37,7 +37,7 @@
                                         <div class="form-group has-icon-left">
                                             <label for="name" class="form-label">Nama Event</label>
                                             <div class="position-relative">
-                                                <input type="text" name="name" tabindex="1" class="form-control <?= $validation->hasError('name') ? 'is-invalid' : ''; ?>" placeholder="Isikan nama event" id="name" value="<?= set_value('name', $event->name); ?>">
+                                                <input type="text" name="name" autofocus class="form-control <?= $validation->hasError('name') ? 'is-invalid' : ''; ?>" placeholder="Isikan nama event" id="name" value="<?= set_value('name', $event->name); ?>">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-balloon-heart"></i>
                                                 </div>
