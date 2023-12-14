@@ -12,7 +12,7 @@ class EventModel extends Model
     protected $returnType       = 'App\Entities\EventEntity';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'description', 'banner', 'target_audience', 'quota', 'event_type', 'link', 'price', 'date', 'country', 'province', 'city', 'postal_code', 'street', 'host', 'host_email', 'required_approval', 'category_id', 'owner'];
+    protected $allowedFields    = ['name', 'description', 'banner', 'target_audience', 'quota', 'event_type', 'link', 'price', 'date', 'country', 'province', 'city', 'postal_code', 'street', 'host', 'host_email', 'required_approval', 'category_id', 'owner', 'is_completed'];
 
     public function getEvents(array $keyword = [], int $perPage = null)
     {
@@ -53,6 +53,17 @@ class EventModel extends Model
             ->join('categories', 'categories.id = events.category_id', 'left')
             ->orderBy('events.created_at', 'DESC')
             ->get()->getResult();
+    }
+    public function getClosestEvents()
+    {
+        return $this->db->table('events')
+            ->select('events.*, categories.name as category_name, users.username as username')
+            ->join('users', 'users.id = events.owner', 'left')
+            ->join('categories', 'categories.id = events.category_id', 'left')
+            ->orderBy('events.date', 'ASC')  // Urutkan berdasarkan kolom date secara menaik (ASC)
+            ->limit(4)  // Ambil 4 event terdekat
+            ->get()
+            ->getResult();
     }
 
     public function getEventById(int $id)
