@@ -40,8 +40,11 @@
                         if ($user[0]->status == 0 && !is_null($user[0]->deleted_at)) {
                             $buttonText = 'Ditolak';
                             $buttonState = 'disabled';
-                        } elseif (!$user[0]->status) {
+                        } elseif ($user[0]->status == 1) {
                             $buttonText = 'Sudah Terdaftar';
+                            $buttonState = 'disabled';
+                        } else {
+                            $buttonText = 'Menunggu Persetujuan';
                             $buttonState = 'disabled';
                         }
                     }

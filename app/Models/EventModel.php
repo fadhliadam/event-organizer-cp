@@ -18,28 +18,28 @@ class EventModel extends Model
     {
         $name = $keyword['name'] ?? '';
         $category = $keyword['category'] ?? '';
-        
-        if($name && $category) {
+
+        if ($name && $category) {
             $this->builder()
-            ->select('events.*, categories.name category_name')
-            ->join('categories', 'events.category_id = categories.id', 'left')
-            ->where('events.name like', "%$name%")
-            ->orderBy('events.created_at', 'DESC');
-            
+                ->select('events.*, categories.name category_name')
+                ->join('categories', 'events.category_id = categories.id', 'left')
+                ->where('events.name like', "%$name%")
+                ->orderBy('events.created_at', 'DESC');
+
             return [
                 'events'  => $this->paginate($perPage, 'events'),
                 'pager' => $this->pager->links('event', 'event_pagination'),
             ];
         }
-        
-        if($category) {
+
+        if ($category) {
             $category = $category == 'all' ? '' : $category;
-            
+
             $this->builder()
-            ->select('events.*, categories.name category_name')
-            ->join('categories', 'events.category_id = categories.id', 'left')
-            ->where('categories.name like', "%$category%")
-            ->orderBy('events.created_at', 'DESC');
+                ->select('events.*, categories.name category_name')
+                ->join('categories', 'events.category_id = categories.id', 'left')
+                ->where('categories.name like', "%$category%")
+                ->orderBy('events.created_at', 'DESC');
 
             return [
                 'events'  => $this->paginate($perPage, 'events'),
@@ -74,6 +74,16 @@ class EventModel extends Model
             ->join('categories', 'categories.id = events.category_id', 'left')
             ->where('events.owner', $owner_id)  // Adding the where condition
             ->orderBy('events.created_at', 'DESC')
+            ->get()
+            ->getResult();
+    }
+
+    public function getEventWithIdAndUserId($eventId, $userId)
+    {
+        return $this->db->table('events')
+            ->select('events.*, users.username, users.email')
+            ->join('users', 'users.id = ' . $userId)
+            ->where('events.id', $eventId)
             ->get()
             ->getResult();
     }

@@ -122,6 +122,7 @@ class UserCollaboratorController extends BaseController
     public function accept(int $id)
     {
         $userEventModel = new UserEventRegistersModel();
+        $eventModel = new EventModel();
         $userEvent = $userEventModel->find($id);
         $emailData = $userEventModel->getEventUsersbyId($id);
         $emailData = $emailData[0];
@@ -146,7 +147,9 @@ class UserCollaboratorController extends BaseController
         $emailMessage = view('email/email_template', $data);
 
         if ($this->sendEmail($emailData->email, $emailTitle, $emailMessage)) {
+            $emailData->quota = $emailData->quota - 1;
             $userEventModel->update($id, $userEvent);
+            $eventModel->update($emailData->event_id, ['quota' => $emailData->quota]);
             $response = [
                 'status' => 'success',
                 'message' => 'User berhasil disetujui'

@@ -24,7 +24,7 @@ class UserEventRegistersModel extends Model
 
     public function getEventsByUserId($userId, $isCompleted = 0)
     {
-        return $this->select('user_event_registers.event_id, events.name, events.description, events.banner, events.event_type, events.price, events.date, events.category_id, events.street, user_event_registers.status, user_event_registers.is_completed, categories.name as category_name')
+        return $this->select('events.*, user_event_registers.status, user_event_registers.is_completed, categories.name as category_name')
             ->join('events', 'events.id = user_event_registers.event_id')
             ->join('categories', 'categories.id = events.category_id')
             ->where('user_event_registers.user_id', $userId)
@@ -42,7 +42,7 @@ class UserEventRegistersModel extends Model
 
     public function getEventUsersbyId($id)
     {
-        return $this->select('user_event_registers.*, events.name as event_name, events.date, events.link, events.banner, events.country, events.province, events.city, events.postal_code, events.street, events.host, events.host_email, events.event_type, users.username, users.email')
+        return $this->select('user_event_registers.*, events.name as event_name, events.date, events.link, events.banner, events.country, events.province, events.city, events.postal_code, events.street, events.host, events.host_email, events.event_type, events.quota, users.username, users.email')
             ->join('users', 'users.id = user_event_registers.user_id')
             ->join('events', 'events.id = user_event_registers.event_id')
             ->where('user_event_registers.id', $id)

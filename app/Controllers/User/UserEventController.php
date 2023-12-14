@@ -40,7 +40,7 @@ class UserEventController extends BaseController
         }
 
         $event->date = $this->changeDateFormat($event->date);
-        
+
         $data = [
             'title' => 'Events',
             'event' => $event,
@@ -68,6 +68,16 @@ class UserEventController extends BaseController
             $userEventEntity->status = 0;
             $userEventEntity->is_completed = 0;
         } else {
+            $eventModel = new EventModel();
+            $emailData = $eventModel->getEventWithIdAndUserId($eventId, $userId[0]->id);
+            $emailData = $emailData[0];
+            $emailData->event_name = $emailData->name;
+            $emailTitle = 'Konfirmasi Pendaftaran untuk Event "' . $emailData->event_name . '"';
+            $data = [
+                'emailData' => $emailData
+            ];
+            $emailMessage = view('email/email_template', $data);
+            $this->sendEmail($emailData->email, $emailTitle, $emailMessage);
             $userEventEntity->status = 1;
             $userEventEntity->is_completed = 0;
         }
@@ -95,7 +105,6 @@ class UserEventController extends BaseController
         $userEventModel = new UserEventRegistersModel();
         $userModel = new UserModel();
         $userId = $userModel->getIdUserByEmail(session()->get('email'));
-
 
         $events = $userEventModel->getEventsByUserId($userId[0]->id);
 
@@ -132,5 +141,22 @@ class UserEventController extends BaseController
         $formattedDate = $originalTime->format('d M Y');
 
         return $formattedDate;
+    }
+
+    private function sendEmail($to, $title, $message)
+    {
+        $email = \Config\Services::email();
+
+        $email->setFrom('zetho.fasilkom@gmail.com', 'Zetho Event Organizer');
+        $email->setTo($to);
+
+        $email->setSubject($title);
+        $email->setMessage($message);
+
+        if (!$email->send()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
