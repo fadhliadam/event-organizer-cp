@@ -36,11 +36,20 @@
                         $buttonText = 'Tidak Tersedia';
                         $buttonState = 'disabled';
                     }
-                    if ($user->status == 0 && !is_null($user->deleted_at)) {
-                        $buttonText = 'Ditolak';
-                        $buttonState = 'disabled';
-                    } elseif ($user->status == 1) {
-                        $buttonText = 'Sudah Terdaftar';
+                    if ($user) {
+                        if ($user[0]->status == 0 && !is_null($user[0]->deleted_at)) {
+                            $buttonText = 'Ditolak';
+                            $buttonState = 'disabled';
+                        } elseif ($user[0]->status == 1) {
+                            $buttonText = 'Sudah Terdaftar';
+                            $buttonState = 'disabled';
+                        } else {
+                            $buttonText = 'Menunggu Persetujuan';
+                            $buttonState = 'disabled';
+                        }
+                    }
+                    if ($event->is_completed == 1) {
+                        $buttonText = 'Telah Berakhir';
                         $buttonState = 'disabled';
                     }
                     ?>
@@ -128,9 +137,9 @@
 
 <?= $this->section('scripts'); ?>
 <script>
+    const csrfToken = '<?= csrf_token(); ?>';
+    const csrfHash = '<?= csrf_hash(); ?>';
     $('#daftar').on('click', () => {
-        const csrfToken = '<?= csrf_token(); ?>';
-        const csrfHash = '<?= csrf_hash(); ?>';
         const data = {
             url: '<?= base_url('/events/register-process') ?>',
             redirectTo: '<?= base_url('/yourevents') ?>',

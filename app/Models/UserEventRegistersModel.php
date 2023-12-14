@@ -12,7 +12,7 @@ class UserEventRegistersModel extends Model
     protected $returnType       = 'App\Entities\UserEventRegisterEntity';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'event_id', 'status', 'is_completed'];
+    protected $allowedFields    = ['user_id', 'event_id', 'status'];
 
     public function getDataByEventAndUser($user_id, $event_id)
     {
@@ -24,11 +24,11 @@ class UserEventRegistersModel extends Model
 
     public function getEventsByUserId($userId, $isCompleted = 0)
     {
-        return $this->select('user_event_registers.event_id, events.name, events.description, events.banner, events.event_type, events.price, events.date, events.category_id, events.street, user_event_registers.status, user_event_registers.is_completed, categories.name as category_name')
+        return $this->select('events.*, user_event_registers.status, categories.name as category_name')
             ->join('events', 'events.id = user_event_registers.event_id')
             ->join('categories', 'categories.id = events.category_id')
             ->where('user_event_registers.user_id', $userId)
-            ->where('user_event_registers.is_completed', $isCompleted)
+            ->where('events.is_completed', $isCompleted)
             ->findAll();
     }
 
@@ -37,6 +37,15 @@ class UserEventRegistersModel extends Model
         return $this->select('user_event_registers.*, users.username, users.email, users.image')
             ->join('users', 'users.id = user_event_registers.user_id')
             ->where('user_event_registers.event_id', $eventId)
+            ->find();
+    }
+
+    public function getEventUsersbyId($id)
+    {
+        return $this->select('user_event_registers.*, events.name as event_name, events.date, events.link, events.banner, events.country, events.province, events.city, events.postal_code, events.street, events.host, events.host_email, events.event_type, events.quota, users.username, users.email')
+            ->join('users', 'users.id = user_event_registers.user_id')
+            ->join('events', 'events.id = user_event_registers.event_id')
+            ->where('user_event_registers.id', $id)
             ->find();
     }
 
