@@ -5,7 +5,7 @@
         </div>
         <div class="float-none text-center float-md-end">
             <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                by <a href="https://saugi.me">ZetHo</a></p>
+                by <a href="">ZetHo</a></p>
         </div>
     </div>
 </footer>

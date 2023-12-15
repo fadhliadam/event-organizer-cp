@@ -19,6 +19,8 @@
                         <th>Banner</th>
                         <th>Tipe Event</th>
                         <th>Kategori</th>
+                        <th>Host</th>
+                        <th>Link</th>
                         <th>Alamat</th>
                         <th>Deskripsi</th>
                     </tr>
@@ -33,9 +35,9 @@
                             <td><?= $event->name ?></td>
                             <td>
                                 <?php if ($event->status == 0) : ?>
-                                    <span class="badge bg-primary">Belum Terverifikasi</span>
+                                    <span class="badge bg-primary">Belum Disetujui</span>
                                 <?php else : ?>
-                                    <span class="badge bg-success">Terverifikasi</span>
+                                    <span class="badge bg-success">Disetujui</span>
                                 <?php endif; ?>
                             </td>
                             <td>
@@ -60,7 +62,17 @@
                                 </span>
                             </td>
                             <td>
-                                <?= $event->street ?>
+                                <?= $event->host; ?>
+                            </td>
+                            <td>
+                                <?php if ($event->status == 0) : ?>
+                                    <span class="badge bg-primary">Belum Disetujui</span>
+                                <?php else : ?>
+                                    <a href="<?= $event->link; ?>"><?= $event->link; ?></a>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?= $event->street; ?>
                             </td>
                             <td>
                                 <div class="limit-text"><?= $event->description; ?></div>

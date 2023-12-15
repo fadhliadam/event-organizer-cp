@@ -99,6 +99,7 @@ class EventCollaboratorModel extends Model
              events.street as event_street,
              events.date as event_date,
              events.required_approval as event_required_approval,
+             events.is_completed,
              event_collaborators.id as collaborator_id,
              event_collaborators.deleted_at as deleted_at
              ')

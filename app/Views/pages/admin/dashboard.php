@@ -7,9 +7,9 @@
 
 <div class="text-black">
     <div>
-        <h2 class="mb-4 text-black fw-bold" data-aos="fade-up">Event</h2>
+        <h2 class="mb-4 text-black fw-bold" >Event</h2>
         <div class="row m-0">
-            <div class="col-6 col-lg-3 col-md-6" data-aos="fade-up">
+            <div class="col-6 col-lg-3 col-md-6" >
                 <div class="card">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-lg-3 col-md-6" data-aos="fade-up">
+            <div class="col-6 col-lg-3 col-md-6" >
                 <div class="card">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-lg-3 col-md-6" data-aos="fade-up">
+            <div class="col-6 col-lg-3 col-md-6" >
                 <div class="card">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-lg-3 col-md-6" data-aos="fade-up">
+            <div class="col-6 col-lg-3 col-md-6" >
                 <div class="card">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
@@ -80,9 +80,9 @@
         </div>
     </div>
     <div>
-        <h2 class="mb-4 text-black fw-bold" data-aos="fade-up">Collaborator</h2>
+        <h2 class="mb-4 text-black fw-bold" >Collaborator</h2>
         <div class="row m-0">
-            <div class="col-6 col-lg-3 col-md-6" data-aos="fade-up">
+            <div class="col-6 col-lg-3 col-md-6" >
                 <div class="card">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
