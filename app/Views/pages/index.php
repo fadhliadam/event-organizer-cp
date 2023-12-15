@@ -155,14 +155,14 @@
                                     <div class="price">
                                         <h2 class="amount"><?php
                                                             if ($event->price == 0) {
-                                                                echo "Free";
+                                                                echo "Gratis";
                                                             } else {
                                                                 echo "Rp" . number_format($event->price, 0, ',', '.');
                                                             }
                                                             ?></h2>
                                     </div>
                                     <div class="button">
-                                        <a href="javascript:void(0)" class="btn">Register</a>
+                                        <a href="<?= base_url('events/' . $event->id); ?>" class="btn">Register</a>
                                     </div>
                                 </div>
                                 <!-- End Table Head -->
@@ -254,8 +254,6 @@
                         <!-- <i class="lni lni-cloud-upload"></i> -->
                         <i class="lni lni-apartment"></i>
                         <h3>Seminar</h3>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page at its layout.</p>
                     </div>
                     <!-- End Single Feature -->
                 </div>
@@ -264,8 +262,6 @@
                     <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
                         <i class="lni lni-crown"></i>
                         <h3>Lomba</h3>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page at its layout.</p>
                     </div>
                     <!-- End Single Feature -->
                 </div>
@@ -274,8 +270,6 @@
                     <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
                         <i class="lni lni-music"></i>
                         <h3>Musik</h3>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page at its layout.</p>
                     </div>
                     <!-- End Single Feature -->
                 </div>
@@ -284,8 +278,6 @@
                     <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
                         <i class="lni lni-shield"></i>
                         <h3>Kaderisasi</h3>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page at its layout.</p>
                     </div>
                     <!-- End Single Feature -->
                 </div>
@@ -294,8 +286,6 @@
                     <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
                         <i class="lni lni-cog"></i>
                         <h3>Pelatihan</h3>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page at its layout.</p>
                     </div>
                     <!-- End Single Feature -->
                 </div>
@@ -304,8 +294,6 @@
                     <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
                         <i class="lni lni-layers"></i>
                         <h3>Forum</h3>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page at its layout.</p>
                     </div>
                     <!-- End Single Feature -->
                 </div>

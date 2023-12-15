@@ -11,23 +11,27 @@ class CategorySeeder extends Seeder
         $categories = [
             [
                 'id' => 1,
-                'name' => 'Manufaktur',
+                'name' => 'Seminar',
             ],
             [
                 'id' => 2,
-                'name' => 'Keuangan',
+                'name' => 'Lomba',
             ],
             [
                 'id' => 3,
-                'name' => 'Teknologi Informasi',
+                'name' => 'Musik',
             ],
             [
                 'id' => 4,
-                'name' => 'Pertanian',
+                'name' => 'Kaderisasi',
             ],
             [
                 'id' => 5,
-                'name' => 'Transportasi',
+                'name' => 'Pelatihan',
+            ],
+            [
+                'id' => 6,
+                'name' => 'Forum',
             ],
         ];
         $this->db->table('categories')->insertBatch($categories);
