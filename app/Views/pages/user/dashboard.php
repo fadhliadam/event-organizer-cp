@@ -10,7 +10,7 @@
 
 <?= $this->section('main_dashboard_content'); ?>
 <div class="bg-body-tertiary border-bottom">
-    <div class="container">
+    <div class="container px-3 px-md-0">
         <div class="row-2">
             <?= form_open(base_url('/dashboard'), ['id' => 'formCategory', 'class' => 'btn-group gap-2 my-3 btn-group-sm flex-wrap', 'aria-label' => 'search group', 'role' => 'group', 'method' => 'get']); ?>
                 <input type="radio" class="btn-check" name="category" id="all" value="all" autocomplete="off">
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<section class="container">
+<section class="container px-3 px-md-0">
     <div class="my-3">
         <p class="fw-bold">Showing <?= count($events); ?> results</p>
         <?= count($events) <  1 ? '<small class="d-block text-danger mb-5">Event not found</small>' : ''?>

@@ -56,14 +56,18 @@
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label fw-bold">Role</label>
-                                        <?php foreach($roles as $role): ?>
+                                        <?php if($user->role_id == 3 ): ?>
+                                            <input type="text" readonly class="form-control disabled" name="role" value="<?= $user->role_id; ?>" />
+                                        <?php else:
+                                            foreach($roles as $role): 
+                                            if($role->id != 3 ):?>
                                         <div class="form-check form-check-danger">
                                             <input class="form-check-input" type="radio" name="role" value="<?= $role->id; ?>" id="<?= $role->name; ?>" <?= $role->id == $user->role_id ? 'checked': ''; ?> >
                                             <label class="form-check-label text-capitalize" style="cursor: pointer;" for="<?= $role->name; ?>">
                                                 <?= $role->name; ?>
                                             </label>
                                         </div>
-                                        <?php endforeach; ?>
+                                        <?php endif; endforeach; endif;?>
                                         <div class="d-block invalid-feedback">
                                             <?= $validation->getError('role'); ?>
                                         </div>
@@ -75,7 +79,10 @@
                                                 <i class="bi bi-plus-lg"></i>
                                             </div>
                                             <button id="btn-reset-image" title="Hapus gambar" class="position-absolute top-0 end-0 mt-1 me-1 px-2 z-2 bg-danger text-white rounded-circle border-0" type="button">x</button>
-                                            <img id="preview-image" src="<?= base_url('assets/'.$user->image)?>" class="position-absolute z-1 img-fluid h-100 object-fit-cover">
+                                            <?php $imagePreview = base_url('assets/'.$user->image);
+                                                if(str_contains($user->image, 'http')) $imagePreview = $user->image; 
+                                            ?>
+                                            <img id="preview-image" src="<?= $imagePreview ?>" alt="image" class="position-absolute z-1 img-fluid h-100 object-fit-cover">
                                         </label>
                                         <input type="file" id="image" name="image" class="d-none">
                                         <div class="d-block invalid-feedback">
@@ -85,7 +92,7 @@
                                     <div class="col-12 mt-3">
                                         <div class="form-check">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="form-check-input form-check-danger" name="activateUser" id="activateUser" <?= !$user->deleted_at? 'checked' : ''; ?>>
+                                                <input type="checkbox" class="form-check-input form-check-danger" name="activateUser" id="activateUser" <?= set_checkbox('activateUser', 'on'); ?> <?= !$user->deleted_at? 'checked' : ''; ?>>
                                                 <label class="form-check-label" for="activateUser">Activate User</label>
                                             </div>
                                         </div>

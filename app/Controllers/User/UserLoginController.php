@@ -57,7 +57,7 @@ class UserLoginController extends BaseController
                 $entity->role_id = 3;
 
                 $userModel = new UserModel();
-                $user = $userModel->where('email', $entity->email)->find();
+                $user = $userModel->withDeleted()->where('email', $entity->email)->find();
                 $userId = $userModel->getIdUserByEmail($data['email']);
                 $isEventCollaborator = false;
 

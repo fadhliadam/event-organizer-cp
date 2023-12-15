@@ -22,7 +22,7 @@
                         <div class="col-12 mb-2">
                             <label class="form-label" for="email">Username</label>
                             <div class="position-relative">
-                                <div class="p-2 border border-1 border-danger">
+                                <div class="p-2 border border-1 rounded border-danger ">
                                     <i class="bi bi-person-fill"> </i>
                                     <?= session()->get('username'); ?>
                                 </div>
@@ -31,7 +31,7 @@
                         <div class="col-12">
                             <label class="form-label" for="email">Email</label>
                             <div class="position-relative">
-                                <div class="p-2 border border-1 border-danger">
+                                <div class="p-2 border border-1 rounded border-danger">
                                     <i class="bi bi-envelope"> </i>
                                     <?= session()->get('email'); ?>
                                 </div>

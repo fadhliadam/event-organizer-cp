@@ -90,26 +90,26 @@
             <div class="modal-body">
                 <div class="mb-2">
                     <label for="name" class="">Nama Lengkap</label>
-                    <div class="p-2 border"><?= session()->get('name'); ?></div>
+                    <div class="p-2 border rounded"><?= session()->get('name'); ?></div>
                 </div>
                 <div class="mb-2">
                     <label for="event-name" class="">Nama Event</label>
-                    <div class="p-2 border"><?= $event->name; ?></div>
+                    <div class="p-2 border rounded"><?= $event->name; ?></div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-6">
                         <label for="recipient-name" class="">Kategori</label>
-                        <div class="p-2 border"><?= $category; ?></div>
+                        <div class="p-2 border rounded"><?= $category; ?></div>
                     </div>
                     <div class="col-6">
                         <label for="recipient-name" class="">Tanggal</label>
-                        <div class="p-2 border"><?= $event->date; ?></div>
+                        <div class="p-2 border rounded"><?= $event->date; ?></div>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-6">
                         <label for="recipient-name" class="">Lokasi</label>
-                        <div class="p-2 border"><?= $location; ?></div>
+                        <div class="p-2 border rounded"><?= $location; ?></div>
                     </div>
                     <?php
                     $approval = 'Tidak';
@@ -117,12 +117,12 @@
                     ?>
                     <div class="col-6">
                         <label for="recipient-name" class="">Verifikasi Panitia</label>
-                        <div class="p-2 border fw-bold"><?= $approval; ?></div>
+                        <div class="p-2 border rounded fw-bold"><?= $approval; ?></div>
                     </div>
                 </div>
                 <div class="mb-2">
                     <label for="event-name" class="">Harga</label>
-                    <div class="p-2 border fw-bold"><?= $event->price; ?></div>
+                    <div class="p-2 border rounded fw-bold"><?= $event->price; ?></div>
                 </div>
             </div>
             <div class="modal-footer">

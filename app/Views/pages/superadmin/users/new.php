@@ -58,14 +58,15 @@
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label fw-bold">Role</label>
-                                        <?php foreach($roles as $role): ?>
+                                        <?php foreach($roles as $role): 
+                                            if($role->id != 3):?>
                                         <div class="form-check form-check-danger">
                                             <input class="form-check-input" type="radio" name="role" value="<?= $role->id; ?>" id="<?= $role->name; ?>" <?= $role->id == 1 ? 'checked': ''; ?> >
                                             <label class="form-check-label text-capitalize" style="cursor: pointer;" for="<?= $role->name; ?>">
                                                 <?= $role->name; ?>
                                             </label>
                                         </div>
-                                        <?php endforeach; ?>
+                                        <?php endif; endforeach; ?>
                                         <div class="d-block invalid-feedback">
                                             <?= $validation->getError('role'); ?>
                                         </div>
