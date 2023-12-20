@@ -41,12 +41,10 @@
                     <img src="<?= base_url('assets/' . $event->banner); ?>" class="card-img-top" alt="...">
                     <div class="py-3 px-2">
                         <?php
-                        $availabilityStyle = 'text-secondary fs-6 fw-bold';
-                        $availability = 'Terjual habis';
                         $price = '';
                         $originalTime = $time::createFromFormat('Y-m-d', $event->date);
                         $event->date = $originalTime->format('d M Y');
-                        if ($event->quota != 0) {
+                        if ($event->quota != 0 && $event->is_completed == 0) {
                             $availabilityStyle = 'text-success';
                             $availability = 'Tersedia sekarang';
                             if ($event->price == 0) {
@@ -54,13 +52,19 @@
                             } else {
                                 $price = number_to_currency($event->price, 'IDR', 'id_ID');
                             }
+                        } elseif($event->quota == 0 && $event->is_completed == 0) {
+                            $availabilityStyle = 'badge bg-secondary';
+                            $availability = 'Terjual habis';
+                        } else {
+                            $availabilityStyle = 'text-danger';
+                            $availability = 'Telah Berakhir';
                         }
                         ?>
                         <p class="card-title small fw-bold mb-1 text-truncate"><?= $event->name; ?></p>
                         <p class="card-text event-info mb-1"><?= $event->date ?></p>
                         <p class="card-text event-info mb-1"><?= $event->street ?></p>
                         <p class="card-text event-info text-danger fs-6 mb-1"><?= $price; ?></p>
-                        <p class="card-text event-info <?= $availabilityStyle; ?>"><?= $availability; ?></p>
+                        <p class="card-text event-info <?= $availabilityStyle; ?>"><?= $availability ?></p>
                     </div>
                 </div>
             </div>

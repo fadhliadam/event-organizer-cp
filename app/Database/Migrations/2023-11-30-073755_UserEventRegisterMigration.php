@@ -26,15 +26,15 @@ class UserEventRegisterMigration extends Migration
                 'constraint' => 5,
                 'unsigned' => true,
             ],
-            'status' => [
-                'type' => 'TINYINT',
+            'status' => [ // 0 = pending, 1 = accepted
+                'type' => 'TINYINT', 
                 'constraint' => 1,
                 'unsigned' => true,
                 'default' => false
             ],
             'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
             'updated_at DATETIME DEFAULT CURRENT_TIMESTAMP',
-            'deleted_at DATETIME DEFAULT NULL',
+            'deleted_at DATETIME DEFAULT NULL', // fill if user is rejected from event
         ]);
 
         $this->forge->addPrimaryKey('id');
